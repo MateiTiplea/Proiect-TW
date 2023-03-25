@@ -13,4 +13,4 @@
 ## Work log
 
 - Denisa: push la o versiune incipienta a paginii principale cu un header si nav bar
-
+- Matei: refactor la header si navigation bar in colaborare cu Denisa
