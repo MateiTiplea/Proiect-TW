@@ -5,6 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="css/animals.css" />
 
     <title>Animals</title>
@@ -49,5 +56,54 @@
         </ul>
       </nav>
     </header>
+
+    <section class="list-section">
+      <div class="list-section-content container grid grid--card-view">
+        <div class="categories-bar">
+          <h2 class="secondary-heading">Categorii</h2>
+          <ul class="categories-nav-list">
+            <li><a href="#" class="categories-nav-link">Mamifere</a></li>
+            <li><a href="#" class="categories-nav-link">Pasari</a></li>
+            <li><a href="#" class="categories-nav-link">Pesti</a></li>
+            <li><a href="#" class="categories-nav-link">Reptile</a></li>
+          </ul>
+        </div>
+
+        <div class="elements-container grid grid--2-cols">
+          <div class="animal-card">
+            <img
+              src="images/animals/lion-min.jpg"
+              alt="Animal picture"
+              class="animal-img"
+            />
+            <div class="card-text">
+              <h3 class="tertiary-heading">Lion</h3>
+              <ul class="card-description">
+                <li><span>Binomial name: Panthera Leo</span></li>
+                <li><span>Origin: Africa</span></li>
+                <li><span>Weight: 180-250 kg</span></li>
+              </ul>
+              <a href="#" class="btn">Learn more</a>
+            </div>
+          </div>
+          <div class="animal-card">
+            <img
+              src="images/animals/red_panda-min.jpg"
+              alt="Animal picture"
+              class="animal-img"
+            />
+            <div class="card-text">
+              <h3 class="tertiary-heading">Red panda</h3>
+              <ul class="card-description">
+                <li><span>Binomial name: Ailurus Fulgens</span></li>
+                <li><span>Origin: Asia</span></li>
+                <li><span>Weight: 3-6 kg</span></li>
+              </ul>
+              <a href="#" class="btn">Learn more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </body>
 </html>

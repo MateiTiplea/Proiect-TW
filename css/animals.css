@@ -47,7 +47,7 @@ html {
 }
 
 body {
-  font-family: sans-serif;
+  font-family: "Rubik", sans-serif;
   line-height: 1;
   font-weight: 400;
   color: #555;
@@ -58,18 +58,23 @@ body {
 /*************************************/
 
 .container {
-  max-width: 120rem;
+  max-width: 175rem;
   margin: 0 auto;
   padding: 0 3.2rem;
 }
 
 .grid {
   display: grid;
-  gap: 9.6rem;
 }
 
 .grid--2-cols {
   grid-template-columns: repeat(2, 1fr);
+  gap: 6.4rem;
+}
+
+.grid--card-view {
+  grid-template-columns: 20rem 1fr;
+  gap: 4.8rem;
 }
 
 .hidden {
@@ -100,6 +105,39 @@ body {
 .dropdown li {
   margin-bottom: 2rem;
   padding: 0 2rem;
+}
+
+.tertiary-heading {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 2.4rem;
+  color: #242424;
+}
+
+.secondary-heading {
+  font-size: 3.6rem;
+  font-weight: 600;
+  margin-bottom: 4.8rem;
+}
+
+.btn:link,
+.btn:visited {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 500;
+  border-radius: 3rem;
+  padding: 1.2rem 2.4rem;
+
+  transition: all 0.3s;
+
+  background-color: #1f8a70;
+  color: #fff;
+}
+
+.btn:hover,
+.btn:active {
+  background-color: #196e5a;
 }
 
 /*************************************/
@@ -184,4 +222,85 @@ body {
 .language-icon {
   height: 3.2rem;
   width: 3.2rem;
+}
+
+/*************************************/
+/* LIST SECTION */
+/*************************************/
+
+.list-section {
+  padding: 4.8rem 0 9.6rem 0;
+  background-color: #eceff1;
+}
+
+.categories-bar {
+  box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
+    rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 1.6rem;
+}
+
+.categories-nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  align-items: left;
+}
+
+.categories-nav-link:link,
+.categories-nav-link:visited {
+  display: inline-block;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 1.8rem;
+  transition: all 0.3s;
+}
+
+.categories-nav-link:hover,
+.categories-nav-link:active {
+  color: #196e5a;
+}
+
+.animal-card {
+  background-color: #fff;
+  max-height: 22rem;
+  box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
+    rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+  /* box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.07); */
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 4.8rem;
+}
+
+.animal-img {
+  max-height: 22rem;
+  border-radius: 15px 0 0 15px;
+}
+
+.card-text {
+  align-self: center;
+}
+
+.card-description {
+  list-style: none;
+  color: #333;
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-bottom: 2.4rem;
+}
+
+.card-description li {
+  margin-bottom: 1.2rem;
+}
+
+.card-description li:last-child {
+  margin-bottom: 0;
+}
+
+.card-text .btn {
+  max-width: 26rem;
 }
