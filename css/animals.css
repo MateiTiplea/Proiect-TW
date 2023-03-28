@@ -73,7 +73,7 @@ body {
 }
 
 .grid--card-view {
-  grid-template-columns: 20rem 1fr;
+  grid-template-columns: auto 1fr;
   gap: 4.8rem;
 }
 
@@ -128,6 +128,8 @@ body {
   font-weight: 500;
   border-radius: 3rem;
   padding: 1.2rem 2.4rem;
+  width: 20rem;
+  text-align: center;
 
   transition: all 0.3s;
 
@@ -234,6 +236,7 @@ body {
 }
 
 .categories-bar {
+  align-self: self-start;
   box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
     rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
   background-color: #fff;
@@ -265,8 +268,9 @@ body {
 }
 
 .animal-card {
+  align-self: self-start;
   background-color: #fff;
-  max-height: 22rem;
+  max-height: 23rem;
   box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
     rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
   /* box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.07); */
@@ -277,12 +281,12 @@ body {
 }
 
 .animal-img {
-  max-height: 22rem;
+  height: 23rem;
   border-radius: 15px 0 0 15px;
 }
 
 .card-text {
-  align-self: center;
+  padding: 2.4rem;
 }
 
 .card-description {
@@ -301,6 +305,67 @@ body {
   margin-bottom: 0;
 }
 
-.card-text .btn {
-  max-width: 26rem;
+/*************************************/
+/* PAGINATION */
+/*************************************/
+
+.pagination {
+  grid-column: 1 / -1;
+  justify-self: center;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn--pagination {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid #1f8a70;
+  background: none;
+  cursor: pointer;
+}
+
+.btn-icon {
+  width: 24px;
+  height: 24px;
+  stroke: #1f8a70;
+}
+
+.page-link:link,
+.page-link:visited {
+  font-size: 18px;
+  color: #333;
+  text-decoration: none;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-link:hover,
+.page-link:active {
+  /* border: 1px solid #087f5b; */
+  background-color: #1f8a70;
+  color: #fff;
+}
+
+.dots {
+  color: #333;
+}
+
+.btn--pagination:hover {
+  background-color: #1f8a70;
+}
+
+.btn--pagination:hover .btn-icon {
+  stroke: #fff;
+}
+
+.page-link.page-link--active {
+  background-color: #1f8a70;
+  color: #fff;
 }

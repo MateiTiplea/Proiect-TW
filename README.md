@@ -15,3 +15,4 @@
 - Denisa: push la o versiune incipienta a paginii principale cu un header si nav bar
 - Matei: refactor la header si navigation bar in colaborare cu Denisa
 - Matei: modificari la pagina de navigare prin animale; creat un filter bar si facut design la cardurile cu animale
+- Matei: modificat tab-ul pentru filtre + adaugat element de paginare
