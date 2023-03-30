@@ -16,3 +16,4 @@
 - Matei: refactor la header si navigation bar in colaborare cu Denisa
 - Matei: modificari la pagina de navigare prin animale; creat un filter bar si facut design la cardurile cu animale
 - Matei: modificat tab-ul pentru filtre + adaugat element de paginare
+- Andrada: am creat pagina pentru fiecare animal din gradina zoo
