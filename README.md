@@ -19,3 +19,4 @@
 - Andrada: am creat pagina pentru fiecare animal din gradina zoo
 - Matei: terminat design-ul paginii de navigare animale pentru PC
 - Matei: inceput design responsive pentru pagina de navigare animale
+- Denisa: terminat design homepage
