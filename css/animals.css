@@ -1,3 +1,13 @@
+/*************************************/
+/* ANIMALS PAGE */
+/*************************************/
+
+/* IMPORTANT!!!
+
+De la 1660px in jos, trebuie sa faci un breakpoint pentru a face responsive pagina.
+  
+*/
+
 /*
 --- 01 TYPOGRAPHY SYSTEM
 
@@ -20,8 +30,8 @@ Paragraph default: 1.6
 Primary color: #1F8A70
 Tints: #e9f3f1
 Shades: #196e5a
-Accents: 
-Greys: #555, #333
+Accents: #fd9d4d
+Greys: #555, #333, #242424
 
 --- 05 SHADOWS
 
@@ -111,13 +121,14 @@ body {
   font-size: 2.4rem;
   font-weight: 600;
   margin-bottom: 2.4rem;
-  color: #242424;
+  color: #fd9d4d;
 }
 
 .secondary-heading {
   font-size: 3.6rem;
   font-weight: 600;
   margin-bottom: 4.8rem;
+  color: #242424;
 }
 
 .btn:link,
@@ -227,7 +238,7 @@ body {
 }
 
 /*************************************/
-/* LIST SECTION */
+/* CATEGORIES SECTION */
 /*************************************/
 
 .list-section {
@@ -267,8 +278,140 @@ body {
   color: #196e5a;
 }
 
-.animal-card {
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.item {
+  box-shadow: 0 0 32px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 0.4rem;
+  gap: 0.8rem;
+}
+
+.categ-name {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.drop-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  stroke: #1f8a70;
+}
+
+.hidden-box {
+  grid-column: 1;
+  display: none;
+}
+
+.hidden-box ul {
+  list-style: none;
+  color: #555;
+  font-size: 1.4rem;
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.hidden-box ul li:hover {
+  color: #196e5a;
+  cursor: pointer;
+}
+
+.open {
+  border-top: 2px solid #1f8a70;
+}
+
+.open .hidden-box {
+  display: block;
+}
+
+.hidden-box ul li {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/*************************************/
+/* CHECKBOX SECTION */
+/*************************************/
+
+/* Customize the label (the container) */
+.container-checkbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 1.2rem;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  height: 1.8rem;
+  width: 1.8rem;
+  background-color: #ccc;
+  border: solid #196e5a 1px;
+  border-radius: 4px;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container-checkbox input:checked ~ .checkmark {
+  background-color: #196e5a;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container-checkbox .checkmark:after {
+  left: 0.4rem;
+  top: 0.1rem;
+  width: 0.4rem;
+  height: 0.8rem;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+/*************************************/
+/* CARD SECTION */
+/*************************************/
+
+.elements-container {
   align-self: self-start;
+}
+
+.animal-card {
+  position: relative;
+  /* align-self: self-start; */
   background-color: #fff;
   max-height: 23rem;
   box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
@@ -280,8 +423,27 @@ body {
   gap: 4.8rem;
 }
 
+.animal-card:hover {
+  transform: scale(1.05);
+}
+
+.favorites {
+  position: absolute;
+  top: 1.6rem;
+  right: 1.6rem;
+  width: 3.6rem;
+  height: 3.6rem;
+  flex-shrink: 0;
+}
+
+.favorites:hover {
+  cursor: pointer;
+  fill: #eb455f;
+  stroke: #eb455f;
+}
+
 .animal-img {
-  height: 23rem;
+  max-height: 23rem;
   border-radius: 15px 0 0 15px;
 }
 
@@ -312,6 +474,7 @@ body {
 .pagination {
   grid-column: 1 / -1;
   justify-self: center;
+  align-self: self-start;
 
   display: flex;
   align-items: center;

@@ -17,3 +17,4 @@
 - Matei: modificari la pagina de navigare prin animale; creat un filter bar si facut design la cardurile cu animale
 - Matei: modificat tab-ul pentru filtre + adaugat element de paginare
 - Andrada: am creat pagina pentru fiecare animal din gradina zoo
+- Matei: terminat design-ul paginii de navigare animale pentru PC
