@@ -1,0 +1,72 @@
+@media (max-width: 85em) {
+  .header {
+    padding: 0 3.2rem;
+  }
+}
+
+@media (max-width: 51em) {
+  .btn-mobile-nav {
+    display: block;
+  }
+  .main-nav {
+    background-color: #e9f3f1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 2;
+    transform: translateX(100%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease-in;
+
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .nav-open .main-nav {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
+  .nav-open .btn-mobile-nav {
+    z-index: 3;
+  }
+  .nav-open .icon-mobile-nav[name="close-outline"] {
+    display: block;
+  }
+  .nav-open .icon-mobile-nav[name="menu-outline"] {
+    display: none;
+  }
+  .main-nav-list {
+    flex-direction: column;
+    gap: 4.8rem;
+  }
+  .main-nav-link:link,
+  .main-nav-link:visited {
+    font-size: 3rem;
+  }
+  .language-icon {
+    width: 4.8rem;
+    height: 4.8rem;
+  }
+  .nav-open .container-checkbox {
+    opacity: 0;
+    pointer-events: none;
+    visibility: none;
+  }
+  .animal-card {
+    pointer-events: none;
+    visibility: none;
+  }
+}
+
+@media (max-width: 39em) {
+  .header-search {
+    gap: 0.4rem;
+  }
+}

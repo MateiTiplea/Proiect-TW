@@ -1,0 +1,80 @@
+/*************************************/
+/* MEDIA QUERIES */
+/*************************************/
+
+/**************************/
+/* BELOW 1360px */
+/**************************/
+
+@media (max-width: 85em) {
+  .main-nav-list {
+    gap: 2.4rem;
+  }
+  .container {
+    max-width: 120rem;
+  }
+  .grid--2-cols {
+    grid-template-columns: 1fr 1fr;
+    gap: 6.4rem;
+  }
+  .grid--card {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+  .fav-checkmark path {
+    stroke: #fff;
+  }
+  .animal-img {
+    border-radius: 15px 15px 0 0;
+    filter: brightness(0.9);
+  }
+}
+
+/**************************/
+/* BELOW 880px */
+/**************************/
+
+@media (max-width: 56em) {
+  html {
+    font-size: 56.25%;
+  }
+}
+
+/**************************/
+/* BELOW 816px */
+/**************************/
+
+@media (max-width: 51em) {
+  .grid--2-cols {
+    grid-template-columns: 1fr;
+  }
+  .grid--card-view {
+    grid-template-columns: 1fr 2fr;
+    gap: 4.8rem;
+  }
+}
+
+/**************************/
+/* BELOW 624px */
+/**************************/
+
+@media (max-width: 39em) {
+  .grid--card-view {
+    grid-template-columns: 1fr;
+    align-items: center;
+    align-content: center;
+  }
+  .container {
+    padding: 0 2.4rem;
+  }
+}
+
+/*
+
+FONT SIZE SYSTEM (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+SPACING SYSTEM (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+*/

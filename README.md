@@ -20,3 +20,4 @@
 - Matei: terminat design-ul paginii de navigare animale pentru PC
 - Matei: inceput design responsive pentru pagina de navigare animale
 - Denisa: terminat design homepage
+- Matei: terminat design responsive pentru pagina de navigare animale + responsive header
