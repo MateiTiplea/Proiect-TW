@@ -4,7 +4,7 @@
   }
 }
 
-@media (max-width: 51em) {
+@media (max-width: 52em) {
   .btn-mobile-nav {
     display: block;
   }
@@ -59,7 +59,7 @@
     pointer-events: none;
     visibility: none;
   }
-  .animal-card {
+  .nav-open .animal-card {
     pointer-events: none;
     visibility: none;
   }

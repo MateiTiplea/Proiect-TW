@@ -34,7 +34,7 @@
 /* BELOW 880px */
 /**************************/
 
-@media (max-width: 56em) {
+@media (max-width: 58em) {
   html {
     font-size: 56.25%;
   }
@@ -44,7 +44,7 @@
 /* BELOW 816px */
 /**************************/
 
-@media (max-width: 51em) {
+@media (max-width: 52em) {
   .grid--2-cols {
     grid-template-columns: 1fr;
   }
