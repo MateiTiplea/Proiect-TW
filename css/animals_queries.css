@@ -7,9 +7,7 @@
 /**************************/
 
 @media (max-width: 85em) {
-  .main-nav-list {
-    gap: 2.4rem;
-  }
+
   .container {
     max-width: 120rem;
   }
@@ -30,15 +28,6 @@
   }
 }
 
-/**************************/
-/* BELOW 880px */
-/**************************/
-
-@media (max-width: 58em) {
-  html {
-    font-size: 56.25%;
-  }
-}
 
 /**************************/
 /* BELOW 816px */

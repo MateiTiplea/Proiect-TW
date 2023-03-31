@@ -2,6 +2,15 @@
   .header {
     padding: 0 3.2rem;
   }
+  .main-nav-list {
+    gap: 2.4rem;
+  }
+}
+
+@media (max-width: 58em) {
+  html {
+    font-size: 56.25%;
+  }
 }
 
 @media (max-width: 52em) {
