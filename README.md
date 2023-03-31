@@ -21,3 +21,4 @@
 - Matei: inceput design responsive pentru pagina de navigare animale
 - Denisa: terminat design homepage
 - Matei: terminat design responsive pentru pagina de navigare animale + responsive header
+- Denisa: terminat design responsive pentru homepage
