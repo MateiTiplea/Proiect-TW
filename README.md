@@ -22,3 +22,4 @@
 - Denisa: terminat design homepage
 - Matei: terminat design responsive pentru pagina de navigare animale + responsive header
 - Denisa: terminat design responsive pentru homepage
+- Matei: adaugat pagina de rezervare bilete care este si responsive
