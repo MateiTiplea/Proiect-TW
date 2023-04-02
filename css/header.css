@@ -84,16 +84,19 @@
   color: #196e5a;
 }
 
-.main-nav-link.nav-cta:link,
-.main-nav-link.nav-cta:visited {
+.nav-cta {
+  border: none;
   padding: 0.8rem 1.6rem;
   border-radius: 30px;
+  font-size: 1.8rem;
+  font-weight: 500;
   color: #fff;
   background-color: #1f8a70;
+
+  transition: all 0.3s;
 }
 
-.main-nav-link.nav-cta:hover,
-.main-nav-link.nav-cta:active {
+.nav-cta:hover {
   background-color: #196e5a;
 }
 
