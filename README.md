@@ -24,3 +24,4 @@
 - Denisa: terminat design responsive pentru homepage
 - Matei: adaugat pagina de rezervare bilete care este si responsive
 - Denisa: adaugat pagini de login, signup si forgot password
+- Denisa: adaugat footer
