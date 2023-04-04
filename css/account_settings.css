@@ -24,8 +24,7 @@
 
 .main--content {
     background-color: #e9f3f1;
-    padding: 9.6rem 0;
-    height: 100vh;
+    padding: 9.6rem 3.2rem 9.6rem 3.2rem;
 }
 
 .settings--section {
@@ -75,8 +74,6 @@
     align-items: flex-start;
     justify-content: center;
     gap: 2.4rem;
-
-    font-size: 1.6rem;
 }
 
 /* .settings--categories-list-item {
@@ -84,24 +81,23 @@
     width: 100%;
 } */
 
-.settings--categories-link:link,
-.settings--categories-link:visited {
+.settings--categories-link {
     color: white;
     text-decoration: none;
+    background: none;
+    border: none;
     cursor: pointer;
     width: 100%;
-
+    font-size: 1.6rem;
     transition: all 0.3s ease-in-out;
 }
 
-.settings--categories-link:hover,
-.settings--categories-link:active {
+.settings--categories-link:hover {
     color: #bcdcd4;
 }
 
 
-.active:link,
-.active:visited {
+.active {
     color: #196e5a;
     background-color: #fff;
     padding: 2.4rem 2.4rem;
@@ -126,21 +122,11 @@
     height: 100%;
     box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease-in-out;
-
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
 }
 
 .grid-user-info {
     grid-template-columns: 1fr 1fr;
     gap: 4.8rem;
-}
-
-.panel-active {
-    opacity: 1;
-    pointer-events: auto;
-    visibility: visible;
 }
 
 .settings-panel-title {
@@ -236,6 +222,150 @@
     color: #1f8a70;
   }
 
+  .btn-full:hover {
+    background-color: #196e5a;
+    border-color: #196e5a;
+    color: #fff;
+  }
+
+  .btn-light:hover {
+    background-color: #bcdcd4;
+    border-color: #bcdcd4;
+    color: #196e5a;
+  }
+
+
+/*****************************************/
+/* Settings Panel Favorites */
+/*****************************************/
+
+.grid--card-view {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 3.2rem;
+  align-self: self-start;
+}
+
+.grid--card {
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.panel-inactive {
+  display: none;
+}
+
+.tertiary-heading {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 2.4rem;
+  color: #ad7062;
+}
+
+.btn-card:link,
+.btn-card:visited {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 500;
+  border-radius: 3rem;
+  padding: 1.2rem 2.4rem;
+  text-align: center;
+
+  transition: all 0.3s;
+
+  background-color: #1f8a70;
+  color: #fff;
+}
+
+.btn-card:hover,
+.btn-card:active {
+  background-color: #196e5a;
+}
+
+
+.animal-card {
+  position: relative;
+  background-color: #fff;
+  box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
+    rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+  border-radius: 15px;
+}
+
+.fav-button {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  z-index: 1;
+}
+
+.fav-container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 2.4rem;
+  user-select: none;
+  transition: 100ms;
+}
+
+.fav-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.fav-checkmark {
+  top: 0;
+  left: 0;
+  height: 3.2rem;
+  width: 3.2rem;
+  transition: 100ms;
+  animation: dislike_effect 400ms ease;
+}
+
+.fav-checkmark path{
+  fill: none;
+  stroke: #333;
+}
+
+.fav-container input:checked ~ .fav-checkmark path {
+  fill: #ff5353;
+  stroke-width: 0;
+}
+
+.fav-container input:checked ~ .fav-checkmark {
+  animation: like_effect 400ms ease;
+}
+
+.fav-container:hover {
+  transform: scale(1.1);
+}
+
+.animal-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px 0 0 15px;
+}
+
+.card-text {
+  padding: 2rem;
+  align-self: center;
+  justify-self: center;
+}
+
+.card-description {
+  list-style: none;
+  color: #333;
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-bottom: 1.6rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
 
 
 /*

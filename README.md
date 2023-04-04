@@ -26,3 +26,4 @@
 - Denisa: adaugat pagini de login, signup si forgot password
 - Matei: adaugat pagina de account settings
 - Denisa: adaugat footer si retusuri la forgot password si account settings
+- Matei: done zona de animale favorite din user settings
