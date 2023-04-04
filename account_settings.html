@@ -72,7 +72,7 @@
           </defs>
         </svg>
       </a>
-      <input type="text" placeholder="Search..." class="search-bar" />
+      <input type="text" placeholder="Search..." class="search-bar" >
     </div>
 
     <nav class="main-nav">
@@ -90,12 +90,12 @@
             class="language-icon hidden"
             alt="Language icon"
             src="images/romania.png"
-          />
+          >
           <img
             class="language-icon"
             alt="Language icon"
             src="images/united-states.png"
-          />
+          >
           <!-- <ul class="dropdown">
             <li><a href="#" class="main-nav-link">Romana</a></li>
             <li><a href="#" class="main-nav-link">English</a></li>
@@ -139,7 +139,7 @@
 
     <main class="main--content">
 
-        <section class="settings--section grid grid--2-cols">
+        <div class="settings--section grid grid--2-cols">
 
             <aside class="settings--categories">
 
@@ -154,11 +154,11 @@
             </aside>
 
 
-            <section class="settings">
+            <div class="settings">
 
                 <div class="settings-panel grid grid-user-info panel-active">
 
-                    <div class="settings-panel-info">
+                    <div>
                         
                         <h2 class="settings-panel-title">Username</h2>
                         <ul class="settings-panel-info-list">
@@ -191,12 +191,12 @@
                 
                                 <input
                                   autocomplete="off"
-                                  id="logemail"
+                                  id="setuser"
                                   placeholder="Username"
                                   class="input-field"
-                                  name="logemail"
+                                  name="setuser"
                                   type="text"
-                                />
+                                >
                               </div>
                             <div class="field">
                               <svg
@@ -215,7 +215,7 @@
                                 class="input-field"
                                 name="logemail"
                                 type="text"
-                              />
+                              >
                             </div>
                             <div class="field">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="input-icon">
@@ -228,8 +228,8 @@
                                 placeholder="Phone Number"
                                 class="input-field"
                                 name="setnumber"
-                                type="phonenumber"
-                              />
+                                type="tel"
+                              >
                             </div>
                             <div class="field">
                                 <svg
@@ -248,7 +248,7 @@
                                   class="input-field"
                                   name="logpass"
                                   type="password"
-                                />
+                                >
                               </div>
                             <div class="button-zone">
                                 <button class="btn btn-full" type="submit">Submit</button>
@@ -271,12 +271,12 @@
                               </svg>
                               <input
                                 autocomplete="off"
-                                id="logpass"
+                                id="changepass"
                                 placeholder="Password"
                                 class="input-field"
-                                name="logpass"
+                                name="changepass"
                                 type="password"
-                              />
+                              >
                             </div>
                             <div class="field">
                                 <svg
@@ -290,24 +290,24 @@
                                 </svg>
                                 <input
                                   autocomplete="off"
-                                  id="logpass"
+                                  id="confpass"
                                   placeholder="Confirm password"
                                   class="input-field"
-                                  name="logpass"
+                                  name="confpass"
                                   type="password"
-                                />
+                                >
                               </div>
                             <div class="button-zone">
                                 <button class="btn btn-full" type="submit">Submit</button>
                             </div>
                           </form>
                         </div>
-
+                    </div>
                 </div>
 
-            </section>
+              </div>
 
-        </section>
+            </div>
 
     </main>
 
