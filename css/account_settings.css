@@ -1,3 +1,14 @@
+:root{
+  --text-color-account: #555;
+  --text-color-dark-account: #333;
+  --contrast-color-tint-account: #ad7062;
+  --primary-color-tint-account: #bcdcd4;
+  --primary-color-account: #1f8a70;
+  --primary-color-shade-account: #196e5a;
+  --background-color-account: #e9f3f1;
+  --background-color-settings: #fff;
+  --fav-check-account: #ff5353;
+}
 * {
     padding: 0;
     margin: 0;
@@ -13,7 +24,7 @@
     font-family: "Rubik", sans-serif;
     line-height: 1;
     font-weight: 400;
-    color: #555;
+    color: var(--text-color-account);
     overflow-x: hidden;
   }
 
@@ -23,14 +34,14 @@
 /*************************************/
 
 .main--content {
-    background-color: #e9f3f1;
+    background-color: var(--background-color-account);
     padding: 9.6rem 3.2rem 9.6rem 3.2rem;
 }
 
 .settings--section {
     max-width: 130rem;
     margin: 0 auto;
-    background-color: #1f8a70;
+    background-color: var(--primary-color-account); 
     border-radius: 15px;
     box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
         rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
@@ -62,7 +73,7 @@
     font-size: 2.4rem;
     font-weight: 600;
     margin-bottom: 4.8rem;
-    color: white;
+    color: var(--background-color-settings); 
     text-align: center;
 }
 
@@ -82,7 +93,7 @@
 } */
 
 .settings--categories-link {
-    color: white;
+    color: var(--background-color-settings); 
     text-decoration: none;
     background: none;
     border: none;
@@ -93,13 +104,13 @@
 }
 
 .settings--categories-link:hover {
-    color: #bcdcd4;
+    color: var(--primary-color-tint-account); 
 }
 
 
 .active {
-    color: #196e5a;
-    background-color: #fff;
+    color: var(--primary-color-shade-account);
+    background-color: var(--background-color-settings);
     padding: 2.4rem 2.4rem;
     border-radius: 15px 0 0 15px;
     box-shadow: -1px 1px 2px 0px rgba(0, 0, 0, 0.5);
@@ -116,7 +127,7 @@
 
 
 .settings-panel{
-    background-color: #fff;
+    background-color: var(--background-color-settings);
     border-radius: 0 15px 15px 0;
     padding: 4.8rem 6.4rem;
     height: 100%;
@@ -133,7 +144,7 @@
     font-size: 2.6rem;
     font-weight: 600;
     margin-bottom: 3.2rem;
-    color: #196e5a;
+    color: var(--primary-color-shade-account);
 }
 
  .settings-panel-info-list{
@@ -165,8 +176,8 @@
     align-items: center;
     justify-content: center;
     gap: 1.2rem;
-    background-color: #fff;
-    border: 2px solid #1f8a70;
+    background-color: var(--background-color-settings);
+    border: 2px solid var(--primary-color-account);
     border-radius: 15px;
     padding: 0.5em 1em;
   }
@@ -174,7 +185,7 @@
   .input-icon {
     height: 2rem;
     width: 2rem;
-    fill: #1f8a70;
+    fill: var(--primary-color-account);
   }
   
   .input-field {
@@ -182,7 +193,7 @@
     border: none;
     outline: none;
     width: 100%;
-    color: #333;
+    color: var(--text-color-account);
     font-size: 1.6rem;
   }
 
@@ -211,27 +222,27 @@
   }
   
   .btn-full {
-    border: 2px solid #1f8a70;
-    background-color: #1f8a70;
-    color: #fff;
+    border: 2px solid var(--primary-color-account);
+    background-color: var(--primary-color-account);
+    color: var(--background-color-settings);
   }
 
   .btn-light{
-    border: 2px solid #1f8a70;
-    background-color: #fff;
-    color: #1f8a70;
+    border: 2px solid var(--primary-color-account);
+    background-color: var(--background-color-settings);
+    color: var(--primary-color-account);
   }
 
   .btn-full:hover {
-    background-color: #196e5a;
-    border-color: #196e5a;
-    color: #fff;
+    background-color: var(--primary-color-shade-account);
+    border-color: var(--primary-color-shade-account);
+    color: var(--background-color-settings);
   }
 
   .btn-light:hover {
-    background-color: #bcdcd4;
-    border-color: #bcdcd4;
-    color: #196e5a;
+    background-color: var(--primary-color-tint-account);
+    border-color: var(--primary-color-tint-account);
+    color: var(--primary-color-shade-account);
   }
 
 
@@ -259,7 +270,7 @@
   font-size: 2.4rem;
   font-weight: 600;
   margin-bottom: 2.4rem;
-  color: #ad7062;
+  color: var(--contrast-color-tint-account);
 }
 
 .btn-card:link,
@@ -274,19 +285,19 @@
 
   transition: all 0.3s;
 
-  background-color: #1f8a70;
-  color: #fff;
+  background-color: var(--primary-color-account);
+  color: var(--background-color-settings);
 }
 
 .btn-card:hover,
 .btn-card:active {
-  background-color: #196e5a;
+  background-color: var(--primary-color-shade-account);
 }
 
 
 .animal-card {
   position: relative;
-  background-color: #fff;
+  background-color: var(--background-color-settings);
   box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
     rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
   border-radius: 15px;
@@ -327,11 +338,11 @@
 
 .fav-checkmark path{
   fill: none;
-  stroke: #333;
+  stroke: var(text-color-dark-account);
 }
 
 .fav-container input:checked ~ .fav-checkmark path {
-  fill: #ff5353;
+  fill: var(--fav-check-account);
   stroke-width: 0;
 }
 
@@ -357,7 +368,7 @@
 
 .card-description {
   list-style: none;
-  color: #333;
+  color: var(text-color-dark-account);
   font-weight: 400;
   font-size: 1.4rem;
   margin-bottom: 1.6rem;

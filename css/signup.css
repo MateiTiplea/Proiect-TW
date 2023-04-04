@@ -1,3 +1,13 @@
+:root{
+  --background-signup: #f5f5f5;
+  --background-form-signup: #e9f3f1;
+  --button-color-signup: #1f8a70;
+  --button-hover-signup: #196e5a;
+  --text-color-signup: #555;
+  --field-background-signup: #fff;
+  --title-signup: #242424;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -12,12 +22,12 @@
     font-family: "Rubik", sans-serif;
     line-height: 1;
     font-weight: 400;
-    color: #555;
+    color: var(--text-color-signup);
     overflow-x: hidden;
   }
   
   .login-section {
-    background: #f5f5f5;
+    background: var(--background-signup);
     height: 100vh;
     width: 100%;
     display: flex;
@@ -57,7 +67,7 @@
     width: 100%;
     padding: 3.2rem 2.4rem;
     text-align: center;
-    background: #e9f3f1;
+    background: var(--background-form-signup);
     border-radius: 15px;
     box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
       rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
@@ -70,8 +80,8 @@
     align-items: center;
     justify-content: center;
     gap: 1.2rem;
-    background-color: #fff;
-    border: 2px solid #1f8a70;
+    background-color: var(--field-background-signup);
+    border: 2px solid var(--button-color-signup);
     border-radius: 15px;
     padding: 0.5em 1em;
   }
@@ -79,7 +89,7 @@
   .input-icon {
     height: 2rem;
     width: 2rem;
-    fill: #1f8a70;
+    fill: var(--button-color-signup);
   }
   
   .input-field {
@@ -87,7 +97,7 @@
     border: none;
     outline: none;
     width: 100%;
-    color: #333;
+    color: var(--text-color-signup);
     font-size: 1.6rem;
   }
   
@@ -104,7 +114,7 @@
     margin-bottom: 1.6rem;
     font-size: 2.4rem;
     font-weight: 600;
-    color: #242424;
+    color: var(--title-signup);
   }
   
   /*Buttons*/
@@ -121,9 +131,9 @@
   }
   
   .btn-full {
-    border: 2px solid #1f8a70;
-    background-color: #1f8a70;
-    color: #fff;
+    border: 2px solid var(--button-color-signup);
+    background-color: var(--button-color-signup);
+    color: var(--field-background-signup);
   }
     
   /*Hover & focus*/
@@ -137,18 +147,18 @@
   }
   
   .btn-full:hover {
-    background-color: #196e5a;
-    border-color: #196e5a;
+    background-color: var(--button-hover-signup);
+    border-color: var(--button-hover-signup);
   }
   
   .btn-outline:hover {
-    background-color: #e9f3f1;
-    color: #196e5a;
-    border-color: #196e5a;
+    background-color: var(--background-form-signup);
+    color: var(--button-hover-signup);
+    border-color: var(--button-hover-signup);
   }
   
   .btn-link:hover {
-    color: #196e5a;
+    color: var(--button-hover-signup);
   }
   
   /*

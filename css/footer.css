@@ -1,3 +1,14 @@
+:root{
+  --background-color-footer: #196e5a;
+  --text-color-footer: #fff;
+  --hover-button-footer: #62ad9b;
+}
+.dark-mode{
+  --background-color-footer: #0c372d;
+  --text-color-footer: #d2e8e2;
+  --hover-button-footer: #135343;
+}
+
 .footer-container {
   max-width: 120rem;
   margin: 0 auto;
@@ -17,17 +28,17 @@
 }
 
 footer {
-    background-color: #196e5a;
+    background-color: var(--background-color-footer);
     padding: 1rem;
     text-align: center;
-    color: white;
+    color: var(--text-color-footer);
   }
   
   .footer-nav-link:link,
   .footer-nav-link:visited {
     display: inline-block;
     text-decoration: none;
-    color: white;
+    color: var(--text-color-footer);
     font-weight: 500;
     font-size: 1.4rem;
     transition: all 0.3s;
@@ -36,7 +47,7 @@ footer {
   
   .footer-nav-link:hover,
   .footer-nav-link:active {
-    color: #62ad9b;
+    color: var(--hover-button-footer);
   }
   
   .footer-text{
