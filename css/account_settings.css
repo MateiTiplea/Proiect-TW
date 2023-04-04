@@ -31,7 +31,7 @@
 .settings--section {
     max-width: 130rem;
     margin: 0 auto;
-    background-color: #e6e6e6;
+    background-color: #1f8a70;
     border-radius: 15px;
     box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
         rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
@@ -63,7 +63,7 @@
     font-size: 2.4rem;
     font-weight: 600;
     margin-bottom: 4.8rem;
-    color: #333;
+    color: white;
     text-align: center;
 }
 
@@ -86,7 +86,7 @@
 
 .settings--categories-link:link,
 .settings--categories-link:visited {
-    color: #555;
+    color: white;
     text-decoration: none;
     cursor: pointer;
     width: 100%;
@@ -96,7 +96,7 @@
 
 .settings--categories-link:hover,
 .settings--categories-link:active {
-    color: #196e5a;
+    color: #bcdcd4;
 }
 
 
@@ -117,6 +117,7 @@
     align-self: self-start;
     height: 100%;
 }
+
 
 .settings-panel{
     background-color: #fff;
@@ -143,11 +144,97 @@
 }
 
 .settings-panel-title {
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     font-weight: 600;
     margin-bottom: 3.2rem;
-    color: #333;
+    color: #196e5a;
 }
+
+ .settings-panel-info-list{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2.4rem;
+    font-size: 1.6rem;
+} 
+
+/*************************************/
+/* Settings Panel Form */
+/*************************************/
+
+.settings-panel-form{
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: center;
+    gap: 2.4rem;
+    font-size: 1.2rem;
+}
+
+.field {
+    margin-top: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    background-color: #fff;
+    border: 2px solid #1f8a70;
+    border-radius: 15px;
+    padding: 0.5em 1em;
+  }
+
+  .input-icon {
+    height: 2rem;
+    width: 2rem;
+    fill: #1f8a70;
+  }
+  
+  .input-field {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    color: #333;
+    font-size: 1.6rem;
+  }
+
+/*****************************************/
+/* Settings Panel Form Buttons */
+/*****************************************/
+
+  .button-zone {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1.2rem;
+    margin-top: 1.2rem;
+  }
+
+  .btn {
+    border: none;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    padding: 1.2rem 2.4rem;
+  
+    box-shadow: 0 8px 24px 0 rgb(255 235 167 / 20%);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-full {
+    border: 2px solid #1f8a70;
+    background-color: #1f8a70;
+    color: #fff;
+  }
+
+  .btn-light{
+    border: 2px solid #1f8a70;
+    background-color: #fff;
+    color: #1f8a70;
+  }
 
 
 
