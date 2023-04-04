@@ -30,7 +30,7 @@ Paragraph default: 1.6
 Primary color: #1F8A70
 Tints: #e9f3f1
 Shades: #196e5a
-Accents: #fd9d4d
+Accents: #ad7062
 Greys: #555, #333, #242424
 
 --- 05 SHADOWS
@@ -45,6 +45,18 @@ SPACING SYSTEM (px)
 2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
 
 */
+:root {
+  --primary-color: #1f8a70;
+  --tints-color: #e9f3f1;
+  --shades-color: #196e5a;
+  --accents-color: #ad7062;
+  --grey-color: #555;
+  --dark-grey-color: #333;
+  --black-color: #242424;
+  --white-color: #fff;
+  --love-icon: #ff5353;
+}
+
 
 * {
   padding: 0;
@@ -61,8 +73,12 @@ body {
   font-family: "Rubik", sans-serif;
   line-height: 1;
   font-weight: 400;
-  color: #555;
+  color: var(--grey-color);
   overflow-x: hidden;
+}
+
+.dark-mode {
+  --tints-color: #061c16;
 }
 
 /*************************************/
@@ -102,14 +118,14 @@ body {
   font-size: 2.4rem;
   font-weight: 600;
   margin-bottom: 2.4rem;
-  color: #ad7062;
+  color: var(--accents-color);
 }
 
 .secondary-heading {
   font-size: 3.6rem;
   font-weight: 600;
   margin-bottom: 4.8rem;
-  color: #fff;
+  color: var(--white-color);
 }
 
 .btn:link,
@@ -124,13 +140,13 @@ body {
 
   transition: all 0.3s;
 
-  background-color: #1f8a70;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--white-color);
 }
 
 .btn:hover,
 .btn:active {
-  background-color: #196e5a;
+  background-color: var(--shades-color);
 }
 
 /*************************************/
@@ -139,17 +155,18 @@ body {
 
 .list-section {
   padding: 8rem 0 9.6rem 0;
-  background-color: #e9f3f1;
+  background-color: var(--tints-color);
 }
 
 .categories-bar {
   align-self: self-start;
   box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
     rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
-  background-color: #fff;
+  background-color: var(--white-color);
   border-radius: 15px;
   padding: 1.6rem;
-  background-color: #c69b91;
+  /* background-color: #c69b91; */
+  background-color: var(--accents-color);
 }
 
 
@@ -157,7 +174,7 @@ body {
 .categories-nav-link:visited {
   display: inline-block;
   text-decoration: none;
-  color: #333;
+  color: var(--dark-grey-color);
   font-weight: 500;
   font-size: 1.8rem;
   transition: all 0.3s;
@@ -165,7 +182,7 @@ body {
 
 .categories-nav-link:hover,
 .categories-nav-link:active {
-  color: #196e5a;
+  color: var(--shades-color);
 }
 
 .accordion {
@@ -175,7 +192,7 @@ body {
 }
 
 .item {
-  background-color: #fff;
+  background-color: var(--white-color);
   border-radius: 15px;
   box-shadow: 0 0 32px rgba(0, 0, 0, 0.1);
   display: grid;
@@ -188,13 +205,13 @@ body {
 .categ-name {
   font-size: 1.8rem;
   font-weight: 500;
-  color: #333;
+  color: var(--dark-grey-color);
 }
 
 .drop-icon {
   width: 2.4rem;
   height: 2.4rem;
-  stroke: #1f8a70;
+  stroke: var(--primary-color);
 }
 
 .hidden-box {
@@ -204,7 +221,7 @@ body {
 
 .hidden-box ul {
   list-style: none;
-  color: #555;
+  color: var(--grey-color);
   font-size: 1.4rem;
   margin-left: 2rem;
   display: flex;
@@ -214,7 +231,7 @@ body {
 }
 
 .hidden-box ul li:hover {
-  color: #196e5a;
+  color: var(--shades-color);
   cursor: pointer;
 }
 
@@ -257,14 +274,14 @@ body {
   left: -10px;
   height: 1.8rem;
   width: 1.8rem;
-  background-color: #ccc;
-  border: solid #196e5a 1px;
+  background-color: var(--white-color);
+  border: solid var(--shades-color) 1px;
   border-radius: 4px;
 }
 
 /* When the checkbox is checked, add a blue background */
 .container-checkbox input:checked ~ .checkmark {
-  background-color: #196e5a;
+  background-color: var(--shades-color);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -285,7 +302,7 @@ body {
   top: 0.1rem;
   width: 0.4rem;
   height: 0.8rem;
-  border: solid white;
+  border: solid var(--white-color);
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
 }
@@ -300,7 +317,7 @@ body {
 
 .animal-card {
   position: relative;
-  background-color: #fff;
+  background-color: var(--white-color);
   box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
     rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
   border-radius: 15px;
@@ -341,11 +358,11 @@ body {
 
 .fav-checkmark path{
   fill: none;
-  stroke: #333;
+  stroke: var(--dark-grey-color);
 }
 
 .fav-container input:checked ~ .fav-checkmark path {
-  fill: #ff5353;
+  fill: var(--love-icon);
   stroke-width: 0;
 }
 
@@ -371,7 +388,7 @@ body {
 
 .card-description {
   list-style: none;
-  color: #333;
+  color: var(--dark-grey-color);
   font-weight: 400;
   font-size: 1.4rem;
   margin-bottom: 1.6rem;
@@ -399,7 +416,7 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 1px solid #1f8a70;
+  border: 1px solid var(--primary-color);
   background: none;
   cursor: pointer;
 }
@@ -407,13 +424,13 @@ body {
 .btn-icon {
   width: 24px;
   height: 24px;
-  stroke: #1f8a70;
+  stroke: var(--primary-color);
 }
 
 .page-link:link,
 .page-link:visited {
   font-size: 18px;
-  color: #333;
+  color: var(--dark-grey-color);
   text-decoration: none;
   height: 36px;
   width: 36px;
@@ -426,23 +443,23 @@ body {
 .page-link:hover,
 .page-link:active {
   /* border: 1px solid #087f5b; */
-  background-color: #1f8a70;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--white-color);
 }
 
 .dots {
-  color: #333;
+  color: var(--dark-grey-color);
 }
 
 .btn--pagination:hover {
-  background-color: #1f8a70;
+  background-color: var(--primary-color);
 }
 
 .btn--pagination:hover .btn-icon {
-  stroke: #fff;
+  stroke: var(--white-color);
 }
 
 .page-link.page-link--active {
-  background-color: #1f8a70;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--white-color);
 }

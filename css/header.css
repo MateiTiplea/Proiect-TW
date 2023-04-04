@@ -1,6 +1,18 @@
 /*************************************/
 /* HEADER */
 /*************************************/
+:root {
+  --primary-color-header: #1f8a70;
+  --tints-color-header: #e9f3f1;
+  --shades-color-header: #196e5a;
+  --accents-color-header: #ad7062;
+  --grey-color-header: #555;
+  --dark-grey-color-header: #333;
+  --black-color-header: #242424;
+  --white-color-header: #fff;
+  --love-icon-header: #ff5353;
+}
+
 
 .hidden {
   display: none;
@@ -10,7 +22,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #e9f3f1;
+  background-color: var(--tints-color-header);
   position: relative;
 
   height: 8rem;
@@ -47,10 +59,10 @@
   display: inline-block;
   font-size: 1.8rem;
   font-weight: 500;
-  color: #333;
+  color: var(--dark-grey-color-header);
 
   padding: 0.4rem 0.8rem;
-  border: 2px solid #555;
+  border: 2px solid var(--grey-color-header);
   border-radius: 30px;
 }
 
@@ -79,7 +91,7 @@
 .main-nav-link:visited {
   display: inline-block;
   text-decoration: none;
-  color: #333;
+  color: var(--dark-grey-color-header);
   font-weight: 500;
   font-size: 1.8rem;
   transition: all 0.3s;
@@ -87,7 +99,7 @@
 
 .main-nav-link:hover,
 .main-nav-link:active {
-  color: #196e5a;
+  color: var(--shades-color-header);
 }
 
 .nav-cta {
@@ -96,14 +108,14 @@
   border-radius: 30px;
   font-size: 1.8rem;
   font-weight: 500;
-  color: #fff;
-  background-color: #1f8a70;
+  color: var(--white-color-header);
+  background-color: var(--primary-color-header);
 
   transition: all 0.3s;
 }
 
 .nav-cta:hover {
-  background-color: #196e5a;
+  background-color: var(--shades-color-header);
 }
 
 .language-icon {
@@ -123,7 +135,7 @@
 .icon-mobile-nav {
   height: 4.8rem;
   width: 4.8rem;
-  color: #333;
+  color: var(--dark-grey-color-header);
 }
 
 .close-outline {

@@ -18,7 +18,7 @@
     display: block;
   }
   .main-nav {
-    background-color: #e9f3f1;
+    background-color: var(--tints-color-header);
     position: absolute;
     top: 0;
     left: 0;
