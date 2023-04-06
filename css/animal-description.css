@@ -45,7 +45,7 @@ body {
   font-family: sans-serif;
   line-height: 1;
   font-weight: 400;
-  color: #555;
+  color:var(--grey-color);
   overflow-x: hidden;
 }
 
@@ -106,7 +106,7 @@ body {
   font-size: 2.4rem;
   font-weight: 600;
   margin-bottom: 2.4rem;
-  color: #242424;
+  color: var(--black-color);
 }
 
 .secondary-heading {
@@ -117,21 +117,10 @@ body {
 
 
 
-/**************************/
-/* HEADER */
-/**************************/
-
-
-/**************************/
-/* NAVIGATION BAR */
-/**************************/
-
-
-
 /*********************/
 
 h1 {
-  color: #256958;
+  color: var(--primary-color);
   align-items: center;
   text-align: center;
   font-size: 4.6rem;
@@ -161,22 +150,22 @@ h1 {
   padding: 3.2rem;
   cursor: pointer;
   text-align: left;
-  color: #333;
+  color: var(--dark-grey-color);
   line-height: 1.6;
   align-items: center;
   font-size: 1.8rem;
   transition: all 0.3s liner;
-  background-color: #cbdfda;
+  background-color: var( --tints-color);
 }
 .first-part:hover {
-  -webkit-box-shadow: rgba(37, 106, 89, 1) 0px 5px 15px,
-    inset rgba(37, 106, 89, 0.15) 0px -10px 20px;
-  -moz-box-shadow: rgba(37, 106, 89, 1) 0px 5px 15px,
-    inset rgba(37, 106, 89, 0.15) 0px -10px 20px;
-  -o-box-shadow: rgba(37, 106, 89, 1) 0px 5px 15px,
-    inset rgba(37, 106, 89, 0.15) 0px -10px 20px;
-  box-shadow: rgba(37, 106, 89, 1) 0px 5px 15px,
-    inset rgba(37, 106, 89, 0.15) 0px -10px 20px;
+  -webkit-box-shadow: var(--shades-color) 0px 5px 15px,
+    inset var(--dark-grey-color) 0px -10px 20px;
+  -moz-box-shadow: var(--shades-color)  0px 5px 15px,
+    inset var(--dark-grey-color) 0px -10px 20px;
+  -o-box-shadow: var(--shades-color) 0px 5px 15px,
+    inset var(--dark-grey-color) 0px -10px 20px;
+  box-shadow: var(--shades-color)  0px 5px 15px,
+    inset var(--dark-grey-color) 0px -10px 20px;
 }
 .photo-container {
   display: flex;
@@ -198,21 +187,21 @@ h1 {
 .txt-part {
   text-align: left;
   line-height: 1.5;
-  color: #333;
+  color: var(--dark-grey-color);
   padding: 3rem;
   font-size: 1.8rem;
-  background: #cbdfda;
+  background: var( --tints-color);
   transition: all 0.3s;
 }
-.txt-part:hover {
-  -webkit-box-shadow: rgba(37, 106, 89, 1) 0px 5px 15px,
-    inset rgba(37, 106, 89, 0.15) 0px -10px 20px;
-  -moz-box-shadow: rgba(37, 106, 89, 1) 0px 5px 15px,
-    inset rgba(37, 106, 89, 0.15) 0px -10px 20px;
-  -o-box-shadow: rgba(37, 106, 89, 1) 0px 5px 15px,
-    inset rgba(37, 106, 89, 0.15) 0px -10px 20px;
-  box-shadow: rgba(37, 106, 89, 1) 0px 5px 15px,
-    inset rgba(37, 106, 89, 0.15) 0px -10px 20px;
+.first-part:hover {
+  -webkit-box-shadow: var(--shades-color) 0px 5px 15px,
+    inset var(--dark-grey-color) 0px -10px 20px;
+  -moz-box-shadow: var(--shades-color)  0px 5px 15px,
+    inset var(--dark-grey-color) 0px -10px 20px;
+  -o-box-shadow: var(--shades-color) 0px 5px 15px,
+    inset var(--dark-grey-color) 0px -10px 20px;
+  box-shadow: var(--shades-color)  0px 5px 15px,
+    inset var(--dark-grey-color) 0px -10px 20px;
 }
   .map-photo{
     text-align: center;
