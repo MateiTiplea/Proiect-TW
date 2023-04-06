@@ -442,7 +442,7 @@ body {
   stroke: var(--primary-color);
 }
 
-.page-link:link,
+/* .page-link:link,
 .page-link:visited {
   font-size: 18px;
   color: var(--dark-grey-color);
@@ -457,12 +457,31 @@ body {
 
 .page-link:hover,
 .page-link:active {
-  /* border: 1px solid #087f5b; */
+  background-color: var(--primary-color);
+  color: var(--white-color);
+} */
+
+.page-link {
+  border: none;
+  background: none;
+  font-size: 18px;
+  color: var(--dark-grey-color);
+  text-decoration: none;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-link:hover{
   background-color: var(--primary-color);
   color: var(--white-color);
 }
 
 .dots {
+  font-size: 18px;
   color: var(--dark-grey-color);
 }
 

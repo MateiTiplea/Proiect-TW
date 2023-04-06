@@ -30,3 +30,4 @@
 - Andrada: pagina animal-description responsive
 - Matei: adaugat putin javascript pentru a naviga corect intre paginile principale si login/setari cont
 - Denisa: adaugat dark-mode
+- Matei: facut script de js pentru a face functional pagination-ul cu o lista de animale dintr-un array definit local
