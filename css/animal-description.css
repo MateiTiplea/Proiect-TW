@@ -159,13 +159,13 @@ h1 {
 }
 .first-part:hover {
   -webkit-box-shadow: var(--shades-color) 0px 5px 15px,
-    inset var(--dark-grey-color) 0px -10px 20px;
+    inset var(--primary-color) 0px -10px 20px;
   -moz-box-shadow: var(--shades-color)  0px 5px 15px,
-    inset var(--dark-grey-color) 0px -10px 20px;
+    inset var(--primary-color) 0px -10px 20px;
   -o-box-shadow: var(--shades-color) 0px 5px 15px,
-    inset var(--dark-grey-color) 0px -10px 20px;
+    inset var(--primary-color) 0px -10px 20px;
   box-shadow: var(--shades-color)  0px 5px 15px,
-    inset var(--dark-grey-color) 0px -10px 20px;
+    inset var(--primary-color) 0px -10px 20px;
 }
 .photo-container {
   display: flex;
@@ -193,15 +193,15 @@ h1 {
   background: var( --tints-color);
   transition: all 0.3s;
 }
-.first-part:hover {
+.txt-part:hover {
   -webkit-box-shadow: var(--shades-color) 0px 5px 15px,
-    inset var(--dark-grey-color) 0px -10px 20px;
+    inset var(--primary-color) 0px -10px 20px;
   -moz-box-shadow: var(--shades-color)  0px 5px 15px,
-    inset var(--dark-grey-color) 0px -10px 20px;
+    inset var(--primary-color) 0px -10px 20px;
   -o-box-shadow: var(--shades-color) 0px 5px 15px,
-    inset var(--dark-grey-color) 0px -10px 20px;
+    inset var(--primary-color) 0px -10px 20px;
   box-shadow: var(--shades-color)  0px 5px 15px,
-    inset var(--dark-grey-color) 0px -10px 20px;
+    inset var(--primary-color) 0px -10px 20px;
 }
   .map-photo{
     text-align: center;
@@ -213,7 +213,7 @@ h1 {
 
   }
   .map-photo:hover{
-    transform: scale(1.2);
+    transform: scale(1.1);
 
   }
 
