@@ -28,3 +28,4 @@
 - Denisa: adaugat footer si retusuri la forgot password si account settings
 - Matei: done zona de animale favorite din user settings
 - Andrada: pagina animal-description responsive
+- Matei: adaugat putin javascript pentru a naviga corect intre paginile principale si login/setari cont

@@ -55,6 +55,7 @@ SPACING SYSTEM (px)
   --black-color: #242424;
   --white-color: #fff;
   --love-icon: #ff5353;
+  --background-color: #fff;
 }
 
 
@@ -78,7 +79,15 @@ body {
 }
 
 .dark-mode {
-  --tints-color: #061c16;
+  --primary-color: #135343;
+  --background-color: #061c16;
+  --tints-color: #1f8a70;
+  --shades-color: #104538;
+  --grey-color: #d2e8e2;
+  --dark-grey-color: #e0efeb;
+  --black-color: #edf6f3;
+  --accents-color: #642b39;
+  --white-color: #061c16;
 }
 
 /*************************************/
@@ -155,7 +164,8 @@ body {
 
 .list-section {
   padding: 8rem 0 9.6rem 0;
-  background-color: var(--tints-color);
+  background-color: var(--background-color);
+  min-height: 75vh;
 }
 
 .categories-bar {
@@ -321,6 +331,11 @@ body {
   box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
     rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
   border-radius: 15px;
+}
+
+.dark-mode .animal-card {
+  box-shadow: rgba(95, 95, 95, 0.2) 0px 2px 1px -1px,
+  rgba(95, 95, 95, 0.14) 0px 1px 1px 0px, rgba(95, 95, 95, 0.12) 0px 1px 3px 0px;
 }
 
 .fav-button {

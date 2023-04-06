@@ -30,3 +30,12 @@ categButtons[1].addEventListener('click', function () {
     openPanel(settingsPanels[1]);
     closePanel(settingsPanels[0]);
 });
+
+const logoutBtn = document.querySelector('.logout');
+const logoutEvent = function () {
+    localStorage.clear();
+    localStorage.setItem('logged', false);
+    window.location.href = 'index.html';
+}
+
+logoutBtn.addEventListener('click', logoutEvent);

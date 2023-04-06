@@ -19,3 +19,23 @@ mobileNav.addEventListener('click', function () {
         openMobileNav();
     }
 });
+
+
+const accountButton = document.querySelector('.nav-cta');
+
+const accountEvent = function () {
+  const isLogged = localStorage.getItem('logged');
+  if (isLogged) {
+    if(isLogged === 'true') {
+      window.location.href = 'account_settings.html';
+    }
+    else{
+      window.location.href = 'login.html';
+    }
+  }
+  else{
+    window.location.href = 'login.html';
+  }
+}
+
+accountButton.addEventListener('click', accountEvent);

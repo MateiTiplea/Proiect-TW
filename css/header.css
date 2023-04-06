@@ -10,7 +10,17 @@
   --dark-grey-color-header: #333;
   --black-color-header: #242424;
   --white-color-header: #fff;
-  --love-icon-header: #ff5353;
+}
+
+.dark-mode {
+  --primary-color-header: #1f8a70;
+  --tints-color-header: #135343;
+  --shades-color-header: #4ca18d;
+  --grey-color-header: #d2e8e2;
+  --dark-grey-color-header: #e0efeb;
+  --black-color-header: #edf6f3;
+  --accents-color-header: #642b39;
+  --white-color-header: #d2e8e2;
 }
 
 
@@ -116,6 +126,7 @@
 
 .nav-cta:hover {
   background-color: var(--shades-color-header);
+  cursor: pointer;
 }
 
 .language-icon {
