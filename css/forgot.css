@@ -8,6 +8,16 @@
   --title-forgot: #242424;
 }
 
+.dark-mode{
+  --background-forgot: #061c16;
+  --background-form-forgot: #0c372d;
+  --button-color-forgot: #135343;
+  --button-hover-forgot: #135343;
+  --text-color-forgot: #000; 
+  --field-background-forgot: #fff;
+  --title-forgot: #d2e8e2;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -126,8 +136,6 @@ body {
   font-size: 1.4rem;
   text-transform: uppercase;
   padding: 1.2rem 2.4rem;
-
-  box-shadow: 0 8px 24px 0 rgb(255 235 167 / 20%);
   transition: all 0.3s ease-in-out;
 }
 
@@ -144,7 +152,7 @@ body {
 }
 
 .btn:hover {
-  box-shadow: 0 8px 24px 0 rgb(16 39 112 / 20%);
+  box-shadow: 0 8px 24px 0 var(--background-forgot);
 }
 
 .btn-full:hover {

@@ -1,21 +1,21 @@
 :root{
   --background-login: #f5f5f5;
-  --background-form-login: #e9f3f1;
+  --background-form-login: #d2e8e2;
   --button-color-login: #1f8a70; 
   --button-hover-login: #196e5a;
-  --text-color-login: #555;
+  --text-color-login: #333;
   --field-background-login: #fff;
   --title-login: #242424;
   --shadow-login: #000;
-  --shadow1-login: #FFEBA7;
-  --shadow-hover-login: #102770;
+  --shadow1-login: #d2e8e2;
+  --shadow-hover-login: #0c372d;
 }
 .dark-mode{
   --background-login: #061c16;
   --background-form-login: #0c372d;
   --button-color-login: #135343;
   --button-hover-login: #135343;
-  --text-color-login: #d2e8e2;
+  --text-color-login: #000; 
   --field-background-login: #fff;
   --title-login: #d2e8e2;
   --shadow1-login: #0c372d;
@@ -159,8 +159,9 @@ body {
 }
 
 .btn-link {
+  text-decoration: none;
   margin-top: 2rem;
-  color: var(--field-background-login);
+  color: var(--title-login);
   display: block;
   font-size: 1.4rem;
   transition: color 0.3s ease-out;

@@ -1,6 +1,8 @@
 :root{
   --text-color-account: #555;
   --text-color-dark-account: #333;
+  --title-settings:#fff;
+  --button-text: #fff;
   --contrast-color-tint-account: #ad7062;
   --primary-color-tint-account: #bcdcd4;
   --primary-color-account: #1f8a70;
@@ -8,7 +10,24 @@
   --background-color-account: #e9f3f1;
   --background-color-settings: #fff;
   --fav-check-account: #ff5353;
+  --background-field-account: #fff;
 }
+
+.dark-mode{
+  --text-color-account: #d2e8e2;
+  --text-color-dark-account: #000;
+  --title-settings: #d2e8e2;
+  --button-text: #bcdcd4;
+  --contrast-color-tint-account: #642b39;
+  --primary-color-tint-account: #bcdcd4;
+  --primary-color-account: #0c372d;
+  --primary-color-shade-account: #061c16;
+  --background-color-account: #061c16;
+  --background-color-settings: #196e5a;
+  --fav-check-account: #ff5353;
+  --background-field-account: #e9f3f1;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -73,7 +92,7 @@
     font-size: 2.4rem;
     font-weight: 600;
     margin-bottom: 4.8rem;
-    color: var(--background-color-settings); 
+    color: var(--title-settings); 
     text-align: center;
 }
 
@@ -93,7 +112,7 @@
 } */
 
 .settings--categories-link {
-    color: var(--background-color-settings); 
+    color: var(--text-color-dark-account); 
     text-decoration: none;
     background: none;
     border: none;
@@ -176,7 +195,7 @@
     align-items: center;
     justify-content: center;
     gap: 1.2rem;
-    background-color: var(--background-color-settings);
+    background-color: var(--background-field-account);
     border: 2px solid var(--primary-color-account);
     border-radius: 15px;
     padding: 0.5em 1em;
@@ -185,6 +204,7 @@
   .input-icon {
     height: 2rem;
     width: 2rem;
+    stroke: var(--primary-color-account);
     fill: var(--primary-color-account);
   }
   
@@ -193,7 +213,7 @@
     border: none;
     outline: none;
     width: 100%;
-    color: var(--text-color-account);
+    color: var(--text-color-dark-account);
     font-size: 1.6rem;
   }
 
@@ -216,20 +236,18 @@
     font-size: 1.4rem;
     text-transform: uppercase;
     padding: 1.2rem 2.4rem;
-  
-    box-shadow: 0 8px 24px 0 rgb(255 235 167 / 20%);
     transition: all 0.3s ease-in-out;
   }
   
   .btn-full {
     border: 2px solid var(--primary-color-account);
     background-color: var(--primary-color-account);
-    color: var(--background-color-settings);
+    color: var(--button-text);
   }
 
   .btn-light{
     border: 2px solid var(--primary-color-account);
-    background-color: var(--background-color-settings);
+    background-color: var(--button-text);
     color: var(--primary-color-account);
   }
 
@@ -286,7 +304,7 @@
   transition: all 0.3s;
 
   background-color: var(--primary-color-account);
-  color: var(--background-color-settings);
+  color: var(--button-text);
 }
 
 .btn-card:hover,
@@ -338,7 +356,7 @@
 
 .fav-checkmark path{
   fill: none;
-  stroke: var(text-color-dark-account);
+  stroke: var(--text-color-dark-account);
 }
 
 .fav-container input:checked ~ .fav-checkmark path {

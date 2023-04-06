@@ -8,6 +8,16 @@
   --title-signup: #242424;
 }
 
+.dark-mode{
+  --background-signup: #061c16;
+  --background-form-signup: #0c372d;
+  --button-color-signup: #135343;
+  --button-hover-signup: #135343;
+  --text-color-signup: #000;
+  --field-background-signup: #fff;
+  --title-signup: #d2e8e2;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -125,8 +135,6 @@
     font-size: 1.4rem;
     text-transform: uppercase;
     padding: 1.2rem 2.4rem;
-  
-    box-shadow: 0 8px 24px 0 rgb(255 235 167 / 20%);
     transition: all 0.3s ease-in-out;
   }
   
@@ -143,7 +151,7 @@
   }
   
   .btn:hover {
-    box-shadow: 0 8px 24px 0 rgb(16 39 112 / 20%);
+    box-shadow: 0 8px 24px 0 var(--background-signup);
   }
   
   .btn-full:hover {
