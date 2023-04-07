@@ -183,7 +183,6 @@
 .settings-panel-form{
     display: flex;
     flex-direction: column;
-    align-items: right;
     justify-content: center;
     gap: 2.4rem;
     font-size: 1.2rem;
@@ -386,7 +385,7 @@
 
 .card-description {
   list-style: none;
-  color: var(text-color-dark-account);
+  color: var(--text-color-dark-account);
   font-weight: 400;
   font-size: 1.4rem;
   margin-bottom: 1.6rem;
