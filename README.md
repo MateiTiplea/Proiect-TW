@@ -31,3 +31,5 @@
 - Matei: adaugat putin javascript pentru a naviga corect intre paginile principale si login/setari cont
 - Denisa: adaugat dark-mode
 - Matei: facut script de js pentru a face functional pagination-ul cu o lista de animale dintr-un array definit local
+- Andrada:am creat pagina "About us"+ fixat dark mode pe animal-description
+- Denisa+Andrada: am creat pagina "Scholarly"

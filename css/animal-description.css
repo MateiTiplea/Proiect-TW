@@ -28,6 +28,21 @@ SPACING SYSTEM (px)
   --black-color: #242424;
   --white-color: #fff;
   --love-icon: #ff5353;
+  --background-color: #fff;
+  --title-color:#1f8a70;
+}
+.dark-mode{
+  --primary-color: #135343;
+  --background-color: #061c16;
+  --tints-color: #1f8a70;
+  --shades-color: #104538;
+  --grey-color: #d2e8e2;
+  --dark-grey-color: #e0efeb;
+  --black-color: #edf6f3;
+  --accents-color: #642b39;
+  --white-color: #061c16;
+  --title-color:#e9f3f1;
+
 }
 
 * {
@@ -35,6 +50,7 @@ SPACING SYSTEM (px)
   padding: 0;
   box-sizing: border-box;
 }
+
 
 html {
   font-size: 62.5%;
@@ -47,6 +63,9 @@ body {
   font-weight: 400;
   color:var(--grey-color);
   overflow-x: hidden;
+}
+main{
+  background-color: var( --background-color);
 }
 
 /**************************/
@@ -120,7 +139,7 @@ body {
 /*********************/
 
 h1 {
-  color: var(--primary-color);
+  color: var(--title-color);
   align-items: center;
   text-align: center;
   font-size: 4.6rem;
@@ -154,7 +173,7 @@ h1 {
   line-height: 1.6;
   align-items: center;
   font-size: 1.8rem;
-  transition: all 0.3s liner;
+  transition: all 0.3s linear;
   background-color: var( --tints-color);
 }
 .first-part:hover {

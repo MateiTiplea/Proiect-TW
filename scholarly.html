@@ -1,0 +1,166 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarly</title>
+</head>
+<body>
+    <section typeof="sa:AuthorsList">
+        <h2>Authors</h2>
+        <ul>
+          <li typeof="sa:ContributorRole" property="schema:author">
+            <span typeof="schema:Person">
+              <meta property="schema:givenName" content="Denisa">
+              <meta property="schema:familyName" content="Munteanu">
+              <span property="schema:name"> Denisa Munteanu </span>
+            </span>
+            <ul>
+              <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                <a href="mailto:mariadenisa2904@gmail.com"
+                   property="schema:email">mariadenisa2904@gmail.com</a>
+              </li>
+            </ul>
+          </li>
+          <li typeof="sa:ContributorRole" property="schema:author">
+            <span typeof="schema:Person">
+              <meta property="schema:givenName" content="Andrada">
+              <meta property="schema:additionalName" content="Stefana">
+              <meta property="schema:familyName" content="Strimbu">
+              <span property="schema:name"> Andrada-Stefana Strimbu</span>
+            </span>
+            <ul>
+              <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                <a href="mailto:andrada.strimbu@gmail.com"
+                   property="schema:email">andrada.strimbu@gmail.com</a>
+              </li>
+            </ul>
+          </li>
+          <li typeof="sa:ContributorRole" property="schema:author">
+            <span typeof="schema:Person">
+              <meta property="schema:givenName" content="Matei">
+              <meta property="schema:familyName" content="Tiplea">
+              <span property="schema:name"> Matei Tiplea </span>
+            </span>
+            <ul>
+              <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                <a href="mailto:matei.tiplea@outlook.com"
+                   property="schema:email">matei.tiplea@outlook.com</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </section> 
+</body>
+</html> -->
+<!doctype html>  
+<html lang="en">
+<head>
+  
+  <meta charset="tuf-8"/>
+ 
+  <link rel="stylesheet" href="style_Toyr.css" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Scholarly</title>
+  
+  </head>
+<body>
+    
+        
+  <div id="wrapper">
+    <div id="titlu">
+      <p text-align="center">Zoo Web Manager<br></p>
+    </div>
+    <div id="cerinte">
+        <h1>Cerinte</h1>
+        <p>Sa se implementeze o aplicatie Web menita a gestiona informatiile vizand o gradina zoologica. Se vor facilita redarea si managementul datelor despre animalele gazduite: denumire populara/stiintifica, descriere (de dorit, multilingva), origine, statut (e.g., specie protejata, pe cale de disparitie, daunatoare etc.), caracteristici (de exemplu, dependenta de clima, periculozitate, proprietati speciale), specii inrudite, dusmani naturali, imagini de interes, regim alimentar (vegetarian, carnivor, omnivor), mod de inmultire si altele. Se vor pune la dispozitie mecanisme de cautare/filtrare/prezentare multi-criteriala -- de pilda, afisarea tuturor mamiferelor cu blana de origine europeana ce pot fi dresate sau generarea unei liste de pasari/taratoare capabile sa supravietuiasca in conditii desertice. Datele vor putea fi importate/exportate via fisiere disponibile in formatele JSON si XML. Functionalitatile esentiale se vor oferi si de catre un API REST/GraphQL.</p>
+      </div>
+    <div id="banner"> 
+      <h1>Descriere</h1>
+      <p> Am implementat partea de front-end a unui site pentru gestionarea unei gradini zoologice.
+         Aplicatia ofera utilizatorului posibilitatea de a-si personaliza profilul prin sectiunea de favorite si schimbarea temei site-ului.
+          De asemenea exista posibilitatea de a-ti rezerva bilet si de a vedea informatii despre fiecare animal prezent in gradina zoologica.
+          Utilizatorul isi poate crea cont, modifica datele personale sau de autentificare si lista de favorite.
+         </p>
+
+      
+    </div>
+    <div id="tehnologii">
+      <h1>Tehnologii utilizate</h1>
+      <ul>
+        <li>limbaje de programare folosite: JAVASCRIPT, HTML</li>
+        <li>pentru stilizarea paginilor am folosit CSS </li>
+        </ul>
+    </div><!--teh-->
+    <div id="arhitectura">
+      <h1>Arhitectura aplicatiei</h1>
+      <p> Aplicatia a fost conceputa ca o Multi-Page Application (MPA).</p>
+        
+      <p>Front-end:</p>
+      <ul>
+        <li>Pagina principala:<br>
+          - utilizatorul poate cauta un animal<br>
+          - se poate vedea programul gradinii zoologice si o scurta descriere a categoriilor de animale <br>
+          <li>Animals: se vor afisa - intr-un sistem de grid- lista de animale si o categorie de filtrare </li>
+          <li>Book Tickets: se va afisa programul si un formular pentru rezervari </li>
+          <li>My Account: ai posibilitatea de a te loga sau de a te inregistra. Daca esti deja logat ai posibilitatea de a-ti modifica datele,tema site-ului si de a accesa sectiunea de favorite </li>
+          <li>About us: se gasesc informatii despre autorii site-ului  </li>
+        </ul>
+        
+      </div>
+     
+    <div id="implementare">
+    <h1>Progres implementare:</h1>
+    <ul>
+      <li>template-ul pentru partea de front-end - varianta responsive (100%)</li>
+      
+    </div>
+</div>
+<section typeof="sa:AuthorsList">
+    <h2>Authors</h2>
+    <ul>
+      <li typeof="sa:ContributorRole" property="schema:author">
+        <span typeof="schema:Person">
+          <meta property="schema:givenName" content="Denisa">
+          <meta property="schema:familyName" content="Munteanu">
+          <span property="schema:name"> Denisa Munteanu </span>
+        </span>
+        <ul>
+          <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+            <a href="mailto:mariadenisa2904@gmail.com"
+               property="schema:email">mariadenisa2904@gmail.com</a>
+          </li>
+        </ul>
+      </li>
+      <li typeof="sa:ContributorRole" property="schema:author">
+        <span typeof="schema:Person">
+          <meta property="schema:givenName" content="Andrada">
+          <meta property="schema:additionalName" content="Stefana">
+          <meta property="schema:familyName" content="Strimbu">
+          <span property="schema:name"> Andrada-Stefana Strimbu</span>
+        </span>
+        <ul>
+          <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+            <a href="mailto:andrada.strimbu@gmail.com"
+               property="schema:email">andrada.strimbu@gmail.com</a>
+          </li>
+        </ul>
+      </li>
+      <li typeof="sa:ContributorRole" property="schema:author">
+        <span typeof="schema:Person">
+          <meta property="schema:givenName" content="Matei">
+          <meta property="schema:familyName" content="Tiplea">
+          <span property="schema:name"> Matei Tiplea </span>
+        </span>
+        <ul>
+          <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+            <a href="mailto:matei.tiplea@outlook.com"
+               property="schema:email">matei.tiplea@outlook.com</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section> 
+</body>
+</html>
