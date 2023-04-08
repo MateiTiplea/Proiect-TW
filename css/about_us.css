@@ -41,6 +41,7 @@ SPACING SYSTEM (px)
     --primary-color-shade: #196e5a;
     --background-accent: #e9f3f1;
     --background-color: #fff;
+    --bottom-color: #e9f3f1;
   }
   
   .dark-mode{
@@ -55,6 +56,7 @@ SPACING SYSTEM (px)
     --primary-color-shade: #104538;
     --background-accent: #0c372d;
     --background-color: #061c16;
+    --bottom-color: #08271f;
   }
   
   * {
@@ -162,6 +164,12 @@ SPACING SYSTEM (px)
     border-radius: 30px;
     background-color: var(--contrast-color-tint);
   }
+
+  .item2-photo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
   .item3 {
     border-radius: 30px;
@@ -186,15 +194,6 @@ SPACING SYSTEM (px)
     background-color: var(--primary-color-shade);
   }
   
-  .bottom-section {
-    text-align: center;
-    font-size: 1.8rem;
-    padding: 2rem;
-    margin: 0px;
-    background-color: var(--background-accent);
-    color: var(--text-color);
-  }
-  
   .desc-section{
     padding: 6rem 0 4.8rem 0;
   }
@@ -211,6 +210,15 @@ SPACING SYSTEM (px)
     align-items: center;
     justify-content: center;
 
+  }
+
+  .bottom-section {
+    text-align: center;
+    font-size: 1.8rem;
+    padding: 2rem;
+    margin: 5rem 0 0 0;
+    background-color: var(--bottom-color);
+    color: var(--text-color);
   }
 
   .bottom-text{
