@@ -84,4 +84,10 @@
   .header-search {
     gap: 0.4rem;
   }
+  .header{
+    padding: 0 0.8rem;
+  }
+  .search-bar {
+    width: 100%;
+  }
 }

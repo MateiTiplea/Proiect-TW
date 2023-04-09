@@ -1,4 +1,7 @@
 # Proiect-TW
+---
+
+# IMPORTANT !!! - utilizatorul de proba pentru a putea accesa pagina de setari cont este: username: ceva, password: 1234 !!!
 
 ---
 
