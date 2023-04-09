@@ -39,3 +39,42 @@ const logoutEvent = function () {
 }
 
 logoutBtn.addEventListener('click', logoutEvent);
+
+//Dark mode
+const darkModeBtn = document.querySelectorAll('.btn');
+const isDarkMode = localStorage.getItem('darkMode');
+if (isDarkMode === 'true') {
+    darkModeBtn[0].classList.remove('btn-light');
+    darkModeBtn[0].classList.add('btn-full');
+    darkModeBtn[1].classList.remove('btn-full');
+    darkModeBtn[1].classList.add('btn-light');
+    document.body.classList.add('dark-mode');
+}
+else {
+    darkModeBtn[0].classList.remove('btn-full');
+    darkModeBtn[0].classList.add('btn-light');
+    darkModeBtn[1].classList.remove('btn-light');
+    darkModeBtn[1].classList.add('btn-full');
+    document.body.classList.remove('dark-mode');
+}
+
+darkModeBtn[0].addEventListener('click', function () {
+    darkModeBtn[0].classList.remove('btn-light');
+    darkModeBtn[0].classList.add('btn-full');
+    darkModeBtn[1].classList.remove('btn-full');
+    darkModeBtn[1].classList.add('btn-light');
+    document.body.classList.add('dark-mode');
+    localStorage.setItem('darkMode', true);
+}
+);
+
+darkModeBtn[1].addEventListener('click', function () {
+    darkModeBtn[0].classList.remove('btn-full');
+    darkModeBtn[0].classList.add('btn-light');
+    darkModeBtn[1].classList.remove('btn-light');
+    darkModeBtn[1].classList.add('btn-full');
+    document.body.classList.remove('dark-mode');
+    localStorage.setItem('darkMode', false);
+}
+);
+
