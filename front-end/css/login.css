@@ -1,0 +1,203 @@
+:root{
+  --background-login: #f5f5f5;
+  --background-form-login: #d2e8e2;
+  --button-color-login: #1f8a70; 
+  --button-hover-login: #196e5a;
+  --text-color-login: #333;
+  --field-background-login: #fff;
+  --title-login: #242424;
+  --shadow-login: #000;
+  --shadow1-login: #d2e8e2;
+  --shadow-hover-login: #0c372d;
+}
+.dark-mode{
+  --background-login: #061c16;
+  --background-form-login: #0c372d;
+  --button-color-login: #135343;
+  --button-hover-login: #135343;
+  --text-color-login: #000; 
+  --field-background-login: #fff;
+  --title-login: #d2e8e2;
+  --shadow1-login: #0c372d;
+  --shadow-hover-login: #000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--text-color-login);
+  overflow-x: hidden;
+}
+
+.login-section {
+  background: var(--background-login);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 0 3.2rem;
+}
+
+.grid {
+  display: grid;
+  gap: 2.4rem;
+}
+
+.grid--col-1 {
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 12.8rem;
+  height: 12.8rem;
+}
+
+.card {
+  width: 100%;
+  padding: 3.2rem 2.4rem;
+  text-align: center;
+  background: var(--background-form-login);
+  border-radius: 15px;
+  box-shadow: var(--shadow-login) 0px 2px 1px -1px,
+    rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+}
+
+/*Inputs*/
+.field {
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  background-color: var(--field-background-login);
+  border: 2px solid var(--button-color-login);
+  border-radius: 15px;
+  padding: 0.5em 1em;
+}
+
+.input-icon {
+  height: 2rem;
+  width: 2rem;
+  fill: var(--button-color-login);
+}
+
+.input-field {
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: var(--text-color-login);
+  font-size: 1.6rem;
+}
+
+.button-zone {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+}
+
+/*Text*/
+.title {
+  margin-bottom: 1.6rem;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--title-login);
+}
+
+/*Buttons*/
+.btn {
+  border: none;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  padding: 1.2rem 2.4rem;
+
+  box-shadow: 0 8px 24px 0 var(--shadow1-login);
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-full {
+  border: 2px solid var(--button-color-login);
+  background-color: var(--button-color-login);
+  color: var(--field-background-login);
+}
+
+.btn-outline {
+  display: inline-block;
+  text-decoration: none;
+  background-color: var(--field-background-login);
+  color: var(--button-color-login);
+  border: 2px solid var(--button-color-login);
+}
+
+.btn-link {
+  text-decoration: none;
+  margin-top: 2rem;
+  color: var(--title-login);
+  display: block;
+  font-size: 1.4rem;
+  transition: color 0.3s ease-out;
+}
+
+/*Hover & focus*/
+.field input:focus::placeholder {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn:hover {
+  box-shadow: 0 8px 24px 0 var(--shadow-hover-login);
+}
+
+.btn-full:hover {
+  background-color: var(--button-hover-login);
+  border-color: var(--button-hover-login);
+}
+
+.btn-outline:hover {
+  background-color: var(--);
+  color: var(--button-hover-login);
+  border-color: var(--button-hover-login);
+}
+
+.btn-link:hover {
+  color: var(--text-color-login);
+}
+
+/*
+
+SPACING SYSTEM (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+FONT SIZE SYSTEM (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+*/
