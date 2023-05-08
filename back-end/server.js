@@ -1,16 +1,13 @@
 const http = require('http');
+const dotenv = require('dotenv');
+dotenv.config({ path: "./config.env" });
 const handleApiRequest = require('./controller/controller');
-const con = require('./database');
 
-con.connect().then(() => {
-    console.log('Connected to Oracle Database');
-}).catch(err => {
-    console.log(err);
-});
 
 const server = http.createServer((req, res) => {
     const url = req.url;
-    if (url === '/api') {
+    console.log(url);
+    if (url.startsWith('/api')) {
         handleApiRequest(req, res);
     } else {
         res.statusCode = 404;

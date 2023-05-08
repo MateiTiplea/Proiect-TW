@@ -1,11 +1,13 @@
+const userController = require('./userController');
+
 const handleApiRequest = (req, res) => {
     const url = req.url;
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    const response = {
-        message: 'Hello World'
+    if (url.startsWith('/api/users')) {
+        userController(req,res);
+    } else {
+        res.statusCode = 404;
+        res.end('Not Found');
     }
-    res.end(JSON.stringify(response));
 }
 
 module.exports = handleApiRequest;
