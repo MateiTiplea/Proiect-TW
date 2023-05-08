@@ -2,11 +2,25 @@ const http = require('http');
 const dotenv = require('dotenv');
 dotenv.config({ path: "./config.env" });
 const handleApiRequest = require('./controller/controller');
+const oracle = require('oracledb');
 
+oracle.createPool({
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    connectString: process.env.DB_CONNECTSTRING,
+    poolAlias: 'zoodb',
+    poolMax: 10,
+    poolMin: 10,
+    poolIncrement: 0
+}).then(() => {
+    console.log('Connection pool started');
+}).catch(err => {
+    console.error(err.message);
+    process.exit(1);
+});
 
 const server = http.createServer((req, res) => {
     const url = req.url;
-    console.log(url);
     if (url.startsWith('/api')) {
         handleApiRequest(req, res);
     } else {

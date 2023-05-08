@@ -1,4 +1,4 @@
-const userController = require('./userController');
+const userController = require('./authController');
 
 const handleApiRequest = (req, res) => {
     const url = req.url;
