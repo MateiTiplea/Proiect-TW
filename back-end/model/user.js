@@ -45,3 +45,21 @@ exports.createUser = (async (user) => {
         phone: user.phone
     }
 });
+
+exports.getUserByUsername = async (username) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `SELECT * FROM users WHERE username = :username`,
+        [username]
+    );
+    if (result.rows.length === 0) {
+        return null;
+    }
+    return {
+        id: result.rows[0][0],
+        username: result.rows[0][1],
+        email: result.rows[0][2],
+        password: result.rows[0][3],
+    }
+
+};

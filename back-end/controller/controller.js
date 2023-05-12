@@ -1,9 +1,9 @@
-const userController = require('./authController');
+const {authController} = require("./authController");
 
 const handleApiRequest = (req, res) => {
     const url = req.url;
     if (url.startsWith('/api/users')) {
-        userController(req,res);
+        authController(req,res);
     } else {
         res.statusCode = 404;
         res.end('Not Found');
