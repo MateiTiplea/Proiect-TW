@@ -2,6 +2,7 @@ const {authController} = require("./authController");
 const AppError = require("../utils/appError");
 const errorController = require("./errorController");
 const {userController} = require("./userController");
+const {animalsController} = require("./animalsController");
 
 const handleApiRequest = (req, res) => {
     const url = req.url;
@@ -9,6 +10,8 @@ const handleApiRequest = (req, res) => {
         authController(req,res);
     }else if (url.startsWith('/api/users')) {
         userController(req,res);
+    } else if (url.startsWith('/api/animals')) {
+        animalsController(req,res);
     }else {
         errorController(res, new AppError('Not Found', 404));
     }
