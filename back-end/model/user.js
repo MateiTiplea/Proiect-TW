@@ -116,3 +116,153 @@ exports.updatePassword = async (email, password) => {
     connection.close();
     return result.rowsAffected === 1;
 }
+
+exports.deleteUserById = async (id) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `DELETE FROM users WHERE id = :id`,
+        [id],
+        { autoCommit: true }
+    );
+    connection.close();
+    return result.rowsAffected === 1;
+};
+
+exports.updateUserById = async (id, updateFields) => {
+    const connection = await oracle.getConnection('zoodb');
+    const properties = Object.keys(updateFields);
+    const values = Object.values(updateFields);
+    const binds = {};
+    for (let i = 0; i < properties.length; i++) {
+        binds[properties[i]] = values[i];
+    }
+    binds.id = id;
+    const result = await connection.execute(
+        `UPDATE users SET ${properties.map((property, index) => `${property} = :${property}`).join(', ')} WHERE id = :id`,
+        binds,
+        { autoCommit: true }
+    );
+    connection.close();
+    return result.rowsAffected === 1;
+};
+
+exports.bookTicket = async(id, ticket) => {
+    const connection = await oracle.getConnection('zoodb');
+    await connection.execute(
+        `INSERT INTO BOOKINGS (user_id, name, phone, book_date, adult_tickets, student_tickets, kids_tickets)
+            VALUES (:user_id, :name, :phone, :book_date, :adult_tickets, :student_tickets, :kids_tickets)`,
+        [id, ticket.name, ticket.phone, ticket.book_date, ticket.adult_tickets, ticket.student_tickets, ticket.kids_tickets],
+        { autoCommit: true }
+    );
+    connection.close();
+    return ticket;
+};
+
+exports.getBookings = async (id) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `SELECT * FROM BOOKINGS WHERE user_id = :id`,
+        [id]
+    );
+    connection.close();
+    const bookings = [];
+    for (let i = 0; i < result.rows.length; i++) {
+        bookings.push({
+            name: result.rows[i][2],
+            phone: result.rows[i][3],
+            book_date: result.rows[i][4],
+            adult_tickets: result.rows[i][5],
+            student_tickets: result.rows[i][6],
+            kids_tickets: result.rows[i][7]
+        });
+    }
+    return bookings;
+};
+
+exports.getFavorites = async (id) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `SELECT a.name, a.binomial_name, a.type, a.climate, a.conservation, a.origin, a.description, a.rating, a.min_weight,
+            a.max_weight FROM ANIMALS a JOIN FAVORITES F on a.ID = F.ANIMAL_ID WHERE F.USER_ID = :id`,
+        [id]
+    );
+    connection.close();
+    const favorites = [];
+    for (let i = 0; i < result.rows.length; i++) {
+        favorites.push({
+            name: result.rows[i][0],
+            binomial_name: result.rows[i][1],
+            type: result.rows[i][2],
+            climate: result.rows[i][3],
+            conservation: result.rows[i][4],
+            origin: result.rows[i][5],
+            description: result.rows[i][6],
+            rating: result.rows[i][7],
+            min_weight: result.rows[i][8],
+            max_weight: result.rows[i][9]
+        });
+    }
+    return favorites;
+}
+
+exports.deleteFavorite = async (id, animal_id) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `DELETE FROM FAVORITES WHERE user_id = :id AND animal_id = :animal_id`,
+        [id, animal_id],
+        { autoCommit: true }
+    );
+    connection.close();
+    return result.rowsAffected === 1;
+};
+
+exports.addFavorite = async (id, animal_id) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `INSERT INTO FAVORITES (user_id, animal_id) VALUES (:id, :animal_id)`,
+        [id, animal_id],
+        { autoCommit: true }
+    );
+    connection.close();
+    return result.rowsAffected === 1;
+};
+
+exports.getComments = async (id) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `SELECT c.message, c.date_created, u.username FROM COMMENTS c JOIN USERS u ON c.user_id = u.id WHERE c.animal_id = :id`,
+        [id]
+    );
+    connection.close();
+    const comments = [];
+    for (let i = 0; i < result.rows.length; i++) {
+        comments.push({
+            comment: result.rows[i][0],
+            date_created: result.rows[i][1],
+            username: result.rows[i][2]
+        });
+    }
+    return comments;
+};
+
+exports.addComment = async (user_id, animal_id, comment) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `INSERT INTO COMMENTS (user_id, animal_id, message) VALUES (:user_id, :animal_id, :message)`,
+        [user_id, animal_id, comment],
+        { autoCommit: true }
+    );
+    connection.close();
+    return result.rowsAffected === 1;
+};
+
+exports.deleteMyComment = async (id, comment_id) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `DELETE FROM COMMENTS WHERE user_id = :id AND id = :comment_id`,
+        [id, comment_id],
+        { autoCommit: true }
+    );
+    connection.close();
+    return result.rowsAffected === 1;
+};

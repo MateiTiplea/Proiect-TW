@@ -139,6 +139,7 @@ const protect = catchAsync(async(req, res) =>{
         return null;
     }
 
+    req.currentUser = freshUser;
     return freshUser;
 });
 
