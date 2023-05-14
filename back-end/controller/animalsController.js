@@ -5,14 +5,16 @@ const AppError = require('../utils/appError');
 const errorController = require('./errorController');
 const parseRequestBody = require('../utils/parseRequest');
 const users = require("../model/user");
+const {protect, restrictTo} = require('./authController');
+
 const getAll = catchAsync(async (req, res) => {
     const result = await animals.getAllAnimals();
     res.statusCode = 200;
     res.end(JSON.stringify(result));
 });
+
 const create = catchAsync(async (req, res) => {
     const animal= await parseRequestBody(req);
-  console.log(animal);
 
     if(!animal) {
         errorController(res, new AppError('Please provide animal data', 400));
@@ -27,10 +29,8 @@ const create = catchAsync(async (req, res) => {
         return;
     }
 
-
     animal.rating = 0;
     const result = await animals.createAnimal(animal);
-    console.log(animal);
     const response = {
         status: 'success',
         data:{
@@ -42,25 +42,181 @@ const create = catchAsync(async (req, res) => {
     res.end(JSON.stringify(response));
 });
 
+const getById = catchAsync(async (req, res) => {
+    const id = req.url.split('/')[3];
+    const result = await animals.getAnimalById(id);
+    if(!result) {
+        errorController(res, new AppError('No animal found with that ID', 404));
+        return;
+    }
+    res.statusCode = 200;
+    res.end(JSON.stringify(result));
+});
+
+const getByName = catchAsync(async (req, res) => {
+    const name = req.url.split('/')[3];
+    const result = await animals.getAnimalByName(name);
+    if(!result) {
+        errorController(res, new AppError('No animal found with that name', 404));
+        return;
+    }
+    res.statusCode = 200;
+    res.end(JSON.stringify(result));
+});
+
+const deleteAnimal = catchAsync(async (req, res) => {
+    const id = req.url.split('/')[3];
+    const result = await animals.deleteAnimal(id);
+    if(!result) {
+        errorController(res, new AppError('No animal found with that ID', 404));
+        return;
+    }
+    res.statusCode = 204;
+    res.end();
+});
+
+const updateAnimal = catchAsync(async (req, res) => {
+    const id = req.url.split('/')[3];
+    const animal = await parseRequestBody(req);
+    if(!animal) {
+        errorController(res, new AppError('Please provide animal data', 400));
+        return;
+    }
+    if(animal.rating){
+        errorController(res, new AppError('You cannot set your own rating', 400));
+        return;
+    }
+    const updateFields = {};
+    if(animal.name) {
+        updateFields.name = animal.name;
+    }
+    if(animal.binomial_name) {
+        updateFields.binomial_name = animal.binomial_name;
+    }
+    if(animal.type) {
+        updateFields.type = animal.type;
+    }
+    if(animal.climate) {
+        updateFields.climate = animal.climate;
+    }
+    if(animal.conservation) {
+        updateFields.conservation = animal.conservation;
+    }
+    if(animal.origin) {
+        updateFields.origin = animal.origin;
+    }
+    if(animal.description) {
+        updateFields.description = animal.description;
+    }
+    if(animal.min_weight) {
+        updateFields.min_weight = animal.min_weight;
+    }
+    if(animal.max_weight) {
+        updateFields.max_weight = animal.max_weight;
+    }
+    const result = await animals.updateAnimal(id, updateFields);
+    if(result) {
+        res.statusCode = 204;
+        res.end();
+    } else {
+        errorController(res, new AppError('Could not update user', 500));
+    }
+});
+
+const getAnimalsByType = catchAsync(async (req, res) => {
+    const type = req.url.split('/')[4];
+    const result = await animals.getAnimalsByType(type);
+    if(!result) {
+        errorController(res, new AppError('No animals found with that type', 404));
+        return;
+    }
+    res.statusCode = 200;
+    res.end(JSON.stringify(result));
+});
+
+const getAnimalsByClimate = catchAsync(async (req, res) => {
+    const climate = req.url.split('/')[4];
+    const result = await animals.getAnimalsByClimate(climate);
+    if(!result) {
+        errorController(res, new AppError('No animals found with that climate', 404));
+        return;
+    }
+    res.statusCode = 200;
+    res.end(JSON.stringify(result));
+});
+
+const getAnimalsByConservation = catchAsync(async (req, res) => {
+    const conservation = req.url.split('/')[4];
+    const result = await animals.getAnimalsByConservation(conservation);
+    if(!result) {
+        errorController(res, new AppError('No animals found with that conservation', 404));
+        return;
+    }
+    res.statusCode = 200;
+    res.end(JSON.stringify(result));
+});
+
+const getAnimalsByOrigin = catchAsync(async (req, res) => {
+    const origin = req.url.split('/')[4];
+    const result = await animals.getAnimalsByOrigin(origin);
+    if(!result) {
+        errorController(res, new AppError('No animals found with that origin', 404));
+        return;
+    }
+    res.statusCode = 200;
+    res.end(JSON.stringify(result));
+});
 
 const animalsController = catchAsync(async (req, res) => {
     const { url,method } = req;
     res.setHeader('Content-Type', 'application/json');
-    console.log("inainte de if");
-    if(url === '/api/animals/create' && method === 'POST') {
-        console.log("sunt aici");
+    if(url === '/api/animals' && method === 'POST') {
+        const logUser = await protect(req, res);
+        if(!logUser) {
+            return;
+        }
+        if(!restrictTo(res, logUser, 'admin')) {
+            return;
+        }
         create(req, res);
-    } else if(url === '/api/animals/getAll' && method === 'GET') {
+    } else if(url === '/api/animals' && method === 'GET') {
         getAll(req, res);
-    } else if(url === '/api/animals/getById' && method === 'GET') {
+    } else if(url.match(/\/api\/animals\/type\/([a-zA-Z]+)/) && method === 'GET'){
+        getAnimalsByType(req, res);
+    } else if(url.match(/\/api\/animals\/climate\/([a-zA-Z]+)/) && method === 'GET'){
+        getAnimalsByClimate(req, res);
+    } else if(url.match(/\/api\/animals\/conservation\/([a-zA-Z]+)/) && method === 'GET'){
+        getAnimalsByConservation(req, res);
+    } else if(url.match(/\/api\/animals\/region\/([a-zA-Z]+)/) && method === 'GET'){
+        getAnimalsByOrigin(req, res);
+    } else if(url.match(/\/api\/animals\/([0-9]+)/) && method === 'GET') {
         getById(req, res);
-    }  if(url === '/api/animals/getByName' && method === 'GET') {
+    } else if(url.match(/\/api\/animals\/([a-zA-Z]+)/) && method === 'GET') {
         getByName(req, res);
+    } else if(url.match(/\/api\/animals\/([0-9]+)/) && method === 'DELETE'){
+        const logUser = await protect(req, res);
+        if(!logUser) {
+            return;
+        }
+        if(!restrictTo(res, logUser, 'admin')) {
+            return;
+        }
+        deleteAnimal(req, res);
+    } else if(url.match(/\/api\/animals\/([0-9]+)/) && method === 'PATCH'){
+        const logUser = await protect(req, res);
+        if(!logUser) {
+            return;
+        }
+        if(!restrictTo(res, logUser, 'admin')) {
+            return;
+        }
+        updateAnimal(req, res);
     }
     else {
         errorController(res, new AppError('Not Found', 404));
     }
 });
+
 module.exports = {
     animalsController
 };

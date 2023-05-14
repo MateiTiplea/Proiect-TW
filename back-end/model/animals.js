@@ -1,7 +1,7 @@
 const oracle = require('oracledb');
 
 exports.getAllAnimals = (async () => {
-    const connection = await oracle.getConnection('zoo');
+    const connection = await oracle.getConnection('zoodb');
     const result = await connection.execute(
         `SELECT * FROM animals`
     );
@@ -26,7 +26,7 @@ exports.getAllAnimals = (async () => {
 });
 
 exports.getAnimalById = async (id) => {
-    const connection = await oracle.getConnection('zoo');
+    const connection = await oracle.getConnection('zoodb');
     const result = await connection.execute(
         `SELECT * FROM animals WHERE id = :id`,
         [id]
@@ -50,9 +50,9 @@ exports.getAnimalById = async (id) => {
 };
 
 exports.getAnimalByName = async (name) => {
-    const connection = await oracle.getConnection('zoo');
+    const connection = await oracle.getConnection('zoodb');
     const result = await connection.execute(
-        `SELECT * FROM animals WHERE id = :name`,
+        `SELECT * FROM animals WHERE name = :name`,
         [name]
     );
     connection.close();
@@ -74,7 +74,6 @@ exports.getAnimalByName = async (name) => {
 };
 exports.createAnimal= (async (animal) => {
     const connection = await oracle.getConnection('zoodb');
- console.log(animal);
     await connection.execute(
         `INSERT INTO animals (name, binomial_name, type,  climate, conservation,origin, description, rating, min_weight,max_weight) VALUES
         (:name, :binomial_name, :type, :climate, :conservation,:origin, :description, :rating, :min_weight, :max_weight)`,
@@ -96,3 +95,132 @@ exports.createAnimal= (async (animal) => {
 
     }
 });
+
+exports.deleteAnimal = async (id) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `DELETE FROM animals WHERE id = :id`,
+        [id],
+        { autoCommit: true }
+    );
+    connection.close();
+    return result.rowsAffected === 1;
+};
+
+exports.updateAnimal = async (id, updateFields) => {
+    const connection = await oracle.getConnection('zoodb');
+    const properties = Object.keys(updateFields);
+    const values = Object.values(updateFields);
+    const binds = {};
+    for (let i = 0; i < properties.length; i++) {
+        binds[properties[i]] = values[i];
+    }
+    binds.id = id;
+    const result = await connection.execute(
+        `UPDATE animals SET ${properties.map(property => `${property} = :${property}`).join(', ')} WHERE id = :id`,
+        binds,
+        { autoCommit: true }
+    );
+    connection.close();
+    return result.rowsAffected === 1;
+};
+
+exports.getAnimalsByType = async (type) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `SELECT * FROM animals WHERE type = :type`,
+        [type]
+    );
+    connection.close();
+    const animals = [];
+    for (let i = 0; i < result.rows.length; i++) {
+        animals.push({
+            name: result.rows[i][1],
+            binomial_name: result.rows[i][2],
+            type: result.rows[i][3],
+            climate: result.rows[i][4],
+            conservation: result.rows[i][5],
+            origin:result.rows[i][6],
+            description: result.rows[i][7],
+            rating: result.rows[i][8],
+            min_weight: result.rows[i][9],
+            max_weight: result.rows[i][10]
+        });
+    }
+    return animals;
+};
+
+exports.getAnimalsByClimate = async (climate) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `SELECT * FROM animals WHERE climate = :climate`,
+        [climate]
+    );
+    connection.close();
+    const animals = [];
+    for (let i = 0; i < result.rows.length; i++) {
+        animals.push({
+            name: result.rows[i][1],
+            binomial_name: result.rows[i][2],
+            type: result.rows[i][3],
+            climate: result.rows[i][4],
+            conservation: result.rows[i][5],
+            origin:result.rows[i][6],
+            description: result.rows[i][7],
+            rating: result.rows[i][8],
+            min_weight: result.rows[i][9],
+            max_weight: result.rows[i][10]
+        });
+    }
+    return animals;
+};
+
+exports.getAnimalsByConservation = async (conservation) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `SELECT * FROM animals WHERE conservation = :conservation`,
+        [conservation]
+    );
+    connection.close();
+    const animals = [];
+    for (let i = 0; i < result.rows.length; i++) {
+        animals.push({
+            name: result.rows[i][1],
+            binomial_name: result.rows[i][2],
+            type: result.rows[i][3],
+            climate: result.rows[i][4],
+            conservation: result.rows[i][5],
+            origin:result.rows[i][6],
+            description: result.rows[i][7],
+            rating: result.rows[i][8],
+            min_weight: result.rows[i][9],
+            max_weight: result.rows[i][10]
+        });
+    }
+    return animals;
+};
+
+exports.getAnimalsByOrigin = async (origin) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        `SELECT * FROM animals WHERE origin = :origin`,
+        [origin]
+    );
+    connection.close();
+    const animals = [];
+    for (let i = 0; i < result.rows.length; i++) {
+        animals.push({
+            name: result.rows[i][1],
+            binomial_name: result.rows[i][2],
+            type: result.rows[i][3],
+            climate: result.rows[i][4],
+            conservation: result.rows[i][5],
+            origin:result.rows[i][6],
+            description: result.rows[i][7],
+            rating: result.rows[i][8],
+            min_weight: result.rows[i][9],
+            max_weight: result.rows[i][10]
+        });
+    }
+    return animals;
+};
