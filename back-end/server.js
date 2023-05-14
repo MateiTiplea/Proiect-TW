@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: "./config.env" });
 const handleApiRequest = require('./controller/controller');
 const oracle = require('oracledb');
+const handleViewRequest = require('./view/viewController');
 
 oracle.createPool({
     user: process.env.DB_USERNAME,
@@ -24,8 +25,7 @@ const server = http.createServer((req, res) => {
     if (url.startsWith('/api')) {
         handleApiRequest(req, res);
     } else {
-        res.statusCode = 404;
-        res.end('Not Found');
+        handleViewRequest(req, res);
     }
 });
 

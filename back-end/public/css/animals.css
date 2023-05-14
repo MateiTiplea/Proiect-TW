@@ -1,0 +1,499 @@
+/*************************************/
+/* ANIMALS PAGE */
+/*************************************/
+
+/* IMPORTANT!!!
+
+De la 1660px in jos, trebuie sa faci un breakpoint pentru a face responsive pagina.
+  
+*/
+
+/*
+--- 01 TYPOGRAPHY SYSTEM
+
+FONT SIZE SYSTEM (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+Font weights:
+Default: 400
+Medium: 500
+Semi-bold: 600
+Bold: 700
+
+Line heights:
+Default: 1
+Small: 1.05
+Paragraph default: 1.6
+
+--- 02 COLORS
+
+Primary color: #1F8A70
+Tints: #e9f3f1
+Shades: #196e5a
+Accents: #ad7062
+Greys: #555, #333, #242424
+
+--- 05 SHADOWS
+
+--- 06 BORDER-RADIUS
+
+Default: 9px
+
+--- 07 WHITESPACE
+
+SPACING SYSTEM (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+*/
+:root {
+  --primary-color: #1f8a70;
+  --tints-color: #e9f3f1;
+  --shades-color: #196e5a;
+  --accents-color: #ad7062;
+  --grey-color: #555;
+  --dark-grey-color: #333;
+  --black-color: #242424;
+  --white-color: #fff;
+  --love-icon: #ff5353;
+  --background-color: #fff;
+}
+
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--grey-color);
+  overflow-x: hidden;
+}
+
+.dark-mode {
+  --primary-color: #135343;
+  --background-color: #061c16;
+  --tints-color: #1f8a70;
+  --shades-color: #104538;
+  --grey-color: #d2e8e2;
+  --dark-grey-color: #e0efeb;
+  --black-color: #edf6f3;
+  --accents-color: #642b39;
+  --white-color: #061c16;
+}
+
+/*************************************/
+/* GENERAL REUSABLE COMPONENTS */
+/*************************************/
+
+.container {
+  max-width: 150rem;
+  margin: 0 auto;
+  padding: 0 3.2rem;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid--2-cols {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4.8rem;
+}
+
+.grid--card-view {
+  grid-template-columns: 1fr 6fr;
+  gap: 3.2rem;
+}
+
+.grid--card {
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.tertiary-heading {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 2.4rem;
+  color: var(--accents-color);
+}
+
+.secondary-heading {
+  font-size: 3.6rem;
+  font-weight: 600;
+  margin-bottom: 4.8rem;
+  color: var(--white-color);
+}
+
+.btn:link,
+.btn:visited {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 500;
+  border-radius: 3rem;
+  padding: 1.2rem 2.4rem;
+  text-align: center;
+
+  transition: all 0.3s;
+
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.btn:hover,
+.btn:active {
+  background-color: var(--shades-color);
+}
+
+/*************************************/
+/* CATEGORIES SECTION */
+/*************************************/
+
+.list-section {
+  padding: 8rem 0 9.6rem 0;
+  background-color: var(--background-color);
+  min-height: 75vh;
+}
+
+.categories-bar {
+  align-self: self-start;
+  box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
+    rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+  background-color: var(--white-color);
+  border-radius: 15px;
+  padding: 1.6rem;
+  /* background-color: #c69b91; */
+  background-color: var(--accents-color);
+}
+
+
+.categories-nav-link:link,
+.categories-nav-link:visited {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--dark-grey-color);
+  font-weight: 500;
+  font-size: 1.8rem;
+  transition: all 0.3s;
+}
+
+.categories-nav-link:hover,
+.categories-nav-link:active {
+  color: var(--shades-color);
+}
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.item {
+  background-color: var(--white-color);
+  border-radius: 15px;
+  box-shadow: 0 0 32px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 0.4rem;
+  gap: 0.8rem;
+}
+
+.categ-name {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--dark-grey-color);
+}
+
+.drop-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  stroke: var(--primary-color);
+}
+
+.hidden-box {
+  grid-column: 1;
+  display: none;
+}
+
+.hidden-box ul {
+  list-style: none;
+  color: var(--grey-color);
+  font-size: 1.4rem;
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.2rem 0;
+}
+
+.hidden-box ul li:hover {
+  color: var(--shades-color);
+  cursor: pointer;
+}
+
+.open .hidden-box {
+  display: block;
+}
+
+.hidden-box ul li {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/*************************************/
+/* CHECKBOX SECTION */
+/*************************************/
+
+/* Customize the label (the container) */
+.container-checkbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 1.2rem;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  height: 1.8rem;
+  width: 1.8rem;
+  background-color: var(--white-color);
+  border: solid var(--shades-color) 1px;
+  border-radius: 4px;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container-checkbox input:checked ~ .checkmark {
+  background-color: var(--shades-color);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container-checkbox .checkmark:after {
+  left: 0.4rem;
+  top: 0.1rem;
+  width: 0.4rem;
+  height: 0.8rem;
+  border: solid var(--white-color);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+/*************************************/
+/* CARD SECTION */
+/*************************************/
+
+.elements-container {
+  align-self: self-start;
+}
+
+.animal-card {
+  position: relative;
+  background-color: var(--white-color);
+  box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
+    rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+  border-radius: 15px;
+}
+
+.dark-mode .animal-card {
+  box-shadow: rgba(95, 95, 95, 0.2) 0px 2px 1px -1px,
+  rgba(95, 95, 95, 0.14) 0px 1px 1px 0px, rgba(95, 95, 95, 0.12) 0px 1px 3px 0px;
+}
+
+.fav-button {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  z-index: 1;
+}
+
+.fav-container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 2.4rem;
+  user-select: none;
+  transition: 100ms;
+}
+
+.fav-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.fav-checkmark {
+  top: 0;
+  left: 0;
+  height: 3.2rem;
+  width: 3.2rem;
+  transition: 100ms;
+  animation: dislike_effect 400ms ease;
+}
+
+.fav-checkmark path{
+  fill: none;
+  stroke: var(--dark-grey-color);
+}
+
+.fav-container input:checked ~ .fav-checkmark path {
+  fill: var(--love-icon);
+  stroke-width: 0;
+}
+
+.fav-container input:checked ~ .fav-checkmark {
+  animation: like_effect 400ms ease;
+}
+
+.fav-container:hover {
+  transform: scale(1.1);
+}
+
+.animal-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px 0 0 15px;
+}
+
+.card-text {
+  padding: 2rem;
+  align-self: center;
+  justify-self: center;
+}
+
+.card-description {
+  list-style: none;
+  color: var(--dark-grey-color);
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-bottom: 1.6rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/*************************************/
+/* PAGINATION */
+/*************************************/
+
+.pagination {
+  grid-column: 1 / -1;
+  justify-self: center;
+  align-self: self-start;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn--pagination {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--primary-color);
+  background: none;
+  cursor: pointer;
+}
+
+.btn-icon {
+  width: 24px;
+  height: 24px;
+  stroke: var(--primary-color);
+}
+
+/* .page-link:link,
+.page-link:visited {
+  font-size: 18px;
+  color: var(--dark-grey-color);
+  text-decoration: none;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-link:hover,
+.page-link:active {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+} */
+
+.page-link {
+  border: none;
+  background: none;
+  font-size: 18px;
+  color: var(--dark-grey-color);
+  text-decoration: none;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-link:hover{
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.dots {
+  font-size: 18px;
+  color: var(--dark-grey-color);
+}
+
+.btn--pagination:hover {
+  background-color: var(--primary-color);
+}
+
+.btn--pagination:hover .btn-icon {
+  stroke: var(--white-color);
+}
+
+.page-link.page-link--active {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}

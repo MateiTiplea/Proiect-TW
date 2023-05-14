@@ -1,0 +1,184 @@
+/*************************************/
+/* HEADER */
+/*************************************/
+:root {
+  --primary-color-header: #1f8a70;
+  --tints-color-header: #e9f3f1;
+  --shades-color-header: #196e5a;
+  --accents-color-header: #ad7062;
+  --grey-color-header: #555;
+  --dark-grey-color-header: #333;
+  --black-color-header: #242424;
+  --white-color-header: #fff;
+}
+
+.dark-mode {
+  --primary-color-header: #1f8a70;
+  --tints-color-header: #135343;
+  --shades-color-header: #4ca18d;
+  --grey-color-header: #d2e8e2;
+  --dark-grey-color-header: #e0efeb;
+  --black-color-header: #edf6f3;
+  --accents-color-header: #642b39;
+  --white-color-header: #d2e8e2;
+}
+
+
+.hidden {
+  display: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--tints-color-header);
+  position: relative;
+
+  height: 8rem;
+  padding: 0 9.6rem;
+}
+
+.menu-icon {
+  display: none;
+  height: 2.4rem;
+  width: 2.4rem;
+}
+
+.logo {
+  height: 6.4rem;
+  width: 6.4rem;
+}
+
+.header-search {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.header-search a {
+  display: inline-block;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-bar {
+  display: inline-block;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #333;
+
+  padding: 0.4rem 0.8rem;
+  border: 2px solid var(--grey-color-header);
+  border-radius: 30px;
+}
+
+/*************************************/
+/* NAVIGATION */
+/*************************************/
+
+.main-nav {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
+.main-nav-list {
+  list-style: none;
+  display: flex;
+  gap: 6.4rem;
+  align-items: center;
+}
+
+.main-nav-list li {
+  position: relative;
+}
+
+.main-nav-link:link,
+.main-nav-link:visited {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--dark-grey-color-header);
+  font-weight: 500;
+  font-size: 1.8rem;
+  transition: all 0.3s;
+}
+
+.main-nav-link:hover,
+.main-nav-link:active {
+  color: var(--shades-color-header);
+}
+
+.nav-cta {
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 30px;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--white-color-header);
+  background-color: var(--primary-color-header);
+
+  transition: all 0.3s;
+}
+
+.nav-cta:hover {
+  background-color: var(--shades-color-header);
+  cursor: pointer;
+}
+
+.language-icon {
+  height: 3.2rem;
+  width: 3.2rem;
+}
+
+/* MOBILE NAVIGATION */
+.btn-mobile-nav {
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  display: none;
+}
+
+.icon-mobile-nav {
+  height: 4.8rem;
+  width: 4.8rem;
+  color: var(--dark-grey-color-header);
+}
+
+.close-outline {
+  display: none;
+}
+
+/**********************************************/
+/* DROPDOWN -- inactive as it broke my design */
+/**********************************************/
+
+/* .dropdown {
+  list-style: none;
+  position: absolute;
+  visibility: hidden;
+  background-color: #e9f3f1;
+  padding-left: 0;
+  left: 0;
+  display: none;
+}
+
+.main-nav-list li:hover > .dropdown,
+.main-nav-list li .dropdown:hover {
+  visibility: visible;
+  display: block;
+  opacity: 1;
+  text-align: left;
+  width: 12rem;
+  padding-top: 2rem;
+  box-shadow: 0px 3px 5px -1px #ccc;
+}
+
+.dropdown li {
+  margin-bottom: 2rem;
+  padding: 0 2rem;
+} */
