@@ -1,4 +1,6 @@
 const oracle = require('oracledb');
+const fs = require('fs');
+const path = require('path');
 
 exports.getAllAnimals = (async () => {
     const connection = await oracle.getConnection('zoodb');
@@ -223,4 +225,73 @@ exports.getAnimalsByOrigin = async (origin) => {
         });
     }
     return animals;
+};
+
+exports.uploadPhoto = async (id, photoData, photoName, contentType) => {
+    const destPath = path.join(__dirname, '..', 'public', 'animalPhotos', photoName);
+    fs.writeFileSync(destPath, photoData, 'binary', (err) => {
+        if (err) {
+            return false;
+        }
+    });
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        'INSERT INTO images (animal_id, path, content_type) VALUES (:id, :photoName, :contentType)',
+        [id, photoName, contentType],
+        { autoCommit: true }
+    );
+    connection.close();
+    return result.rowsAffected === 1;
+};
+
+exports.getPhoto = async (id) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        'SELECT * FROM images WHERE animal_id = :id',
+        [id]
+    );
+    connection.close();
+    if (result.rows.length === 0) {
+        return null;
+    }
+    const photoData = fs.readFileSync(path.join(__dirname, '..', 'public', 'animalPhotos', result.rows[0][2]));
+    return {
+        photo: photoData,
+        contentType: result.rows[0][3]
+    };
+};
+
+exports.validatePhoto = async (id) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        'SELECT * FROM images WHERE animal_id = :id',
+        [id]
+    );
+    connection.close();
+    return result.rows.length === 1;
+};
+
+exports.updatePhoto = async (id, photoData, photoName, contentType) => {
+  // delete the old file stored in the database
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        'SELECT * FROM images WHERE animal_id = :id',
+        [id]
+    );
+    fs.unlinkSync(path.join(__dirname, '..', 'public', 'animalPhotos', result.rows[0][2]));
+    // save the new file
+    const destPath = path.join(__dirname, '..', 'public', 'animalPhotos', photoName);
+    fs.writeFileSync(destPath, photoData, 'binary', (err) => {
+        if (err) {
+            return false;
+        }
+    });
+    // update the database
+    const result2 = await connection.execute(
+        'UPDATE images SET path = :photoName, content_type = :contentType WHERE animal_id = :id',
+        [photoName, contentType, id],
+        { autoCommit: true }
+    );
+    connection.close();
+    return result2.rowsAffected === 1;
 };

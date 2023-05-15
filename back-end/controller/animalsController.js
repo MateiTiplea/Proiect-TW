@@ -6,6 +6,8 @@ const errorController = require('./errorController');
 const parseRequestBody = require('../utils/parseRequest');
 const users = require("../model/user");
 const {protect, restrictTo} = require('./authController');
+const {readRequestBodyBuffer, getBoundary} = require('../utils/parseRequestBuffer');
+const parseMultipart = require('../utils/parseMultipart');
 
 const getAll = catchAsync(async (req, res) => {
     const result = await animals.getAllAnimals();
@@ -167,6 +169,92 @@ const getAnimalsByOrigin = catchAsync(async (req, res) => {
     res.end(JSON.stringify(result));
 });
 
+const uploadPhoto = catchAsync(async (req, res) => {
+    const id = req.url.split('/')[3];
+    const {headers} = req;
+
+    if(await animals.validatePhoto(id)) {
+        errorController(res, new AppError('Animal already has a photo! Try an update!', 400));
+        return;
+    }
+
+    const contentType = headers['content-type'];
+    if(!contentType || !contentType.startsWith('multipart/form-data')) {
+        errorController(res, new AppError('Please provide an image', 400));
+        return;
+    }
+    const body = await readRequestBodyBuffer(req);
+    const stringBody = Buffer.concat(body).toString('binary');
+
+    const boundary = getBoundary(req);
+    if(!boundary) {
+        errorController(res, new AppError('Please provide an image', 400));
+        return;
+    }
+
+    const multipartData = parseMultipart(stringBody, boundary);
+    if(multipartData.fileContentType !== 'image/jpeg' && multipartData.fileContentType !== 'image/png') {
+        errorController(res, new AppError('Please provide an image', 400));
+        return;
+    }
+    const result = await animals.uploadPhoto(id, multipartData.fileBodyBuffer, multipartData.fileName, multipartData.fileContentType);
+    if(!result) {
+        errorController(res, new AppError('Could not upload photo', 500));
+        return;
+    }
+    res.statusCode = 204;
+    res.end();
+});
+
+const getPhoto = catchAsync(async(req,res) => {
+    const id = req.url.split('/')[3];
+    const result = await animals.getPhoto(id);
+    if(!result) {
+        errorController(res, new AppError('No animal found with that ID', 404));
+        return;
+    }
+    res.statusCode = 200;
+    res.setHeader('Content-Type', result.contentType);
+    res.end(result.photo);
+});
+
+const updatePhoto = catchAsync(async (req, res) => {
+    const id = req.url.split('/')[3];
+    const {headers} = req;
+
+    if(!await animals.validatePhoto(id)) {
+        errorController(res, new AppError('Animal does not have a photo! Try a post!', 400));
+        return;
+    }
+
+    const contentType = headers['content-type'];
+    if(!contentType || !contentType.startsWith('multipart/form-data')) {
+        errorController(res, new AppError('Please provide an image', 400));
+        return;
+    }
+    const body = await readRequestBodyBuffer(req);
+    const stringBody = Buffer.concat(body).toString('binary');
+
+    const boundary = getBoundary(req);
+    if(!boundary) {
+        errorController(res, new AppError('Please provide an image', 400));
+        return;
+    }
+
+    const multipartData = parseMultipart(stringBody, boundary);
+    if(multipartData.fileContentType !== 'image/jpeg' && multipartData.fileContentType !== 'image/png') {
+        errorController(res, new AppError('Please provide an image', 400));
+        return;
+    }
+    const result = await animals.updatePhoto(id, multipartData.fileBodyBuffer, multipartData.fileName, multipartData.fileContentType);
+    if(!result) {
+        errorController(res, new AppError('Could not update photo', 500));
+        return;
+    }
+    res.statusCode = 204;
+    res.end();
+});
+
 const animalsController = catchAsync(async (req, res) => {
     const { url,method } = req;
     res.setHeader('Content-Type', 'application/json');
@@ -189,6 +277,26 @@ const animalsController = catchAsync(async (req, res) => {
         getAnimalsByConservation(req, res);
     } else if(url.match(/\/api\/animals\/region\/([a-zA-Z]+)/) && method === 'GET'){
         getAnimalsByOrigin(req, res);
+    } else if(url.match(/\/api\/animals\/([0-9]+)\/photo/) && method === 'POST'){
+        const logUser = await protect(req, res);
+        if(!logUser) {
+            return;
+        }
+        if(!restrictTo(res, logUser, 'admin')) {
+            return;
+        }
+        uploadPhoto(req, res);
+    } else if(url.match(/\/api\/animals\/([0-9]+)\/photo/) && method === 'PUT'){
+        const logUser = await protect(req, res);
+        if(!logUser) {
+            return;
+        }
+        if(!restrictTo(res, logUser, 'admin')) {
+            return;
+        }
+        updatePhoto(req, res);
+    } else if(url.match(/\/api\/animals\/([0-9]+)\/photo/) && method === 'GET'){
+        getPhoto(req, res);
     } else if(url.match(/\/api\/animals\/([0-9]+)/) && method === 'GET') {
         getById(req, res);
     } else if(url.match(/\/api\/animals\/([a-zA-Z]+)/) && method === 'GET') {
