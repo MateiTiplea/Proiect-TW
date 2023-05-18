@@ -256,11 +256,11 @@ exports.addComment = async (user_id, animal_id, comment) => {
     return result.rowsAffected === 1;
 };
 
-exports.deleteMyComment = async (id, comment_id) => {
+exports.deleteMyComment = async (userId, animalId, comment_id) => {
     const connection = await oracle.getConnection('zoodb');
     const result = await connection.execute(
-        `DELETE FROM COMMENTS WHERE user_id = :id AND id = :comment_id`,
-        [id, comment_id],
+        `DELETE FROM COMMENTS WHERE user_id = :userId AND id = :comment_id AND animal_id = :animal_id`,
+        [userId, comment_id, animalId],
         { autoCommit: true }
     );
     connection.close();

@@ -255,6 +255,88 @@ const updatePhoto = catchAsync(async (req, res) => {
     res.end();
 });
 
+const getComments = catchAsync(async (req, res) => {
+    const id = req.url.split('/')[3];
+    const result = await users.getComments(id);
+    if(!result) {
+        errorController(res, new AppError('No animal found with that ID', 404));
+        return;
+    }
+    res.statusCode = 200;
+    res.end(JSON.stringify(result));
+});
+
+const addComment = catchAsync(async (req, res) => {
+    const id = req.url.split('/')[3];
+    const {comment} = await parseRequestBody(req);
+    if(!comment) {
+        errorController(res, new AppError('Please provide a comment', 400));
+        return;
+    }
+    const result = await users.addComment(req.currentUser.id, id, comment);
+    if(!result) {
+        errorController(res, new AppError('Could not add comment', 500));
+        return;
+    }
+    res.statusCode = 204;
+    res.end();
+});
+
+const deleteMyComment = catchAsync(async (req, res) => {
+    const animalId = req.url.split('/')[3];
+    const commentId = req.url.split('/')[5];
+    const result = await users.deleteMyComment(req.currentUser.id, animalId, commentId);
+    if(!result) {
+        errorController(res, new AppError('Could not delete comment', 500));
+        return;
+    }
+    res.statusCode = 204;
+    res.end();
+});
+
+const getRating = catchAsync(async (req, res) => {
+    const id = req.url.split('/')[3];
+    const result = await animals.getRating(id);
+    if(result === null) {
+        errorController(res, new AppError('No animal found with that ID', 404));
+        return;
+    }
+    res.statusCode = 200;
+    res.end(JSON.stringify(result));
+});
+
+const addRating = catchAsync(async (req, res) => {
+    const id = req.url.split('/')[3];
+    const {rating} = await parseRequestBody(req);
+    if(!rating) {
+        errorController(res, new AppError('Please provide a rating', 400));
+        return;
+    }
+    const result = await animals.addRating(req.currentUser.id, id, rating);
+    if(!result) {
+        errorController(res, new AppError('Could not add rating', 500));
+        return;
+    }
+    res.statusCode = 204;
+    res.end();
+});
+
+const updateRating = catchAsync(async (req, res) => {
+    const id = req.url.split('/')[3];
+    const {rating} = await parseRequestBody(req);
+    if(!rating) {
+        errorController(res, new AppError('Please provide a rating', 400));
+        return;
+    }
+    const result = await animals.updateRating(req.currentUser.id, id, rating);
+    if(!result) {
+        errorController(res, new AppError('Could not update rating', 500));
+        return;
+    }
+    res.statusCode = 204;
+    res.end();
+});
+
 const animalsController = catchAsync(async (req, res) => {
     const { url,method } = req;
     res.setHeader('Content-Type', 'application/json');
@@ -297,6 +379,35 @@ const animalsController = catchAsync(async (req, res) => {
         updatePhoto(req, res);
     } else if(url.match(/\/api\/animals\/([0-9]+)\/photo/) && method === 'GET'){
         getPhoto(req, res);
+    } else if(url.match(/\/api\/animals\/([0-9]+)\/comments/) && method === 'GET'){
+        getComments(req, res);
+    } else if(url.match(/\/api\/animals\/([0-9]+)\/comments/) && method === 'POST'){
+        const logUser = await protect(req, res);
+        if(!logUser) {
+            return;
+        }
+        addComment(req, res);
+    } else if(url.match(/\/api\/animals\/([0-9]+)\/comments\/([0-9]+)/) && method === 'DELETE'){
+        const logUser = await protect(req, res);
+        if(!logUser) {
+            return;
+        }
+        deleteMyComment(req, res);
+    } else if(url.match(/\/api\/animals\/([0-9]+)\/rating/) && method === 'GET'){
+        console.log('rating');
+        getRating(req, res);
+    } else if(url.match(/\/api\/animals\/([0-9]+)\/rating/) && method === 'POST'){
+        const logUser = await protect(req, res);
+        if(!logUser) {
+            return;
+        }
+        addRating(req, res);
+    } else if(url.match(/\/api\/animals\/([0-9]+)\/rating/) && method === 'PUT'){
+        const logUser = await protect(req, res);
+        if(!logUser) {
+            return;
+        }
+        updateRating(req, res);
     } else if(url.match(/\/api\/animals\/([0-9]+)/) && method === 'GET') {
         getById(req, res);
     } else if(url.match(/\/api\/animals\/([a-zA-Z]+)/) && method === 'GET') {

@@ -295,3 +295,38 @@ exports.updatePhoto = async (id, photoData, photoName, contentType) => {
     connection.close();
     return result2.rowsAffected === 1;
 };
+
+exports.getRating = async (id) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        'SELECT rating FROM animals WHERE id = :id',
+        [id]
+    );
+    connection.close();
+    if(result.rows.length === 0) {
+        return null;
+    }
+    return result.rows[0][0];
+};
+
+exports.addRating = async (userId, animalId, rating) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        'INSERT INTO ratings (user_id, animal_id, rating) VALUES (:userId, :animalId, :rating)',
+        [userId, animalId, rating],
+        { autoCommit: true }
+    );
+    connection.close();
+    return result.rowsAffected === 1;
+};
+
+exports.updateRating = async (userId, animalId, rating) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        'UPDATE ratings SET rating = :rating WHERE user_id = :userId AND animal_id = :animalId',
+        [rating, userId, animalId],
+        { autoCommit: true }
+    );
+    connection.close();
+    return result.rowsAffected === 1;
+};

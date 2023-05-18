@@ -135,52 +135,6 @@ const deleteFavorite = catchAsync(async (req, res) => {
         errorController(res, new AppError('Animal not found', 404));
     }
 });
-
-const getComments = catchAsync(async (req, res) => {
-    const {animal_id} = await parseRequestBody(req);
-    if(!animal_id) {
-        errorController(res, new AppError('Please provide all required fields', 400));
-        return;
-    }
-    const result = await users.getComments(animal_id);
-    const response = {
-        status: 'success',
-        data: {
-            comments: result
-        }
-    };
-    res.statusCode = 200;
-    res.end(JSON.stringify(response));
-});
-
-const addComment = catchAsync(async (req, res) => {
-    const id = req.currentUser.id;
-    const {animal_id, comment} = await parseRequestBody(req);
-    if(!animal_id || !comment) {
-        errorController(res, new AppError('Please provide all required fields', 400));
-        return;
-    }
-    const result = await users.addComment(id, animal_id, comment);
-    if(result) {
-        res.statusCode = 204;
-        res.end();
-    } else {
-        errorController(res, new AppError('Animal not found', 404));
-    }
-});
-
-const deleteMyComment = catchAsync(async (req, res) => {
-    const id = req.currentUser.id;
-    const comment_id = req.url.split('/')[4];
-    const result = await users.deleteMyComment(id, comment_id);
-    if(result) {
-        res.statusCode = 204;
-        res.end();
-    } else {
-        errorController(res, new AppError('Comment not found or not this users comment', 404));
-    }
-});
-
 const userController = catchAsync(async(req,res) => {
     const {url, method} = req;
     res.setHeader('Content-Type', 'application/json');
@@ -244,20 +198,6 @@ const userController = catchAsync(async(req,res) => {
             return;
         }
         deleteFavorite(req, res);
-    } else if (url === '/api/users/comments' && method === 'GET') {
-        getComments(req, res);
-    } else if (url === '/api/users/comments' && method === 'POST') {
-        const logUser = await protect(req, res);
-        if(!logUser) {
-            return;
-        }
-        addComment(req, res);
-    } else if (url.match(/\/api\/users\/comments\/([0-9]+)/) && method === 'DELETE') {
-        const logUser = await protect(req, res);
-        if(!logUser) {
-            return;
-        }
-        deleteMyComment(req, res);
     }
     else {
         errorController(res, new AppError('Not Found', 404));
