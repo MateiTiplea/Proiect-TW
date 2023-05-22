@@ -64,8 +64,12 @@ const updateSelf = catchAsync(async (req, res) => {
 const bookTicket = catchAsync(async (req, res) => {
     const id = req.currentUser.id;
     const {name, phone, book_date, adult_tickets, student_tickets, kids_tickets} = await parseRequestBody(req);
-    if(!name || !phone || !book_date || !adult_tickets || !student_tickets || !kids_tickets) {
+    if(!name || !phone || !book_date) {
         errorController(res, new AppError('Please provide all required fields', 400));
+        return;
+    }
+    if(!adult_tickets && !student_tickets && !kids_tickets) {
+        errorController(res, new AppError('Please provide at least one ticket field', 400));
         return;
     }
     const ticket = {
@@ -135,6 +139,15 @@ const deleteFavorite = catchAsync(async (req, res) => {
         errorController(res, new AppError('Animal not found', 404));
     }
 });
+
+const getSelf = catchAsync(async (req, res) => {
+    res.statusCode = 200;
+    res.end(JSON.stringify({
+        status: 'success',
+        data: req.currentUser
+    }));
+});
+
 const userController = catchAsync(async(req,res) => {
     const {url, method} = req;
     res.setHeader('Content-Type', 'application/json');
@@ -156,7 +169,14 @@ const userController = catchAsync(async(req,res) => {
             return;
         }
         deleteUserById(req, res);
-    } else if (url === '/api/users/deleteSelf' && method === 'DELETE') {
+    } else if(url === '/api/users/self' && method === 'GET') {
+        const logUser = await protect(req, res);
+        if(!logUser) {
+            return;
+        }
+        getSelf(req, res);
+    }
+    else if (url === '/api/users/deleteSelf' && method === 'DELETE') {
         const logUser = await protect(req, res);
         if(!logUser) {
             return;

@@ -10,7 +10,7 @@ exports.getAllUsers = (async () => {
     const users = [];
     for (let i = 0; i < result.rows.length; i++) {
         users.push({
-            // id: result.rows[i][0],
+            id: result.rows[i][0],
             username: result.rows[i][1],
             email: result.rows[i][2],
             // password: result.rows[i][3],
@@ -101,7 +101,11 @@ exports.getUserByUsername = async (username) => {
         username: result.rows[0][1],
         email: result.rows[0][2],
         password: result.rows[0][3],
-        role: result.rows[0][6]
+        first_name: result.rows[0][4],
+        last_name: result.rows[0][5],
+        role: result.rows[0][6],
+        theme: result.rows[0][7],
+        phone: result.rows[0][8],
     }
 };
 
@@ -150,7 +154,7 @@ exports.bookTicket = async(id, ticket) => {
     const connection = await oracle.getConnection('zoodb');
     await connection.execute(
         `INSERT INTO BOOKINGS (user_id, name, phone, book_date, adult_tickets, student_tickets, kids_tickets)
-            VALUES (:user_id, :name, :phone, :book_date, :adult_tickets, :student_tickets, :kids_tickets)`,
+            VALUES (:user_id, :name, :phone, TO_DATE(:book_date, 'YYYY-MM-DD'), :adult_tickets, :student_tickets, :kids_tickets)`,
         [id, ticket.name, ticket.phone, ticket.book_date, ticket.adult_tickets, ticket.student_tickets, ticket.kids_tickets],
         { autoCommit: true }
     );
@@ -161,13 +165,14 @@ exports.bookTicket = async(id, ticket) => {
 exports.getBookings = async (id) => {
     const connection = await oracle.getConnection('zoodb');
     const result = await connection.execute(
-        `SELECT * FROM BOOKINGS WHERE user_id = :id`,
+        `SELECT * FROM BOOKINGS WHERE user_id = :id ORDER BY book_date DESC`,
         [id]
     );
     connection.close();
     const bookings = [];
     for (let i = 0; i < result.rows.length; i++) {
         bookings.push({
+            id: result.rows[i][0],
             name: result.rows[i][2],
             phone: result.rows[i][3],
             book_date: result.rows[i][4],
@@ -183,7 +188,7 @@ exports.getFavorites = async (id) => {
     const connection = await oracle.getConnection('zoodb');
     const result = await connection.execute(
         `SELECT a.name, a.binomial_name, a.type, a.climate, a.conservation, a.origin, a.description, a.rating, a.min_weight,
-            a.max_weight FROM ANIMALS a JOIN FAVORITES F on a.ID = F.ANIMAL_ID WHERE F.USER_ID = :id`,
+            a.max_weight, a.id, f.animal_id FROM ANIMALS a JOIN FAVORITES F on a.ID = F.ANIMAL_ID WHERE F.USER_ID = :id`,
         [id]
     );
     connection.close();
@@ -199,7 +204,9 @@ exports.getFavorites = async (id) => {
             description: result.rows[i][6],
             rating: result.rows[i][7],
             min_weight: result.rows[i][8],
-            max_weight: result.rows[i][9]
+            max_weight: result.rows[i][9],
+            animal_id: result.rows[i][10],
+            id: result.rows[i][11]
         });
     }
     return favorites;
@@ -237,6 +244,7 @@ exports.getComments = async (id) => {
     const comments = [];
     for (let i = 0; i < result.rows.length; i++) {
         comments.push({
+            id: result.rows[i][0],
             comment: result.rows[i][0],
             date_created: result.rows[i][1],
             username: result.rows[i][2]
