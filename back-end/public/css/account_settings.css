@@ -55,6 +55,7 @@
 .main--content {
     background-color: var(--background-color-account);
     padding: 9.6rem 3.2rem 9.6rem 3.2rem;
+    min-height: 71vh;
 }
 
 .settings--section {
@@ -62,8 +63,8 @@
     margin: 0 auto;
     background-color: var(--primary-color-account); 
     border-radius: 15px;
-    box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
-        rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+    box-shadow: rgb(0 0 0 / 20%) 0 2px 1px -1px,
+        rgb(0 0 0 / 14%) 0 1px 1px 0, rgb(0 0 0 / 12%) 0 1px 3px 0;
 }
 
 
