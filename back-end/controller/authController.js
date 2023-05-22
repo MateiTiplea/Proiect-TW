@@ -114,7 +114,7 @@ const resetPassword = catchAsync(async (req, res) => {
         status: 'success',
         message: 'Password updated'
     }
-    res.statusCode = 200;
+    res.statusCode = 204;
     res.end(JSON.stringify(response));
 });
 

@@ -11,7 +11,7 @@ exports.getAllAnimals = (async () => {
     const animals = [];
     for (let i = 0; i < result.rows.length; i++) {
         animals.push({
-            // id: result.rows[i][0],
+            id: result.rows[i][0],
             name: result.rows[i][1],
             binomial_name: result.rows[i][2],
             type: result.rows[i][3],
@@ -38,6 +38,7 @@ exports.getAnimalById = async (id) => {
         return null;
     }
     return {
+        id: result.rows[0][0],
         name: result.rows[0][1],
         binomial_name: result.rows[0][2],
         type: result.rows[0][3],
@@ -62,6 +63,7 @@ exports.getAnimalByName = async (name) => {
         return null;
     }
     return {
+        id: result.rows[0][0],
         name: result.rows[0][1],
         binomial_name: result.rows[0][2],
         type: result.rows[0][3],
@@ -137,6 +139,7 @@ exports.getAnimalsByType = async (type) => {
     const animals = [];
     for (let i = 0; i < result.rows.length; i++) {
         animals.push({
+            id: result.rows[i][0],
             name: result.rows[i][1],
             binomial_name: result.rows[i][2],
             type: result.rows[i][3],
@@ -162,6 +165,7 @@ exports.getAnimalsByClimate = async (climate) => {
     const animals = [];
     for (let i = 0; i < result.rows.length; i++) {
         animals.push({
+            id: result.rows[i][0],
             name: result.rows[i][1],
             binomial_name: result.rows[i][2],
             type: result.rows[i][3],
@@ -187,6 +191,7 @@ exports.getAnimalsByConservation = async (conservation) => {
     const animals = [];
     for (let i = 0; i < result.rows.length; i++) {
         animals.push({
+            id: result.rows[i][0],
             name: result.rows[i][1],
             binomial_name: result.rows[i][2],
             type: result.rows[i][3],
@@ -212,6 +217,7 @@ exports.getAnimalsByOrigin = async (origin) => {
     const animals = [];
     for (let i = 0; i < result.rows.length; i++) {
         animals.push({
+            id: result.rows[i][0],
             name: result.rows[i][1],
             binomial_name: result.rows[i][2],
             type: result.rows[i][3],
@@ -272,7 +278,7 @@ exports.validatePhoto = async (id) => {
 };
 
 exports.updatePhoto = async (id, photoData, photoName, contentType) => {
-  // delete the old file stored in the database
+    // delete the old file stored in the database
     const connection = await oracle.getConnection('zoodb');
     const result = await connection.execute(
         'SELECT * FROM images WHERE animal_id = :id',
@@ -329,4 +335,59 @@ exports.updateRating = async (userId, animalId, rating) => {
     );
     connection.close();
     return result.rowsAffected === 1;
+};
+
+exports.search = async (searchTerm) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        'SELECT * FROM animals WHERE name LIKE :searchTerm OR binomial_name LIKE :searchTerm OR type LIKE :searchTerm ' +
+        'OR climate LIKE :searchTerm OR conservation LIKE :searchTerm OR origin LIKE :searchTerm OR description LIKE :searchTerm',
+        ['%' + searchTerm + '%']
+    );
+    connection.close();
+    const animals = [];
+    for (let i = 0; i < result.rows.length; i++) {
+        animals.push({
+            id: result.rows[i][0],
+            name: result.rows[i][1],
+            binomial_name: result.rows[i][2],
+            type: result.rows[i][3],
+            climate: result.rows[i][4],
+            conservation: result.rows[i][5],
+            origin:result.rows[i][6],
+            description: result.rows[i][7],
+            rating: result.rows[i][8],
+            min_weight: result.rows[i][9],
+            max_weight: result.rows[i][10]
+        });
+    }
+    return animals;
+};
+
+exports.getCriteria = async(criteriaDict) => {
+    const connection = await oracle.getConnection('zoodb');
+    // criteriaDict is a dictionary that contains arrays of criteria
+    // for example, criteriaDict = {type: ['mammal', 'bird'], climate: ['tropical', 'temperate']}
+    const result = await connection.execute(
+        'SELECT * FROM ANIMALS WHERE ' + Object.keys(criteriaDict).map(key => key + ' IN (' + criteriaDict[key].map((_, i) => ':' + key + i).join(', ') + ')').join(' OR '),
+        Object.keys(criteriaDict).reduce((acc, key) => acc.concat(criteriaDict[key]), [])
+    );
+    connection.close();
+    const animals = [];
+    for (let i = 0; i < result.rows.length; i++) {
+        animals.push({
+            id: result.rows[i][0],
+            name: result.rows[i][1],
+            binomial_name: result.rows[i][2],
+            type: result.rows[i][3],
+            climate: result.rows[i][4],
+            conservation: result.rows[i][5],
+            origin: result.rows[i][6],
+            description: result.rows[i][7],
+            rating: result.rows[i][8],
+            min_weight: result.rows[i][9],
+            max_weight: result.rows[i][10]
+        });
+    }
+    return animals;
 };

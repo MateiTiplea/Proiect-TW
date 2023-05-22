@@ -497,3 +497,12 @@ body {
   background-color: var(--primary-color);
   color: var(--white-color);
 }
+
+.loading-container{
+  grid-column: 1 / -1;
+  justify-self: center;
+  align-self: center;
+
+  font-size: 4.4rem;
+  color: var(--dark-grey-color);
+}

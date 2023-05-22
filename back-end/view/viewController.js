@@ -12,43 +12,39 @@ const mimeLookup = {
     '.gif': 'image/gif',
 };
 
+
+const respondFile = (req, res, filePath) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/html');
+    fs.readFile(`./view/templates/${filePath}`, (err, data) => {
+        if(err) {
+            res.statusCode = 500;
+            res.end('Internal Server Error');
+        } else {
+            res.end(data);
+        }
+    });
+}
+
 const handleViewRequest = (req, res) => {
-    if(req.url === '/'){
-        // read index.html file from /templates folder
-        // send the file content to the client
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/html');
-        fs.readFile('./view/templates/index.html', (err, data) => {
-            if(err) {
-                res.statusCode = 500;
-                res.end('Internal Server Error');
-            } else {
-                res.end(data);
-            }
-        });
+    if(req.url === '/' || req.url === '/home'){
+        respondFile(req, res, 'index.html');
     } else if(req.url === '/bookTickets'){
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/html');
-        fs.readFile('./view/templates/book_tickets.html', (err, data) => {
-            if(err) {
-                res.statusCode = 500;
-                res.end('Internal Server Error');
-            } else {
-                res.end(data);
-            }
-        });
+        respondFile(req, res, 'book_tickets.html');
     } else if(req.url === '/aboutUs'){
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/html');
-        fs.readFile('./view/templates/about_us.html', (err, data) => {
-            if(err) {
-                res.statusCode = 500;
-                res.end('Internal Server Error');
-            } else {
-                res.end(data);
-            }
-        });
-    } else{
+        respondFile(req, res, 'about_us.html');
+    } else if(req.url === '/login'){
+        respondFile(req, res, 'login.html');
+    } else if(req.url === '/signup'){
+        respondFile(req, res, 'signup.html');
+    } else if(req.url === '/forgotPassword'){
+        respondFile(req, res, 'forgot_pass.html');
+    } else if(req.url === '/account'){
+        respondFile(req, res, 'account_settings.html');
+    } else if(req.url === '/animals'){
+        respondFile(req, res, 'animals.html');
+    }
+    else{
         const fileUrl = '/public' + req.url;
         const filepath = path.resolve('.' + fileUrl);
         const fileExt = path.extname(filepath);

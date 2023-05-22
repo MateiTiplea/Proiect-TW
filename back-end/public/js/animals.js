@@ -1,7 +1,25 @@
 'use strict';
 
 const dropDowns = document.querySelectorAll('.drop-icon');
-const dropItems = document.querySelectorAll('.item');
+const pagination = document.querySelector('.pagination');
+const animalList = document.querySelector('.elements-container');
+const inputs = document.querySelectorAll('.container-checkbox input');
+let animals = [];
+let userFavourites = [];
+
+const getUserFavourites = function (token) {
+    return fetch('http://localhost:3000/api/users/favorites', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }).then(response => {
+        if(!response.ok){
+            alert('Error getting user favourites');
+            return;
+        }
+        return response.json();
+    });
+}
 
 const openDropDown = function (dropItem) {
     dropItem.classList.add('open');
@@ -22,112 +40,79 @@ dropDowns.forEach(function (dropDown) {
     });
 });
 
-
-const animals = [
-    {
-        name: 'Lion',
-        image: 'images/animals/lion-min.jpg',
-        binomialName: 'Panthera leo',
-        origin: 'Africa',
-        weight: '180-250 kg',
-    },
-    {
-        name: 'Tiger',
-        image: 'images/animals/tiger.jpg',
-        binomialName: 'Panthera tigris',
-        origin: 'Asia',
-        weight: '100-310 kg',
-    },
-    {
-        name: 'Bear',
-        image: 'images/animals/bear.jpg',
-        binomialName: 'Ursus arctos',
-        origin: 'North America',
-        weight: '150-680 kg',
-    },
-    {
-        name: 'Wolf',
-        image: 'images/animals/wolf.jpg',
-        binomialName: 'Canis lupus',
-        origin: 'Europe',
-        weight: '20-45 kg',
-    },
-    {
-        name: 'Elephant',
-        image: 'images/animals/elephant.jpg',
-        binomialName: 'Elephas maximus',
-        origin: 'Africa',
-        weight: '2,700-5,000 kg',
-    },
-    {
-        name: 'Giraffe',
-        image: 'images/animals/giraffe.jpg',
-        binomialName: 'Giraffa camelopardalis',
-        origin: 'Africa',
-        weight: '1,000-1,500 kg',
-    },
-    {
-        name: 'Rhinoceros',
-        image: 'images/animals/rhinoceros.jpg',
-        binomialName: 'Rhinoceros unicornis',
-        origin: 'Africa',
-        weight: '1,000-1,500 kg',
-    },
-    {
-        name: 'Hippopotamus',
-        image: 'images/animals/hippopotamus.jpg',
-        binomialName: 'Hippopotamus amphibius',
-        origin: 'Africa',
-        weight: '1,000-1,500 kg',
-    },
-    {
-        name: 'Leopard',
-        image: 'images/animals/leopard.jpg',
-        binomialName: 'Panthera pardus',
-        origin: 'Africa',
-        weight: '40-70 kg',
-    },
-    {
-        name: 'Zebra',
-        image: 'images/animals/zebra.jpg',
-        binomialName: 'Equus quagga',
-        origin: 'Africa',
-        weight: '350-550 kg',
-    },
-    {
-        name: 'Crocodile',
-        image: 'images/animals/crocodile.jpg',
-        binomialName: 'Crocodylus niloticus',
-        origin: 'Africa',
-        weight: '500-1,000 kg',
-    },
-    {
-        name: 'Red panda',
-        image: 'images/animals/red_panda-min.jpg',
-        binomialName: 'Ailurus fulgens',
-        origin: 'Asia',
-        weight: '3-6 kg',
+const getAnimals = async function () {
+    const response = await fetch('http://localhost:3000/api/animals');
+    if(!response.ok){
+        alert('Error getting animals');
+        return;
     }
-];
+    return await response.json();
+}
 
+const showLoadingText = function () {
+    /*const animalList = document.querySelector('.elements-container');*/
+    clearAnimalCards();
+    const htmlString = `
+        <div class="loading-container">
+            <p class="loading-text">Loading animals...</p>
+        </div>
+    `;
+    animalList.insertAdjacentHTML('afterbegin', htmlString);
+}
 
-const animalList = document.querySelector('.elements-container');
+const hideLoadingText = function () {
+    const loadingText = document.querySelector('.loading-container');
+    loadingText.parentElement.removeChild(loadingText);
+}
+
+const getAnimalImg = function (id) {
+    return `http://localhost:3000/api/animals/${id}/photo`;
+}
+
+const addAnimalToFavourites = async function (token, id) {
+    const response = await fetch(`http://localhost:3000/api/users/favorites`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            animal_id: id
+        })
+    });
+    if(!response.ok){
+        alert('Error adding animal to favorites');
+    }
+}
+
+const removeFavorite = async function (token, id) {
+    const response = await fetch(`http://localhost:3000/api/users/favorites/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    if(!response.ok){
+        alert('Error removing animal from favorites');
+    }
+}
 
 const createAnimal = function (animalList, animal) {
+
     const htmlString = `
         <div class="animal-card grid grid--card">
-            <img src="${animal.image}" alt="Animal picture" class="animal-img">
+            <img alt="Animal picture" class="animal-img animal-${animal.id}">
             <div class="card-text">
                 <h3 class="tertiary-heading">${animal.name}</h3>
                 <ul class="card-description">
-                    <li><span>Binomial name: ${animal.binomialName}</span></li>
+                    <li><span>Binomial name: ${animal.binomial_name}</span></li>
                     <li><span>Origin: ${animal.origin}</span></li>
-                    <li><span>Weight: ${animal.weight}</span></li>
+                    <li><span>Weight: ${animal.min_weight} - ${animal.max_weight} kg</span></li>
                 </ul>
                 <a href="animal-description.html" class="btn">Learn more</a>
             </div>
             <div class="fav-button">
-              <label class="fav-container">
+              <label class="fav-container fav-${animal.id}">
                 <input type="checkbox">
                 <svg viewBox="0 0 256 256" class="fav-checkmark">
                   <rect fill="none" height="256" width="256"></rect>
@@ -143,6 +128,43 @@ const createAnimal = function (animalList, animal) {
           </div>
     `;
     animalList.insertAdjacentHTML('afterbegin', htmlString);
+    const favContainer = document.querySelector(`.fav-${animal.id} input`);
+
+    userFavourites.forEach(function (favourite) {
+        if(favourite.animal_id === animal.id){
+            favContainer.checked = true;
+        }
+    });
+
+    favContainer.addEventListener('change', function () {
+        const token = localStorage.getItem('token');
+
+        if(token){
+            if(!favContainer.checked){
+                removeFavorite(token, animal.id).then(function () {
+                    alert('Animal removed from favourites');
+                }).catch(function () {
+                    alert('Error removing animal from favourites');
+                    favContainer.checked = true;
+                });
+            } else {
+                addAnimalToFavourites(token, animal.id).then(function () {
+                    alert('Animal added to favourites');
+                }).catch(function () {
+                    alert('Error adding animal to favourites');
+                    favContainer.checked = false;
+                });
+            }
+        }
+        else{
+            alert('You need to log in to add an animal to your favourites');
+            favContainer.checked = false;
+        }
+    });
+
+
+    const animalImg = document.querySelector(`.animal-${animal.id}`);
+    animalImg.src = getAnimalImg(animal.id);
 }
 
 const clearAnimalCards = function () {
@@ -158,15 +180,27 @@ const showAnimals = function (animalList, animals, currentPage, resultsPerPage){
     const end = currentPage*resultsPerPage;
     const animalsPage = animals.slice(start, end);
     clearAnimalCards();
-    for(let i=animalsPage.length-1; i>=0; i--){
-        createAnimal(animalList, animalsPage[i]);
+
+    if(localStorage.getItem('token') === null){
+        userFavourites = [];
+        for(let i=animalsPage.length-1; i>=0; i--){
+            createAnimal(animalList, animalsPage[i]);
+        }
+    } else{
+        getUserFavourites(localStorage.getItem('token')).then(function (data) {
+            userFavourites = data.data.favorites;
+            for(let i=animalsPage.length-1; i>=0; i--){
+                createAnimal(animalList, animalsPage[i]);
+            }
+        }).catch(function () {
+            alert('Error getting user favourites');
+        });
     }
 }
 
-
 const createPagination = function (nrPages, currentPage, pagesList, posForDots) {
-    
-    const pagination = document.querySelector('.pagination');
+    // set pagination to display flex
+    /*pagination.style.display = 'flex';*/
     
     const paginationBtn = document.querySelector('.btn--pagination');
     paginationBtn.remove();
@@ -261,28 +295,126 @@ const pageEvent = function (number, nrPages) {
     createPagination(nrPages, currentPage, pagesList, posForDots);
 }
 
+const showCardGrid = (animals) => {
+    hideLoadingText();
+    showAnimals(animalList, animals, 1, 10);
+    let nrPages = Math.ceil(animals.length / 10);
+    let pagesList = [];
+    for(let i=1; i<=nrPages; i++){
+        if(i===1 && Math.abs(i-1)>=2){
+            pagesList.push(i);
+        }
+        if(Math.abs(i-1)<2){
+            pagesList.push(i);
+        }
+        if(i===nrPages && Math.abs(i-1)>=2){
+            pagesList.push(i);
+        }
+    }
+    let posForDots = [];
+    for(let i=0; i<pagesList.length-1; i++){
+        if(pagesList[i+1]-pagesList[i]>1){
+            posForDots.push(i+1);
+        }
+    }
+    createPagination(nrPages, 1, pagesList, posForDots);
+};
 
+const getAnimalsFiltered = async function (filter) {
+    const response = await fetch('http://localhost:3000/api/animals/criteria', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(filter)
+    });
+    if(!response.ok){
+        alert('Error getting animals');
+        return;
+    }
+    return await response.json();
+};
 
-showAnimals(animalList, animals, 1, 10);
-console.log(animals.length);
-let nrPages = Math.ceil(animals.length / 10);
-console.log(nrPages);
-let pagesList = [];
-for(let i=1; i<=nrPages; i++){
-    if(i===1 && Math.abs(i-1)>=2){
-        pagesList.push(i);
+const searchAnimals = async function (search) {
+    const response = await fetch(`http://localhost:3000/api/animals/search=${search}`);
+    if(!response.ok){
+        alert('Error getting animals');
+        return;
     }
-    if(Math.abs(i-1)<2){
-        pagesList.push(i);
-    }
-    if(i===nrPages && Math.abs(i-1)>=2){
-        pagesList.push(i);
-    }
+    return await response.json();
 }
-let posForDots = [];
-for(let i=0; i<pagesList.length-1; i++){
-    if(pagesList[i+1]-pagesList[i]>1){
-        posForDots.push(i+1);
+
+const receiveAndDisplayAnimals = function(action, filter){
+    if(action === 'default'){
+        getAnimals().then(data => {
+            animals = data;
+            showCardGrid(data);
+        });
+    } else if(action === 'filter'){
+        getAnimalsFiltered(filter).then(data => {
+            animals = data;
+            showCardGrid(data);
+        });
+    } else if(action === 'search') {
+        searchAnimals(filter).then(data => {
+            animals = data;
+            showCardGrid(data);
+        });
+    } else if(action === 'prefilter') {
+        getAnimalsFiltered(filter).then(data => {
+            animals = data;
+            console.log(data);
+            showCardGrid(data);
+        });
     }
+};
+
+inputs.forEach(function (input) {
+    input.addEventListener('change', function () {
+        const checkedInputs = document.querySelectorAll('.container-checkbox input:checked');
+        const filter = {};
+        checkedInputs.forEach(function (checkedInput) {
+            const filterType = checkedInput.parentElement.parentElement.parentElement.parentElement
+                .parentElement.querySelector('p').textContent.toLowerCase();
+            let filterName = filterType;
+            if (filterType === 'region') {
+                filterName = 'origin';
+            } else if(filterType === 'climate conditions'){
+                filterName = 'climate';
+            } else if(filterType === 'conservation status'){
+                filterName = 'conservation';
+            }
+            const filterValue = checkedInput.parentElement.parentElement.querySelector('p').textContent;
+            if (filter[filterName]) {
+                filter[filterName].push(filterValue);
+            } else {
+                filter[filterName] = [filterValue];
+            }
+        });
+        if(Object.keys(filter).length === 0){
+            receiveAndDisplayAnimals('default', null);
+            showLoadingText();
+            return;
+        }
+        receiveAndDisplayAnimals('filter', filter);
+        showLoadingText();
+    });
+});
+
+if(localStorage.getItem('search')){
+    const search = localStorage.getItem('search');
+    localStorage.removeItem('search');
+    receiveAndDisplayAnimals('search', search);
+    showLoadingText();
+} else if(localStorage.getItem('prefilter')){
+    const prefilter = localStorage.getItem('prefilter');
+    const pref = {
+        'type': [prefilter]
+    }
+    localStorage.removeItem('prefilter');
+    receiveAndDisplayAnimals('prefilter', pref);
+    showLoadingText();
+} else {
+    receiveAndDisplayAnimals('default', null);
+    showLoadingText();
 }
-createPagination(nrPages, 1, pagesList, posForDots);

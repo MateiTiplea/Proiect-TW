@@ -337,6 +337,29 @@ const updateRating = catchAsync(async (req, res) => {
     res.end();
 });
 
+const search = catchAsync(async (req, res) => {
+    const searchQuery = req.url.split('/')[3].split('=')[1];
+    const result = await animals.search(searchQuery);
+    if(!result) {
+        errorController(res, new AppError('No animals found for that search', 404));
+        return;
+    }
+    res.statusCode = 200;
+    res.end(JSON.stringify(result));
+});
+
+const getCriteria = catchAsync(async (req, res) => {
+    const searchDict = await parseRequestBody(req);
+    const result = await animals.getCriteria(searchDict);
+    if(!result) {
+        errorController(res, new AppError('No animals found for that search', 404));
+        return;
+    }
+    res.statusCode = 200;
+    res.end(JSON.stringify(result));
+});
+
+
 const animalsController = catchAsync(async (req, res) => {
     const { url,method } = req;
     res.setHeader('Content-Type', 'application/json');
@@ -359,6 +382,10 @@ const animalsController = catchAsync(async (req, res) => {
         getAnimalsByConservation(req, res);
     } else if(url.match(/\/api\/animals\/region\/([a-zA-Z]+)/) && method === 'GET'){
         getAnimalsByOrigin(req, res);
+    } else if(url.match(/\/api\/animals\/search=([0-9A-Za-z]+)/) && method === 'GET'){
+        search(req, res);
+    } else if(url === '/api/animals/criteria' && method === 'POST'){
+        getCriteria(req, res);
     } else if(url.match(/\/api\/animals\/([0-9]+)\/photo/) && method === 'POST'){
         const logUser = await protect(req, res);
         if(!logUser) {

@@ -79,7 +79,7 @@
     <nav class="main-nav">
       <ul class="main-nav-list">
         <li>
-          <a href="animals.html" class="main-nav-link">Animals</a>
+          <a href="/animals" class="main-nav-link">Animals</a>
         </li>
         <li>
           <a href="/bookTickets" class="main-nav-link">Book Tickets</a>
@@ -139,7 +139,7 @@
         <div class="item1">
           <h1 class="intro">Buy tickets, see what's on and plan your next visit to our Zoo! Create unforgettable experiences and discover more about amazing animals.
           </h1>
-          <a href="animals.html" class="main-link margin-right-small">See Animals</a>
+          <a href="/animals" class="main-link margin-right-small">See Animals</a>
           <a href="/bookTickets" class="main2-link">Book Tickets</a>
         </div>
         <div>
@@ -172,7 +172,12 @@
             Our exhibits showcase the incredible diversity of these   animals and provide a unique opportunity to learn more
             about their biology, behavior, and conservation.  Whether you're a lifelong animal lover or a curious  newcomer,
             we invite you to come and explore the wonderful world   of mammals at our zoo.</p>
-          <a href="animals.html" class="main2-link">See Mammals</a>
+          <a href="/animals" class="main2-link mammals-link">See Mammals</a>
+          <script>
+            document.querySelector('.mammals-link').addEventListener('click', function() {
+              localStorage.setItem('prefilter', 'Mammal');
+            });
+          </script>
         </div>
         <div class="text-item item2">
           <p class="main-text"> Visitors to our zoo can see a wide  variety of fish, from colorful tropical species to sleek
@@ -180,7 +185,12 @@
             opportunity to learn more about their biology,  behavior, and conservation. Whether you're a seasoned  fish
             enthusiast or a curious newcomer, we invite you to come   and explore the fascinating world of fish at our zoo.
           </p>
-          <a href="animals.html" class="main-link">See Fish</a>
+          <a href="/animals" class="main-link fish-link">See Fish</a>
+          <script>
+            document.querySelector('.fish-link').addEventListener('click', function() {
+              localStorage.setItem('prefilter', 'Fish');
+            });
+          </script>
         </div>
         <div class="item2-photo photo2">
           <img class=" photo" src=" images/index/fish.jpg" alt="Fish">
@@ -194,7 +204,12 @@
             learn more about their biology, behavior, and   conservation. Whether you're a reptile enthusiast or  simply
             curious about these fascinating creatures, we invite  you to come and explore the world of reptiles at our   zoo.
           </p>
-          <a href="animals.html" class="main2-link">See Reptiles</a>
+          <a href="/animals" class="main2-link reptiles-link">See Reptiles</a>
+          <script>
+            document.querySelector('.reptiles-link').addEventListener('click', function() {
+              localStorage.setItem('prefilter', 'Reptiles');
+            });
+          </script>
         </div>
       </div>
     </div>
@@ -237,7 +252,7 @@
         </div>
         <div class="footer-column">
           <p class="footer-text">Get to know our animals</p>
-          <a href="animals.html" class="footer-nav-link">Animals</a>
+          <a href="/animals" class="footer-nav-link">Animals</a>
         </div>
         <div class="footer-column">
           <p class="footer-text">Website designed and built by</p>

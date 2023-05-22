@@ -104,6 +104,7 @@ body {
   height: 2rem;
   width: 2rem;
   fill: var(--button-color-login);
+  stroke: var(--button-color-login);
 }
 
 .input-field {
