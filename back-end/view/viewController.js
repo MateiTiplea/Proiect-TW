@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const {getAnimalByName}=require('../model/animals');
 
 const mimeLookup = {
     '.js': 'application/javascript',
@@ -12,6 +13,19 @@ const mimeLookup = {
     '.gif': 'image/gif',
 };
 
+const descriptionFile=fs.readFileSync('./view/templates/animal-description.html',"utf-8");
+const animalsTemplate=async (animalName)=>{
+    const animal=await getAnimalByName(animalName);
+    let modifyFile=descriptionFile;
+    modifyFile.replace("{ANIMAL_NAME}",animal.name);
+    modifyFile.replace("{BINOMIAL_NAME}",animal.binomial_name);
+    modifyFile.replace("{REGION}",animal.origin);
+    modifyFile.replace("{CONSERVATION}",animal.conservation);
+    modifyFile.replace("{TYPE}",animal.type);
+    modifyFile.replace("{CLIMATE}",animal.climate);
+    modifyFile.replace("{DESCRIPTION}",animal.description);
+    return modifyFile;
+}
 
 const respondFile = (req, res, filePath) => {
     res.statusCode = 200;
@@ -43,6 +57,13 @@ const handleViewRequest = (req, res) => {
         respondFile(req, res, 'account_settings.html');
     } else if(req.url === '/animals'){
         respondFile(req, res, 'animals.html');
+    }else if (req.url.match(/\/animals\/([a-zA-Z]+)/)){
+        const animalName=req.url.split('/')[2];
+          animalsTemplate(animalName).then((data)=>{
+              res.statusCode=200;
+              res.setHeader('Content-Type', 'text/html');
+              res.end(data);
+          })
     }
     else{
         const fileUrl = '/public' + req.url;

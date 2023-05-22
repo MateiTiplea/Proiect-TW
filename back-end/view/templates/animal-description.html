@@ -95,7 +95,7 @@
   </header>
   <main>
     <div class="title-container">
-      <h1 class="primary-header">Animal name</h1>
+      <h1 class="primary-header">{ANIMAL_NAME}</h1>
       <div class="fav-button">
         <label class="fav-container">
           <input type="checkbox">
@@ -114,27 +114,15 @@
         <img src="images/animals/fox.jpg" alt="Your Image" class="photo">
       </div>
       <div class="first-part">
-        <p class="text-description">Scientific name:</p>
-        <p class="text-description">Region:</p>
-        <p class="text-description">Conservation status:</p>
-        <p class="text-description">Order: Carnivora</p>
-        <p class="text-description">Family: Canidae</p>
-        <p class="text-description">Type:</p>
+        <p class="text-description">Scientific name: {BINOMIAL_NAME}</p>
+        <p class="text-description">Region: {REGION}</p>
+        <p class="text-description">Conservation status: {CONSERVATION}</p>
+        <p class="text-description">Type: {TYPE}</p>
+        <p class="text-description">Climate: {CLIMATE}</p>
       </div>
       <div class="bottom-container">
         <div class="txt-part">
-          <p>
-            The fox is smaller than the average dog and obviously smaller
-            than the wolf. It weighs between 7 and 10 kg, rarely more. The body is under 1 m
-            length, and the bushy tail about 30-40 cm.
-          </p>
-          <p>
-            The body of the fox is not large, being quite similar to al
-            dog, but it stands out because of its long bushy tail,
-            which has a white tip. The fur is reddish. The fox eats the most
-            small mammals: field mice, voles, beavers, lemmings,
-            squirrels, rabbits, etc.
-          </p>
+          <p>{DESCRIPTION}</p>
         </div>
       </div>
       <img src="images/map.png" alt="Your Image" class="map-photo">
@@ -143,37 +131,18 @@
       <div class="comment-box">
         <div class="list">
           <div class="user">
-            <div class="name">andrada.19</div>
+            <div class="name">{USERNAME}</div>
           </div>
           <div class="give-reviews">
           </div>
         </div>
-        <form action="" method="post">
+        <form>
           <textarea name="comment" placeholder="Type you comment here..."></textarea>
           <button class="comment-submit">Comment</button>
         </form>
       </div>
       <div class="post-comment">
-        <div class="list">
-          <div class="user">
-            <div class="user-meta">
-              <div class="name">andrada.19</div>
-              <div class="date">19.02.2021</div>
-             
-            </div>
-          </div>
-          <div class="comment-post">Imi plac elefantii!</div>
-        </div>
-        <div class="list">
-          <div class="user">
-            <div class="user-meta">
-              <div class="name">denisa_20</div>
-              <div class="date">05.10.2021</div>
-            
-            </div>
-          </div>
-          <div class="comment-post">super!!</div>
-        </div>
+       {COMMENT_SECTION}
       </div>
   </main>
   <footer>
