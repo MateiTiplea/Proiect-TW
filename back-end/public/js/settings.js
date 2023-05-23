@@ -1,6 +1,6 @@
 'use strict';
 
-const categButtons = document.querySelectorAll('.settings--categories-link');
+let categButtons = document.querySelectorAll('.settings--categories-link');
 const settingsPanels = document.querySelectorAll('.settings-panel');
 const panelTitle = document.querySelector('.settings-panel-title');
 const panelName = document.querySelector('.settings-info-name');
@@ -15,6 +15,105 @@ const infoBtn = document.querySelector('.btn-info');
 const passwordBtn = document.querySelector('.btn-password');
 const inputFields = document.querySelectorAll('.input-field');
 const animalsList = document.querySelector('.grid--card-view');
+const animalTable = document.querySelector('.book-table');
+const categList = document.querySelector('.settings--categories-list');
+const animalInput = document.querySelector('input[id="animal-name"]');
+const binomialInput = document.querySelector('input[id="binomial-name"]');
+const typeInput = document.querySelector('input[id="type"]');
+const climateInput = document.querySelector('input[id="climate"]');
+const regionInput = document.querySelector('input[id="region"]');
+const conservationInput = document.querySelector('input[id="conservation"]');
+const descriptionInput = document.querySelector('textarea[id="description"]');
+const minWeightInput = document.querySelector('input[id="min-weight"]');
+const maxWeightInput = document.querySelector('input[id="max-weight"]');
+const animalPhotoInput = document.querySelector('input[id="animal-photo"]');
+const btnAddAnimal = document.querySelector('.btn-animal');
+
+const getSelf = async () => {
+    const response = await fetch('http://localhost:3000/api/users/self', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    });
+    return await response.json();
+}
+
+getSelf().then((data) => {
+   if(data.data.role === 'admin'){
+       const adminBtn = document.createElement('button');
+       adminBtn.classList.add('settings--categories-link');
+       adminBtn.textContent = 'Admin';
+       categList.insertBefore(adminBtn, categList.children[2]);
+       categButtons = document.querySelectorAll('.settings--categories-link');
+   }
+
+    categButtons[0].addEventListener('click', function () {
+        addActive(categButtons[0]);
+        openPanel(settingsPanels[0]);
+        for(let i = 1; i < categButtons.length; i++){
+            if(!categButtons[i].classList.contains('active')) continue;
+            removeActive(categButtons[i]);
+            closePanel(settingsPanels[i]);
+        }
+    });
+
+    categButtons[1].addEventListener('click', function () {
+        addActive(categButtons[1]);
+        openPanel(settingsPanels[1]);
+        for(let i = 0; i < categButtons.length; i++){
+            if(i === 1) continue;
+            if(!categButtons[i].classList.contains('active')) continue;
+            removeActive(categButtons[i]);
+            closePanel(settingsPanels[i]);
+        }
+    });
+
+    if(categButtons.length > 3){
+        categButtons[2].addEventListener('click', function () {
+            addActive(categButtons[2]);
+            openPanel(settingsPanels[2]);
+            for(let i = 0; i < categButtons.length; i++){
+                if(i === 2) continue;
+                if(!categButtons[i].classList.contains('active')) continue;
+                removeActive(categButtons[i]);
+                closePanel(settingsPanels[i]);
+            }
+        });
+    }
+});
+
+const getAnimals = async () => {
+    const response = await fetch('http://localhost:3000/api/animals', {
+        method: 'GET'
+    });
+    return await response.json();
+};
+
+getAnimals().then((data) => {
+    const animals = data;
+    const table = document.createElement('table');
+    table.innerHTML = `
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+    `;
+    const tbody = document.createElement('tbody');
+    animals.forEach((animal) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${animal.id}</td>
+            <td>${animal.name}</td>
+        `;
+        tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    animalTable.appendChild(table);
+});
 
 const setPanelInfo = async() => {
     const result = await fetch('http://localhost:3000/api/users/self', {
@@ -62,19 +161,6 @@ const closePanel = function (panel) {
     panel.classList.add('panel-inactive');
 }
 
-categButtons[0].addEventListener('click', function () {
-    addActive(categButtons[0]);
-    removeActive(categButtons[1]);
-    openPanel(settingsPanels[0]);
-    closePanel(settingsPanels[1]);
-});
-
-categButtons[1].addEventListener('click', function () {
-    addActive(categButtons[1]);
-    removeActive(categButtons[0]);
-    openPanel(settingsPanels[1]);
-    closePanel(settingsPanels[0]);
-});
 
 const logoutEvent = function () {
     localStorage.clear();
@@ -307,3 +393,81 @@ const showFavourites = function (animalList) {
 };
 
 showFavourites(animalsList);
+
+const addAnimal = async function () {
+    const requestBody = {
+        name: animalInput.value,
+        binomial_name: binomialInput.value,
+        origin: regionInput.value,
+        type: typeInput.value,
+        climate: climateInput.value,
+        conservation: conservationInput.value,
+        description: descriptionInput.value,
+        min_weight: Number(minWeightInput.value),
+        max_weight: Number(maxWeightInput.value)
+    };
+    // conservation needs to be one of the following: Not Evaluated, Least Concern, Near Threatened, Vulnerable, Endangered, Critically Endangered
+    const conservationList = ['Not Evaluated', 'Least Concern', 'Near Threatened', 'Vulnerable', 'Endangered', 'Critically Endangered'];
+    if(!conservationList.includes(requestBody.conservation)){
+        alert('Conservation status must be one of the following: Not Evaluated, Least Concern, Near Threatened, Vulnerable, Endangered, Critically Endangered');
+        return;
+    }
+    const climateList = ['Desert', 'Temperate', 'Rainforest', 'Savannah', 'Taiga', 'Tundra'];
+    if(!climateList.includes(requestBody.climate)){
+        alert('Climate must be one of the following: Desert, Temperate, Rainforest, Savannah, Taiga, Tundra');
+        return;
+    }
+    const typeList = ['Mammal', 'Bird', 'Reptiles', 'Amphibian', 'Fish', 'Arthropod'];
+    if(!typeList.includes(requestBody.type)){
+        alert('Type must be one of the following: Mammal, Bird, Reptiles, Amphibian, Fish, Arthropod');
+        return;
+    }
+    const regionList = ['Africa', 'Asia', 'Europe', 'North America', 'South America', 'Australia', 'Antarctica'];
+    if(!regionList.includes(requestBody.origin)){
+        alert('Origin must be one of the following: Africa, Asia, Europe, North America, South America, Australia, Antarctica');
+        return;
+    }
+    if(requestBody.min_weight > requestBody.max_weight){
+        alert('Minimum weight must be less than maximum weight');
+        return;
+    }
+    const response = await fetch('http://localhost:3000/api/animals', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(requestBody)
+    });
+    if(!response.ok){
+        alert('Error adding animal');
+        return;
+    }
+    const animal = await response.json();
+    // get the file from animalPhotoInput
+    const file = animalPhotoInput.files[0];
+    // send a multipart form data request to the server
+    const formData = new FormData();
+    formData.append('photo', file);
+    console.log(formData);
+    const photoResponse = await fetch(`http://localhost:3000/api/animals/${animal.data.animal.id}/photo`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: formData
+    });
+    if(!photoResponse.ok){
+        const error = await photoResponse.json();
+        console.log(error);
+        alert('Error adding animal photo');
+        return;
+    }
+    alert('Animal added successfully');
+    window.location.reload();
+}
+
+btnAddAnimal.addEventListener('click', async(e) => {
+    e.preventDefault();
+    await addAnimal();
+});

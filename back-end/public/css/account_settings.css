@@ -11,9 +11,17 @@
   --background-color-settings: #fff;
   --fav-check-account: #ff5353;
   --background-field-account: #fff;
+    --primary-color-book: #1f8a70;
+    --background-color-book: #fff;
+    --background-accent-book: #e9f3f1;
+    --background-color-book: #fff;
 }
 
 .dark-mode{
+    --background-accent-book: #061c17;
+    --background-color-book: #0c372d;
+    --background-color-book: #0c372d;
+    --primary-color-book: #1f8a70;
   --text-color-account: #d2e8e2;
   --text-color-dark-account: #000;
   --title-settings: #d2e8e2;
@@ -394,6 +402,32 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+}
+
+table {
+    width: 80%;
+    font-size: 1.8rem;
+    border-collapse: collapse;
+    color: var(--text-color-dark-book);
+}
+
+th, td {
+    padding: 1.2rem 2.4rem;
+    text-align: left;
+}
+
+thead th {
+    background-color: var(--primary-color-book);
+    color: var(--background-color-book);
+    font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--background-accent-book);
+}
+
+tbody tr:nth-child(odd) {
+    background-color: var(--background-color-book);
 }
 
 
