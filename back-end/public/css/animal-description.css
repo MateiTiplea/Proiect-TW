@@ -7,10 +7,10 @@ Default: 400
 Line heights:
 Default: 1
 --- 02 COLORS
-Primary color: 
-Tints: 
-Shades: 
-Accents: 
+Primary color:
+Tints:
+Shades:
+Accents:
 Greys: #555
 --- 05 SHADOWS
 --- 06 BORDER-RADIUS
@@ -190,16 +190,19 @@ h1 {
 }
 .photo {
   text-align: center;
-   max-width: 16rem;
+  max-width: 34rem;
   /* max-height: 19rem; */
   /* margin: 10px; */
   transition: all 0.3s;
 }
 .photo:hover {
-  transform: scale(1.6);
+  transform: scale(1.2);
 }
 
 .txt-part {
+  max-width: 70rem;
+  min-width: 35rem;
+  min-height: 20rem;
   text-align: left;
   line-height: 1.5;
   color: var(--dark-grey-color);
@@ -211,28 +214,43 @@ h1 {
 .txt-part:hover {
   box-shadow: var(--shades-color) 0px 5px 15px, inset var(--primary-color) 0px 0px 20px;
 }
-  .map-photo{
-    text-align: center;
-   /* max-width: 40rem;
-    max-height: 30rem; */
-    /*margin: 10px;*/
-    width:100%;
-    transition: all 1s;
+.map-photo{
+  text-align: center;
+  /* max-width: 40rem;
+   max-height: 30rem; */
+  /*margin: 10px;*/
+  width:60%;
+  transition: all 1s;
 
-  }
-  .map-photo:hover{
-    transform: scale(1.1);
+}
+.map-photo:hover{
+  transform: scale(1.1);
 
-  }
+}
 
- @media (max-width: 54em){
+@media (max-width: 54em){
   .main-content{
     grid-template-columns: 1fr;
 
   }
- }
+}
 
- .comment-box,
+.comment-box,
+.post-comment .list {
+  background: var(--comment-box);
+  border-radius: 6px;
+  box-shadow: 0 2px 2px var(--black-color);
+}
+
+.comment-session {
+  width: 100%;
+  max-width: 1300px;
+  height: auto;
+  margin: 10px auto;
+  padding: 4.8rem 0;
+}
+
+.post-comment.comment-box,
 .post-comment .list {
   background: var(--comment-box);
   border-radius: 6px;
@@ -271,6 +289,18 @@ h1 {
 }
 
 /* COMMENT BOX */
+.first-section {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto;
+  column-gap: 12px;
+
+}
+.rating{
+  align-self: center;
+  justify-self: center;
+}
 .comment-box {
   padding: 10px;
   overflow: hidden;
@@ -318,16 +348,78 @@ h1 {
 }
 
 .give-reviews {
-  color: #ccc; 
+  color: #ccc;
 }
 
 .give-reviews:hover {
   color: #f9d71c;
 }
 
+.user-meta {
+  color: var(--grey-color);
+  font-size: 1.4rem;
+}
+
+.comment-post {
+  color: var(--dark-grey-color);
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.rating:not(:checked) > input {
+  position: absolute;
+  appearance: none;
+}
+
+.rating:not(:checked) > label {
+  float: right;
+  cursor: pointer;
+  font-size: 50px;
+  color: #666;
+}
+
+.rating:not(:checked) > label:before {
+  content: '★';
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+  color: #e58e09;
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: #ff9e0b;
+}
+
+.rating > input:checked ~ label {
+  color: #ffa723;
+}
+
+.rating-average {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--dark-grey-color);
+}
+
+.rating label {
+  margin-bottom: 0.8rem;
+}
+
 /* Media Queries */
 @media (max-width: 768px) {
   .comment-session {
     max-width: 90%;
+  }
+  .first-section {
+    grid-template-columns: 1fr;
+  }
+  .rating {
+    grid-row: 1;
+    margin-bottom: 2rem;
   }
 }

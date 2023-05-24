@@ -1,6 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const {getAnimalByName}=require('../model/animals');
+const {getComments}=require('../model/user');
+const bcrypt = require('bcryptjs');
+const {promisify} = require("util");
+const jwt = require("jsonwebtoken");
 
 const mimeLookup = {
     '.js': 'application/javascript',
@@ -17,13 +21,32 @@ const descriptionFile=fs.readFileSync('./view/templates/animal-description.html'
 const animalsTemplate=async (animalName)=>{
     const animal=await getAnimalByName(animalName);
     let modifyFile=descriptionFile;
-    modifyFile.replace("{ANIMAL_NAME}",animal.name);
-    modifyFile.replace("{BINOMIAL_NAME}",animal.binomial_name);
-    modifyFile.replace("{REGION}",animal.origin);
-    modifyFile.replace("{CONSERVATION}",animal.conservation);
-    modifyFile.replace("{TYPE}",animal.type);
-    modifyFile.replace("{CLIMATE}",animal.climate);
-    modifyFile.replace("{DESCRIPTION}",animal.description);
+    modifyFile = modifyFile.replace("{ANIMAL_NAME}",animal.name);
+    modifyFile = modifyFile.replace("{BINOMIAL_NAME}",animal.binomial_name);
+    modifyFile = modifyFile.replace("{REGION}",animal.origin);
+    modifyFile = modifyFile.replace("{CONSERVATION}",animal.conservation);
+    modifyFile = modifyFile.replace("{TYPE}",animal.type);
+    modifyFile = modifyFile.replace("{CLIMATE}",animal.climate);
+    modifyFile = modifyFile.replace("{DESCRIPTION}",animal.description);
+
+    let commentsSection="";
+    const dbComments = await getComments(animal.id);
+    const commentsHtml = dbComments.map((comment) => {
+        const formattedDate = new Date(comment.date_created).toLocaleString();
+        return `
+            <div class="list">
+                <div class="user">
+                    <div class="user-meta">
+                        <div class="name">${comment.username}</div>
+                        <div class="date">${formattedDate}</div>
+                    </div>
+                </div>
+                <div class="comment-post">${comment.comment}</div>
+            </div>`;
+    });
+    commentsSection = commentsHtml.join('\n');
+    modifyFile = modifyFile.replace("{COMMENT_SECTION}",commentsSection);
+
     return modifyFile;
 }
 
@@ -57,13 +80,13 @@ const handleViewRequest = (req, res) => {
         respondFile(req, res, 'account_settings.html');
     } else if(req.url === '/animals'){
         respondFile(req, res, 'animals.html');
-    }else if (req.url.match(/\/animals\/([a-zA-Z]+)/)){
-        const animalName=req.url.split('/')[2];
-          animalsTemplate(animalName).then((data)=>{
-              res.statusCode=200;
-              res.setHeader('Content-Type', 'text/html');
-              res.end(data);
-          })
+    }else if (req.url.match(/\/animal=([a-zA-Z]+)/)){
+        const animalName=req.url.split('=')[1];
+        animalsTemplate(animalName).then((data)=>{
+            res.statusCode=200;
+            res.setHeader('Content-Type', 'text/html');
+            res.end(data);
+        });
     }
     else{
         const fileUrl = '/public' + req.url;
