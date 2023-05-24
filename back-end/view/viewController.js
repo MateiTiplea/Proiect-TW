@@ -81,7 +81,8 @@ const handleViewRequest = (req, res) => {
     } else if(req.url === '/animals'){
         respondFile(req, res, 'animals.html');
     }else if (req.url.match(/\/animal=([a-zA-Z]+)/)){
-        const animalName=req.url.split('=')[1];
+        const animalName = req.url.split('=')[1].replace(/%20/g, ' ');
+
         animalsTemplate(animalName).then((data)=>{
             res.statusCode=200;
             res.setHeader('Content-Type', 'text/html');

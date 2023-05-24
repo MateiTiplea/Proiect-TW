@@ -373,7 +373,7 @@ const createAnimal = function (animalList, animal) {
                     <li><span>Origin: ${animal.origin}</span></li>
                     <li><span>Weight: ${animal.min_weight} - ${animal.max_weight} kg</span></li>
                 </ul>
-                <a href="animal-description.html" class="btn-card">Learn more</a>
+                <a href="/animal=${animal.name}" class="btn-card">Learn more</a>
             </div>
             <div class="fav-button">
               <label class="fav-container fav-${animal.id}">

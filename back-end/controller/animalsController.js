@@ -56,7 +56,7 @@ const getById = catchAsync(async (req, res) => {
 });
 
 const getByName = catchAsync(async (req, res) => {
-    const name = req.url.split('/')[3];
+    const name = processName(req.url.split('/')[3]);
     const result = await animals.getAnimalByName(name);
     if(!result) {
         errorController(res, new AppError('No animal found with that name', 404));
@@ -335,7 +335,7 @@ const updateRating = catchAsync(async (req, res) => {
 });
 
 const search = catchAsync(async (req, res) => {
-    const searchQuery = req.url.split('/')[3].split('=')[1];
+    const searchQuery = processName(req.url.split('/')[3].split('=')[1]);
     const result = await animals.search(searchQuery);
     if(!result) {
         errorController(res, new AppError('No animals found for that search', 404));
@@ -371,6 +371,10 @@ const id = req.url.split('/')[3];
         }
     }));
 });
+
+const processName = (name) => {
+    return name.replace(/%20/g, ' ');
+}
 
 const animalsController = catchAsync(async (req, res) => {
     const { url,method } = req;
