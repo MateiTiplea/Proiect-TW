@@ -5,7 +5,7 @@ const path = require('path');
 exports.getAllAnimals = (async () => {
     const connection = await oracle.getConnection('zoodb');
     const result = await connection.execute(
-        `SELECT * FROM animals`
+        `SELECT * FROM animals ORDER BY id`
     );
     connection.close();
     const animals = [];
@@ -84,8 +84,14 @@ exports.createAnimal= (async (animal) => {
         [animal.name, animal.binomial_name, animal.type, animal.climate, animal.conservation,animal.origin, animal.description, animal.rating, animal.min_weight,animal.max_weight],
         { autoCommit: true }
     );
+    // get the id of the newly inserted animal
+    const result = await connection.execute(
+        `SELECT id FROM animals WHERE name = :name`,
+        [animal.name]
+    );
     connection.close();
     return {
+        id: result.rows[0][0],
         name: animal.name,
         binomial_name: animal.binomial_name,
         type: animal.type,
@@ -96,7 +102,6 @@ exports.createAnimal= (async (animal) => {
         rating: animal.rating,
         min_weight: animal.min_weight,
         max_weight: animal.max_weight
-
     }
 });
 
@@ -308,11 +313,18 @@ exports.getRating = async (id) => {
         'SELECT rating FROM animals WHERE id = :id',
         [id]
     );
+    const ratingNumber = await connection.execute(
+        'SELECT COUNT(*) FROM ratings WHERE animal_id = :id',
+        [id]
+    );
     connection.close();
     if(result.rows.length === 0) {
         return null;
     }
-    return result.rows[0][0];
+    return {
+        rating: result.rows[0][0],
+        numberRatings: ratingNumber.rows[0][0]
+    };
 };
 
 exports.addRating = async (userId, animalId, rating) => {
@@ -391,3 +403,16 @@ exports.getCriteria = async(criteriaDict) => {
     }
     return animals;
 };
+
+exports.getMyRating = async(userId, animalId) => {
+    const connection = await oracle.getConnection('zoodb');
+    const result = await connection.execute(
+        'SELECT rating FROM ratings WHERE user_id = :userId AND animal_id = :animalId',
+        [userId, animalId]
+    );
+    connection.close();
+    if(result.rows.length === 0) {
+        return null;
+    }
+    return result.rows[0][0];
+}

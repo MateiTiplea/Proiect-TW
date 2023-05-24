@@ -359,6 +359,21 @@ const getCriteria = catchAsync(async (req, res) => {
     res.end(JSON.stringify(result));
 });
 
+const getMyRating = catchAsync(async (req, res) => {
+const id = req.url.split('/')[3];
+    const result = await animals.getMyRating(req.currentUser.id, id);
+    if(result === null) {
+        errorController(res, new AppError('No comment found', 404));
+        return;
+    }
+    res.statusCode = 200;
+    res.end(JSON.stringify({
+        status: 'success',
+        data: {
+            rating: result
+        }
+    }));
+});
 
 const animalsController = catchAsync(async (req, res) => {
     const { url,method } = req;
@@ -421,9 +436,15 @@ const animalsController = catchAsync(async (req, res) => {
         }
         deleteMyComment(req, res);
     } else if(url.match(/\/api\/animals\/([0-9]+)\/rating/) && method === 'GET'){
-        console.log('rating');
         getRating(req, res);
-    } else if(url.match(/\/api\/animals\/([0-9]+)\/rating/) && method === 'POST'){
+    } else if(url.match(/\/api\/animals\/([0-9]+)\/myRating/) && method === 'GET'){
+        const logUser = await protect(req, res);
+        if(!logUser) {
+            return;
+        }
+        getMyRating(req, res);
+    }
+    else if(url.match(/\/api\/animals\/([0-9]+)\/rating/) && method === 'POST'){
         const logUser = await protect(req, res);
         if(!logUser) {
             return;

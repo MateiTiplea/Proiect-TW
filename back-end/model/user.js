@@ -237,7 +237,7 @@ exports.addFavorite = async (id, animal_id) => {
 exports.getComments = async (id) => {
     const connection = await oracle.getConnection('zoodb');
     const result = await connection.execute(
-        `SELECT c.message, c.date_created, u.username FROM COMMENTS c JOIN USERS u ON c.user_id = u.id WHERE c.animal_id = :id`,
+        `SELECT c.message, c.date_created, u.username FROM COMMENTS c JOIN USERS u ON c.user_id = u.id WHERE c.animal_id = :id ORDER BY c.date_created DESC`,
         [id]
     );
     connection.close();
