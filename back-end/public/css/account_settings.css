@@ -413,7 +413,7 @@ table {
 
 th, td {
     padding: 1.2rem 2.4rem;
-    text-align: left;
+    text-align: center;
 }
 
 thead th {
@@ -430,6 +430,18 @@ tbody tr:nth-child(odd) {
     background-color: var(--background-color-book);
 }
 
+.btn-delete {
+    background: none;
+    border: none;
+}
+
+.delete-icon {
+    height: 2rem;
+    width: 2rem;
+    stroke: var(--fav-check-account);
+    stroke-width: 0.2rem;
+    fill: var(--background-color-book);
+}
 
 /*
 

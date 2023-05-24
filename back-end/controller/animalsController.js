@@ -89,9 +89,6 @@ const updateAnimal = catchAsync(async (req, res) => {
         return;
     }
     const updateFields = {};
-    if(animal.name) {
-        updateFields.name = animal.name;
-    }
     if(animal.binomial_name) {
         updateFields.binomial_name = animal.binomial_name;
     }

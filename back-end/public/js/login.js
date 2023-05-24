@@ -3,10 +3,8 @@ const loginButton = document.querySelector(".btn");
 
 
 const loginBtnEvent =  async() => {
-    console.log("loginBtnEvent");
     const requestBody = {};
     inputFields.forEach((input) => {
-        /*loginData[input.name] = input.value;*/
         requestBody[input.name] = input.value;
     });
     if(!requestBody.username || !requestBody.password){

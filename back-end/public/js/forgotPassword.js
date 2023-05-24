@@ -2,7 +2,6 @@ const inputFields = document.querySelectorAll(".input-field");
 const loginButton = document.querySelector(".btn");
 
 const forgotBtnEvent = async() => {
-    console.log("loginBtnEvent");
     const requestBody = {};
     inputFields.forEach((input) => {
         requestBody[input.name] = input.value;
@@ -35,7 +34,6 @@ const forgotBtnEvent = async() => {
         if(resetResponse.status === 'fail' || resetResponse.status === 'error'){
             alert(result.message);
         } else{
-            alert('Password reset successful');
             window.location.href = "/login";
         }
     }

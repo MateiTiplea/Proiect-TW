@@ -50,7 +50,6 @@ const getAnimals = async function () {
 }
 
 const showLoadingText = function () {
-    /*const animalList = document.querySelector('.elements-container');*/
     clearAnimalCards();
     const htmlString = `
         <div class="loading-container">
@@ -109,7 +108,7 @@ const createAnimal = function (animalList, animal) {
                     <li><span>Origin: ${animal.origin}</span></li>
                     <li><span>Weight: ${animal.min_weight} - ${animal.max_weight} kg</span></li>
                 </ul>
-                <a href="animal-description.html" class="btn">Learn more</a>
+                <a href="/animal=${animal.name}" class="btn">Learn more</a>
             </div>
             <div class="fav-button">
               <label class="fav-container fav-${animal.id}">
@@ -141,16 +140,14 @@ const createAnimal = function (animalList, animal) {
 
         if(token){
             if(!favContainer.checked){
-                removeFavorite(token, animal.id).then(function () {
-                    alert('Animal removed from favourites');
-                }).catch(function () {
+                removeFavorite(token, animal.id)
+                    .catch(function () {
                     alert('Error removing animal from favourites');
                     favContainer.checked = true;
                 });
             } else {
-                addAnimalToFavourites(token, animal.id).then(function () {
-                    alert('Animal added to favourites');
-                }).catch(function () {
+                addAnimalToFavourites(token, animal.id)
+                    .catch(function () {
                     alert('Error adding animal to favourites');
                     favContainer.checked = false;
                 });
@@ -193,7 +190,10 @@ const showAnimals = function (animalList, animals, currentPage, resultsPerPage){
                 createAnimal(animalList, animalsPage[i]);
             }
         }).catch(function () {
-            alert('Error getting user favourites');
+            userFavourites = [];
+            for(let i=animalsPage.length-1; i>=0; i--){
+                createAnimal(animalList, animalsPage[i]);
+            }
         });
     }
 }
@@ -363,7 +363,6 @@ const receiveAndDisplayAnimals = function(action, filter){
     } else if(action === 'prefilter') {
         getAnimalsFiltered(filter).then(data => {
             animals = data;
-            console.log(data);
             showCardGrid(data);
         });
     }

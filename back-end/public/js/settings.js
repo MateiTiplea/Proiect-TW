@@ -91,6 +91,22 @@ const getAnimals = async () => {
     return await response.json();
 };
 
+const deleteAnimal = async (id) => {
+    const response = await fetch(`http://localhost:3000/api/animals/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    });
+    if(response.status === 204){
+        return true;
+    }
+    const data = await response.json();
+    console.log(data);
+    return false;
+}
+
 getAnimals().then((data) => {
     const animals = data;
     const table = document.createElement('table');
@@ -99,6 +115,7 @@ getAnimals().then((data) => {
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Delete</th>
             </tr>
         </thead>
     `;
@@ -108,11 +125,33 @@ getAnimals().then((data) => {
         row.innerHTML = `
             <td>${animal.id}</td>
             <td>${animal.name}</td>
+            <td>
+                <button class="btn-delete" data-id="${animal.id}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="delete-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                    </svg>
+                </button>
+            </td>
         `;
         tbody.appendChild(row);
     });
     table.appendChild(tbody);
     animalTable.appendChild(table);
+
+    const deleteButtons = document.querySelectorAll('.btn-delete');
+    deleteButtons.forEach((btn) => {
+        btn.addEventListener('click', function () {
+            const id = this.dataset.id;
+            deleteAnimal(id).then((result) => {
+                if(result){
+                    this.parentElement.parentElement.remove();
+                } else{
+                    alert('Something went wrong!');
+                }
+            });
+        });
+    });
+
 });
 
 const setPanelInfo = async() => {
@@ -124,7 +163,6 @@ const setPanelInfo = async() => {
         }
     });
     const response = await result.json();
-    /*console.log(response);*/
     if(response.status === 'success') {
         panelTitle.textContent = response.data.username;
         panelName.textContent = `${response.data.first_name} ${response.data.last_name}`;
@@ -133,9 +171,7 @@ const setPanelInfo = async() => {
         emailInput.value = response.data.email;
         phoneInput.value = response.data.phone;
         if(response.data.theme === 'DARK'){
-            // add darkMode to true in localStorage
             localStorage.setItem('darkMode', 'true');
-            // add dark-mode class to body
             document.body.classList.add('dark-mode');
         }
     }
@@ -164,7 +200,6 @@ const closePanel = function (panel) {
 
 const logoutEvent = function () {
     localStorage.clear();
-    /*localStorage.setItem('logged', false);*/
     window.location.href = '/';
 }
 
@@ -204,7 +239,7 @@ darkModeBtn[0].addEventListener('click', async function () {
         darkModeBtn[1].classList.remove('btn-full');
         darkModeBtn[1].classList.add('btn-light');
         document.body.classList.add('dark-mode');
-        localStorage.setItem('darkMode', true);
+        localStorage.setItem('darkMode', 'true');
     } else {
         alert('Error');
     }
@@ -228,7 +263,7 @@ darkModeBtn[1].addEventListener('click', async function () {
         darkModeBtn[1].classList.remove('btn-light');
         darkModeBtn[1].classList.add('btn-full');
         document.body.classList.remove('dark-mode');
-        localStorage.setItem('darkMode', false);
+        localStorage.setItem('darkMode', 'false');
     } else {
         alert('Error');
     }
@@ -280,12 +315,9 @@ const changePassword = async () => {
         },
         body: JSON.stringify(requestBody)
     });
-    if(response.status === 204){
-        alert('Password changed successfully');
-    } else {
+    if(response.status !== 204){
         alert('Error changing password');
     }
-    // clear input fields after changing password
     inputFields[2].value = '';
     inputFields[3].value = '';
 }
@@ -368,7 +400,6 @@ const createAnimal = function (animalList, animal) {
 
         if(!favContainer.checked){
             removeFavorite(token, animal.id).then(function () {
-                alert('Animal removed from favourites');
                 showFavourites(animalList);
             }).catch(function () {
                 alert('Error removing animal from favourites');
@@ -394,6 +425,70 @@ const showFavourites = function (animalList) {
 
 showFavourites(animalsList);
 
+const conservationList = ['Not Evaluated', 'Least Concern', 'Near Threatened', 'Vulnerable', 'Endangered', 'Critically Endangered'];
+const climateList = ['Desert', 'Temperate', 'Rainforest', 'Savannah', 'Taiga', 'Tundra'];
+const typeList = ['Mammal', 'Bird', 'Reptiles', 'Amphibian', 'Fish', 'Arthropod'];
+const regionList = ['Africa', 'Asia', 'Europe', 'North America', 'South America', 'Australia', 'Antarctica'];
+
+const updateAnimal = async function (id, requestBody) {
+    delete requestBody['name'];
+    for(const key in requestBody){
+        if(requestBody[key] === '' || requestBody[key] === null || requestBody[key] === undefined || requestBody[key] === 0
+            || requestBody[key].trim() === ''){
+            delete requestBody[key];
+        }
+    }
+    for(const key in requestBody){
+        if(key === 'conservation' && !conservationList.includes(requestBody[key])){
+            alert('Conservation needs to be one of the following: Not Evaluated, Least Concern, Near Threatened, Vulnerable, Endangered, Critically Endangered');
+            return;
+        }
+        if(key === 'climate' && !climateList.includes(requestBody[key])){
+            alert('Climate needs to be one of the following: Desert, Temperate, Rainforest, Savannah, Taiga, Tundra');
+            return;
+        }
+        if(key === 'type' && !typeList.includes(requestBody[key])){
+            alert('Type needs to be one of the following: Mammal, Bird, Reptiles, Amphibian, Fish, Arthropod');
+            return;
+        }
+        if(key === 'origin' && !regionList.includes(requestBody[key])){
+            alert('Origin needs to be one of the following: Africa, Asia, Europe, North America, South America, Australia, Antarctica');
+            return;
+        }
+    }
+    if(Object.keys(requestBody).length !== 0){
+        console.log(requestBody);
+        const response = await fetch(`http://localhost:3000/api/animals/${id}`,{
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(requestBody)
+        });
+        if(response.status !== 204) {
+            alert('Error updating animal');
+        }
+    }
+    if(animalPhotoInput.files.length !== 0){
+        console.log('here');
+        const file = animalPhotoInput.files[0];
+        const formData = new FormData();
+        formData.append('photo', file);
+        console.log(formData);
+        const photoResponse = await fetch(`http://localhost:3000/api/animals/${id}/photo`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: formData
+        });
+        if(photoResponse.status !== 204){
+            alert('Error updating animal photo');
+        }
+    }
+}
+
 const addAnimal = async function () {
     const requestBody = {
         name: animalInput.value,
@@ -406,64 +501,70 @@ const addAnimal = async function () {
         min_weight: Number(minWeightInput.value),
         max_weight: Number(maxWeightInput.value)
     };
-    // conservation needs to be one of the following: Not Evaluated, Least Concern, Near Threatened, Vulnerable, Endangered, Critically Endangered
-    const conservationList = ['Not Evaluated', 'Least Concern', 'Near Threatened', 'Vulnerable', 'Endangered', 'Critically Endangered'];
-    if(!conservationList.includes(requestBody.conservation)){
-        alert('Conservation status must be one of the following: Not Evaluated, Least Concern, Near Threatened, Vulnerable, Endangered, Critically Endangered');
-        return;
-    }
-    const climateList = ['Desert', 'Temperate', 'Rainforest', 'Savannah', 'Taiga', 'Tundra'];
-    if(!climateList.includes(requestBody.climate)){
-        alert('Climate must be one of the following: Desert, Temperate, Rainforest, Savannah, Taiga, Tundra');
-        return;
-    }
-    const typeList = ['Mammal', 'Bird', 'Reptiles', 'Amphibian', 'Fish', 'Arthropod'];
-    if(!typeList.includes(requestBody.type)){
-        alert('Type must be one of the following: Mammal, Bird, Reptiles, Amphibian, Fish, Arthropod');
-        return;
-    }
-    const regionList = ['Africa', 'Asia', 'Europe', 'North America', 'South America', 'Australia', 'Antarctica'];
-    if(!regionList.includes(requestBody.origin)){
-        alert('Origin must be one of the following: Africa, Asia, Europe, North America, South America, Australia, Antarctica');
-        return;
-    }
-    if(requestBody.min_weight > requestBody.max_weight){
-        alert('Minimum weight must be less than maximum weight');
-        return;
-    }
-    const response = await fetch('http://localhost:3000/api/animals', {
-        method: 'POST',
+
+    // search if the animal name already exists
+    const animalExists = await fetch(`http://localhost:3000/api/animals/${requestBody.name}`,{
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify(requestBody)
+        }
     });
-    if(!response.ok){
-        alert('Error adding animal');
-        return;
+
+    if(animalExists.status === 200){
+        const ani = await animalExists.json();
+        await updateAnimal(ani.id, requestBody);
+    } else{
+        if(!conservationList.includes(requestBody.conservation)){
+            alert('Conservation status must be one of the following: Not Evaluated, Least Concern, Near Threatened, Vulnerable, Endangered, Critically Endangered');
+            return;
+        }
+        if(!climateList.includes(requestBody.climate)){
+            alert('Climate must be one of the following: Desert, Temperate, Rainforest, Savannah, Taiga, Tundra');
+            return;
+        }
+        if(!typeList.includes(requestBody.type)){
+            alert('Type must be one of the following: Mammal, Bird, Reptiles, Amphibian, Fish, Arthropod');
+            return;
+        }
+        if(!regionList.includes(requestBody.origin)){
+            alert('Origin must be one of the following: Africa, Asia, Europe, North America, South America, Australia, Antarctica');
+            return;
+        }
+        if(requestBody.min_weight > requestBody.max_weight){
+            alert('Minimum weight must be less than maximum weight');
+            return;
+        }
+        const response = await fetch('http://localhost:3000/api/animals', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(requestBody)
+        });
+        if(!response.ok){
+            alert('Error adding animal');
+            return;
+        }
+        const animal = await response.json();
+        const file = animalPhotoInput.files[0];
+        const formData = new FormData();
+        formData.append('photo', file);
+        console.log(formData);
+        const photoResponse = await fetch(`http://localhost:3000/api/animals/${animal.data.animal.id}/photo`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: formData
+        });
+        if(!photoResponse.ok){
+            await deleteAnimal(animal.data.animal.id);
+            const error = await photoResponse.json();
+            alert('Error adding animal photo');
+            return;
+        }
     }
-    const animal = await response.json();
-    // get the file from animalPhotoInput
-    const file = animalPhotoInput.files[0];
-    // send a multipart form data request to the server
-    const formData = new FormData();
-    formData.append('photo', file);
-    console.log(formData);
-    const photoResponse = await fetch(`http://localhost:3000/api/animals/${animal.data.animal.id}/photo`, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: formData
-    });
-    if(!photoResponse.ok){
-        const error = await photoResponse.json();
-        console.log(error);
-        alert('Error adding animal photo');
-        return;
-    }
-    alert('Animal added successfully');
     window.location.reload();
 }
 

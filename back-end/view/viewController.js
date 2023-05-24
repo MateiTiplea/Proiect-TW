@@ -87,6 +87,8 @@ const handleViewRequest = (req, res) => {
             res.setHeader('Content-Type', 'text/html');
             res.end(data);
         });
+    } else if(req.url === '/scholarly') {
+        respondFile(req, res, 'scholarly.html');
     }
     else{
         const fileUrl = '/public' + req.url;

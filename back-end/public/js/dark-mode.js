@@ -25,6 +25,5 @@ else {
             document.body.classList.remove('dark-mode');
         })
     }
-    /*document.body.classList.remove('dark-mode');*/
 }
 

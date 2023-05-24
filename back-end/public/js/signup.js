@@ -32,7 +32,6 @@ const signupBtnEvent =  async() => {
     if(result.status === 'fail' || result.status === 'error') {
         alert(result.message);
     } else if(result.status === 'success') {
-        alert("Account created successfully!");
         window.location.href = "/login";
     }
 };

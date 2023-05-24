@@ -34,7 +34,6 @@ const bookTicket = async () => {
         body: JSON.stringify(requestBody)
     });
     if(response.status === 201) {
-        alert('Ticket booked successfully');
         window.location.href = '/';
     } else {
         const result = await response.json();

@@ -381,7 +381,7 @@ exports.getCriteria = async(criteriaDict) => {
     // criteriaDict is a dictionary that contains arrays of criteria
     // for example, criteriaDict = {type: ['mammal', 'bird'], climate: ['tropical', 'temperate']}
     const result = await connection.execute(
-        'SELECT * FROM ANIMALS WHERE ' + Object.keys(criteriaDict).map(key => key + ' IN (' + criteriaDict[key].map((_, i) => ':' + key + i).join(', ') + ')').join(' OR '),
+        'SELECT * FROM ANIMALS WHERE ' + Object.keys(criteriaDict).map(key => key + ' IN (' + criteriaDict[key].map((_, i) => ':' + key + i).join(', ') + ')').join(' AND '),
         Object.keys(criteriaDict).reduce((acc, key) => acc.concat(criteriaDict[key]), [])
     );
     connection.close();
